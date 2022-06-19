@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SmartClick</string>
+
+    <string name="tab_rooms">Rooms</string>
+    <string name="tab_routines">Routines</string>
+
+    <string name="overflow_settings">House selector</string>
+    <string name="house_selected_text">Your selected house is: </string>
+    <string name="house_selected_text_null">You do not have a house loaded. Please load one in the web site.</string>
+    <string name="overflow_help">Help</string>
+    <string name="description_help1">To select a house, please go to the main view and select the overflow menu option \"House selector\".
+        After that you can click the button and select your house of preference.</string>
+
+    <string name="button_select_house">Select one house</string>
+    <string name="title_select_house">Select a house:</string>
+    <string name="selected_house">House selected</string>
+    <string name="confirm_house_selected">Confirm</string>
+    <string name="cancel_house_selected">Cancel</string>
+
+    <string name="speaker_type">Speaker</string>
+    <string name="oven_type">Oven</string>
+    <string name="lamp_type">Lamp</string>
+    <string name="refrigerator_type">Refrigerator</string>
+    <string name="door_type">Door</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="routine_not_selected_message">Select a routine to see the details</string>
+
+    <!--    TODO: ES PARA PROBAR LO DE LAS HABITACIONES, DESPUES HABRIA QUE CAMBIARLO-->
+    <string name="rooms_in_screen">Room</string>
+
+
+</resources>

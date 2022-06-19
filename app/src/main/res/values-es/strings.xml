@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartClick</string>
+
+    <string name="tab_rooms">Habitaciones</string>
+    <string name="tab_routines">Rutinas</string>
+
+    <string name="overflow_settings">Selección de casa</string>
+    <string name="house_selected_text">Su casa seleccionada es: </string>
+    <string name="house_selected_text_null">No tiene ninguna casa registrada. Por favor registre una en el sitio web.</string>
+    <string name="overflow_help">Ayuda</string>
+    <string name="description_help1">Para seleccionar una casa, por favor diríjase a la vista principal y seleccione los tres puntos superiores.
+        Luego seleccione la opción de \"Selección de casa\". Una vez hecho ésto, presione el botón para seleccionar su casa de preferencia. </string>
+
+    <string name="button_select_house">Seleccione una casa</string>
+    <string name="title_select_house">Seleccione una casa:</string>
+    <string name="selected_house">Casa selecionada</string>
+    <string name="confirm_house_selected">Confirmar</string>
+    <string name="cancel_house_selected">Cancelar</string>
+
+    <string name="speaker_type">Parlante</string>
+    <string name="oven_type">Horno</string>
+    <string name="lamp_type">Lámpara</string>
+    <string name="refrigerator_type">Heladera</string>
+    <string name="door_type">Puerta</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="routine_not_selected_message">Seleccione una rutina para ver los detalles</string>
+
+    <!--    TODO: ES PARA PROBAR LO DE LAS HABITACIONES, DESPUES HABRIA QUE CAMBIARLO-->
+    <string name="rooms_in_screen">Habitación</string>
+
+
+
+</resources>
