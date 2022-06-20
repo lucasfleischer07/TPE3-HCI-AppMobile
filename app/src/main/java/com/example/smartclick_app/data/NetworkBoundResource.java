@@ -82,6 +82,9 @@ public abstract class NetworkBoundResource<modelType, LocalType, RemoteType> {
 
             if (response.getError() != null) {
                 Log.d(TAG,"NetworkBoundResource - processing fetch error");
+                for(String error: response.getError().getDescription()){
+                    Log.d(TAG,error);
+                }
                 onFetchFailed();
                 result.addSource(dbSource,
                         newData -> {

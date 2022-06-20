@@ -1,10 +1,9 @@
-package com.example.smartclick_app.data.remote.room;
+package com.example.smartclick_app.data.remote.house;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RemoteRoom {
-
+public class RemoteHouse {
     @SerializedName("id")
     @Expose
     private String id;
@@ -13,7 +12,7 @@ public class RemoteRoom {
     private String name;
     @SerializedName("meta")
     @Expose
-    private RemoteRoomMeta meta;
+    private RemoteHouseMeta meta;
 
     public String getId() {
         return id;
@@ -31,8 +30,11 @@ public class RemoteRoom {
         this.name = name;
     }
 
-    public void setMeta(RemoteRoomMeta meta){
-        this.meta=meta;
+    public RemoteHouseMeta getMeta() {
+        return meta;
     }
 
+    public void setMeta(RemoteHouseMeta meta) {
+        this.meta = meta;
+    }
 }

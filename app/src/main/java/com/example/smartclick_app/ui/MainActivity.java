@@ -4,9 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.Resource;
+import com.example.smartclick_app.data.RoomRepository;
+import com.example.smartclick_app.model.Room;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.lifecycle.LiveData;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +20,8 @@ import android.view.MenuItem;
 
 import com.example.smartclick_app.ui.main.SectionsPagerAdapter;
 import com.example.smartclick_app.databinding.ActivityMainBinding;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+        MyApplication application = (MyApplication)this.getApplication();
+        RoomRepository roomRepository= application.getRoomRepository();
+        LiveData<Resource<List<Room>>> rooms = roomRepository.getRooms();
     }
 
     @SuppressLint("NonConstantResourceId")
