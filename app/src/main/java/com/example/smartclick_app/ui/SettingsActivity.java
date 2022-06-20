@@ -1,7 +1,5 @@
 package com.example.smartclick_app.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -13,8 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.databinding.ActivitySettingsBinding;
+
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -36,10 +37,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         housesOptionsIndex= preferences.getInt("actualHouse",-1);
-
+        
         Button buttonHouseSelector = findViewById(R.id.openHouseSelectorButton);
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);
-
+        
         TextView houseSelectedText = (TextView) findViewById(R.id.houseSelectedText);
         if(housesOptions==null || housesOptions.length==0) {
             houseSelectedText.setText(R.string.house_selected_text_null);//Cambiar texto

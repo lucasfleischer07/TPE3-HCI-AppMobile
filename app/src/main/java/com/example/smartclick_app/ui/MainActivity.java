@@ -6,8 +6,10 @@ import android.os.Bundle;
 
 import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.HouseRepository;
 import com.example.smartclick_app.data.Resource;
 import com.example.smartclick_app.data.RoomRepository;
+import com.example.smartclick_app.model.House;
 import com.example.smartclick_app.model.Room;
 import com.google.android.material.tabs.TabLayout;
 
@@ -15,6 +17,8 @@ import androidx.lifecycle.LiveData;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -41,9 +45,16 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+
+        LiveData<Resource<List<Room>>> rooms;
         MyApplication application = (MyApplication)this.getApplication();
         RoomRepository roomRepository= application.getRoomRepository();
-        LiveData<Resource<List<Room>>> rooms = roomRepository.getRooms();
+        HouseRepository houseRepository = application.getHouseRepository();
+        rooms = roomRepository.getRooms();
+        LiveData<Resource<List<House>>> houses = houseRepository.getHouses();
+        for(Room room: rooms.getValue().data){
+            Log.d("Casas",room.getName());
+        }
     }
 
     @SuppressLint("NonConstantResourceId")

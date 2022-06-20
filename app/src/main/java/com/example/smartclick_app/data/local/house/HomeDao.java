@@ -15,13 +15,11 @@ import java.util.List;
 @Dao
 public abstract class HomeDao {
 
-    @Query("SELECT * FROM Room")
+    @Query("SELECT * FROM Home")
     public abstract LiveData<List<LocalHome>> findAll();
 
-    @Query("SELECT * FROM Room")
-    public abstract LiveData<List<LocalRoom>> findAll(String overload);
 
-    @Query("SELECT * FROM Room LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM Home LIMIT :limit OFFSET :offset")
     public abstract LiveData<List<LocalHome>> findAll(int limit, int offset);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -30,25 +28,22 @@ public abstract class HomeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(List<LocalHome> houses);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract void insert(List<LocalRoom> rooms,String overload);
-
     @Update
     public abstract void update(LocalHome room);
 
     @Delete
     public abstract void delete(LocalHome room);
 
-    @Query("DELETE FROM Room WHERE id = :id")
+    @Query("DELETE FROM Home WHERE id = :id")
     public abstract void delete(String id);
 
-    @Query("DELETE FROM Room WHERE id IN (SELECT id FROM Room LIMIT :limit OFFSET :offset)")
+    @Query("DELETE FROM Home WHERE id IN (SELECT id FROM Room LIMIT :limit OFFSET :offset)")
     public abstract void delete(int limit, int offset);
 
-    @Query("DELETE FROM Room")
+    @Query("DELETE FROM Home")
     public abstract void deleteAll();
 
-    @Query("SELECT * FROM Room WHERE id = :id")
+    @Query("SELECT * FROM Home WHERE id = :id")
     public abstract LiveData<LocalHome> findById(String id);
 
 
