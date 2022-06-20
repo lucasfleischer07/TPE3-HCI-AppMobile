@@ -88,6 +88,7 @@ public abstract class NetworkBoundResource<modelType, LocalType, RemoteType> {
                             modelType model = (newData != null) ?
                                     mapLocalTomodel.apply(newData) :
                                     null;
+
                             RemoteError remoteError = response.getError();
                             com.example.smartclick_app.model.Error modelError = new com.example.smartclick_app.model.Error(remoteError.getCode(), remoteError.getDescription().get(0));
                             setValue(Resource.error(modelError, model));
