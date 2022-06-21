@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.ui.room.RoomFragment;
+import com.example.smartclick_app.ui.routines.RoutinesFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -33,8 +34,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return new RoomFragment();
-//            case 1:
-//                return new RoutinesFragment();
+            case 1:
+                return new RoutinesFragment();
             default:
                 return new PlaceholderFragment();
         }

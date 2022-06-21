@@ -35,6 +35,7 @@ import com.example.smartclick_app.ui.MainActivity;
 import com.example.smartclick_app.data.Status.*;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DevicesActivity;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -115,12 +116,11 @@ public class RoomFragment extends Fragment implements Serializable {
         MyApplication application = (MyApplication)activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
         RoomViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
+        
         ViewGroup devicesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_room, container, false);
         LinearLayout generalLinearLayout = devicesViewGroup.findViewById(R.id.roomLinearLayout);
 
-        Log.d("Carga", "Antes del getRooms");
         List<Room> rooms = new ArrayList<>();
-//        RoomAdapter adapter = new RoomAdapter(rooms);
         viewModel.getRooms().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
@@ -137,24 +137,18 @@ public class RoomFragment extends Fragment implements Serializable {
             }
         });
 
-        Log.d("Carga", "Despues del getRooms");
-
-
-
         return devicesViewGroup;
     }
 
     private void forRooms(List<Room> rooms, LinearLayout generalLinearLayout){
         for(int i = 0; i < rooms.size() ; i++) {
-            Log.d("Carga", "En el for");
             LinearLayout row = new LinearLayout(getContext());
-
-            Button roomButton= new Button(getContext());
+            MaterialButton roomButton= new MaterialButton(getContext());
             roomButton.setTransformationMethod(null);
             roomButton.setText(rooms.get(i).getName());
             roomButton.setId(i);
             roomButton.setTextSize(25);
-            roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.main_act_background));
+            roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
             roomButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             int finalI = i;
             roomButton.setOnClickListener(new View.OnClickListener() {

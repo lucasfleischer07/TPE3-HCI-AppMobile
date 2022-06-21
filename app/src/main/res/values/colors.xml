@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_act_background">#D4EDF7</color>
+    <color name="rooms_and_routine_buttons">#48A3FD</color>
+
 </resources>

@@ -10,6 +10,7 @@ import com.example.smartclick_app.data.Resource;
 import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.data.Status;
 import com.example.smartclick_app.model.Room;
+import com.example.smartclick_app.model.Routine;
 import com.example.smartclick_app.ui.RepositoryViewModel;
 
 import java.util.List;
