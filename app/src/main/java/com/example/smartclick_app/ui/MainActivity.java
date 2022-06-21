@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
         HouseRepository houseRepository = application.getHouseRepository();
         rooms = roomRepository.getRooms();
         LiveData<Resource<List<House>>> houses = houseRepository.getHouses();
-        for(Room room: rooms.getValue().data){
-            Log.d("Casas",room.getName());
-        }
+
+//        for(Room room: rooms.getValue().data){
+//            Log.d("Casas",room.getName());
+//        }
     }
 
     @SuppressLint("NonConstantResourceId")

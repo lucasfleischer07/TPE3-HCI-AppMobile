@@ -128,12 +128,20 @@ public class RoomFragment extends Fragment implements Serializable {
                     rooms.clear();
                     if (resource.data != null && resource.data.size() > 0) {
                         rooms.addAll(resource.data);
+                        forRooms(rooms, generalLinearLayout);
                     }
                     break;
             }
         });
 
         Log.d("Carga", "Despues del getRooms");
+
+
+
+        return devicesViewGroup;
+    }
+
+    private void forRooms(List<Room> rooms, LinearLayout generalLinearLayout){
 
         for(int i = 0; i < rooms.size() ; i++) {
             Log.d("Carga", "En el for");
@@ -142,7 +150,7 @@ public class RoomFragment extends Fragment implements Serializable {
             Button roomButton= new Button(getContext());
             roomButton.setTransformationMethod(null);
             roomButton.setText(rooms.get(i).getName());
-            roomButton.setId(Integer.parseInt(rooms.get(i).getId()));
+            roomButton.setId(i);
             roomButton.setTextSize(25);
             roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.main_act_background));
             roomButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -169,9 +177,7 @@ public class RoomFragment extends Fragment implements Serializable {
             generalLinearLayout.addView(row);
         }
 
-        return devicesViewGroup;
     }
-
 
 
     @Override

@@ -28,17 +28,19 @@ public class MyApplication extends Application {
     public HouseRepository getHouseRepository(){
         return houseRepository;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         appExecutors = new AppExecutors();
 
-        ApiRoomService roomService = ApiClient.create(ApiRoomService.class);
-        ApiHomeService houseService = ApiClient.create(ApiHomeService.class);
         MyDatabase database = Room.databaseBuilder(this, MyDatabase.class, DATABASE_NAME).build();
 
-        houseRepository= new HouseRepository(appExecutors,houseService,database);
+        ApiRoomService roomService = ApiClient.create(ApiRoomService.class);
         roomRepository = new RoomRepository(appExecutors, roomService, database);
+
+        ApiHomeService houseService = ApiClient.create(ApiHomeService.class);
+        houseRepository= new HouseRepository(appExecutors,houseService,database);
     }
 }
