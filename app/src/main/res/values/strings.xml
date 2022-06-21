@@ -17,6 +17,8 @@
     <string name="confirm_house_selected">Confirm</string>
     <string name="cancel_house_selected">Cancel</string>
 
+    <string name="room_selected">You have selected: </string>
+
     <string name="speaker_type">Speaker</string>
     <string name="oven_type">Oven</string>
     <string name="lamp_type">Lamp</string>

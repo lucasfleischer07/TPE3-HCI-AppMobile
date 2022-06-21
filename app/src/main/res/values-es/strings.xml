@@ -18,6 +18,8 @@
     <string name="confirm_house_selected">Confirmar</string>
     <string name="cancel_house_selected">Cancelar</string>
 
+    <string name="room_selected">Ha ingresado en la habitación:</string>
+
     <string name="speaker_type">Parlante</string>
     <string name="oven_type">Horno</string>
     <string name="lamp_type">Lámpara</string>

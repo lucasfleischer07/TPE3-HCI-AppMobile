@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -159,14 +160,13 @@ public class RoomFragment extends Fragment implements Serializable {
             roomButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("roomDevices", (Serializable) rooms);
+                    String roomId = rooms.get(finalI).getId();
+                    String roomName = rooms.get(finalI).getName();
                     Intent intent = new Intent(getContext(), DevicesActivity.class);
-//                    intent.putExtra("roomDevices", (Serializable) rooms);
-
+                    intent.putExtra("ROOM_ID", roomId);
+                    intent.putExtra("ROOM_NAME", roomName);
                     startActivity(intent);
-//                    TODO: PAsar el mensaje de ha ingrsado a string para traduccion
-                    Toast.makeText(getContext(), "Ha ingresado en la habitacion: " + rooms.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.room_selected) + " " + rooms.get(finalI).getName(), Toast.LENGTH_SHORT).show();
                 }
             });
 
