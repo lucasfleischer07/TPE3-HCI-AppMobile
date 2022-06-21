@@ -7,10 +7,12 @@ import androidx.room.Room;
 import com.example.smartclick_app.data.AppExecutors;
 import com.example.smartclick_app.data.HouseRepository;
 import com.example.smartclick_app.data.RoomRepository;
+import com.example.smartclick_app.data.RoutineRepository;
 import com.example.smartclick_app.data.local.MyDatabase;
 import com.example.smartclick_app.data.remote.ApiClient;
 import com.example.smartclick_app.data.remote.house.ApiHomeService;
 import com.example.smartclick_app.data.remote.room.ApiRoomService;
+import com.example.smartclick_app.data.remote.routine.ApiRoutineService;
 
 
 public class MyApplication extends Application {
@@ -20,6 +22,7 @@ public class MyApplication extends Application {
     AppExecutors appExecutors;
     RoomRepository roomRepository;
     HouseRepository houseRepository;
+    RoutineRepository routineRepository;
 
     public RoomRepository getRoomRepository() {
         return roomRepository;
@@ -27,6 +30,10 @@ public class MyApplication extends Application {
 
     public HouseRepository getHouseRepository(){
         return houseRepository;
+    }
+
+    public RoutineRepository getRoutineRepository() {
+        return routineRepository;
     }
 
     @Override
@@ -41,6 +48,9 @@ public class MyApplication extends Application {
         roomRepository = new RoomRepository(appExecutors, roomService, database);
 
         ApiHomeService houseService = ApiClient.create(ApiHomeService.class);
-        houseRepository= new HouseRepository(appExecutors,houseService,database);
+        houseRepository = new HouseRepository(appExecutors, houseService, database);
+
+        ApiRoutineService routineService = ApiClient.create(ApiRoutineService.class);
+        routineRepository = new RoutineRepository(appExecutors, routineService, database);
     }
 }

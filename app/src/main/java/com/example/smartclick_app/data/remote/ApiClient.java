@@ -23,6 +23,8 @@ public class ApiClient {
     // de host del mismo es usando la IP 10.0.2.2.
     public static final String BASE_URL = "http://10.0.2.2:8080/api/";
 
+//    public static final String BASE_URL = "http://181.28.47.9:8080/api/";
+
 //    public static final String BASE_URL = "http://190.55.255.244:8080/api/";
 //    public static final String BASE_URL = "http://10.125.40.158:8080/api/";
 

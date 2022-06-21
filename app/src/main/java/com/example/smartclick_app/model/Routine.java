@@ -4,26 +4,26 @@ import java.util.List;
 import java.util.Map;
 
 public class Routine {
-    private final int id;
+    private final String id;
     private final String name;
-    private final int houseId;
-    private final Map<Device,List<Actions>> devicesAndActionsMap;
+    private final String houseId;
 
-    public Routine(int id,String name,int houseId,Map<Device,List<Actions>> devicesAndActionsMap){
+    public Routine(String id, String name, String houseId){
         this.id=id;
         this.name=name;
         this.houseId=houseId;
-        this.devicesAndActionsMap=devicesAndActionsMap;
+    }
+    
+    public String getId() {
+            return id;
+        }
+    
+    public String getName() {
+        return name;
     }
 
-    public void executeRoutine(){
-        /*
-        boolean succes=llamado a api
-        if(succes)
-            dar feedback positivo
-        else
-            dar feedback negativo
-         */
+    public String getHouseId() {
+        return houseId;
     }
 
 }

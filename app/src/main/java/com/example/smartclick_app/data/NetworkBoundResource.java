@@ -20,40 +20,62 @@ public abstract class NetworkBoundResource<modelType, LocalType, RemoteType> {
     private static final String TAG = "data";
 
     private final AppExecutors appExecutors;
-    private final Function<LocalType, modelType> mapLocalTomodel;
+    private final Function<LocalType, modelType> mapLocalToModel;
     private final Function<RemoteType, LocalType> mapRemoteToLocal;
-    private final Function<RemoteType, modelType> mapRemoteTomodel;
+    private final Function<RemoteType, modelType> mapRemoteToModel;
 
     private final MediatorLiveData<Resource<modelType>> result = new MediatorLiveData<>();
 
     @MainThread
     public NetworkBoundResource(AppExecutors appExecutors,
-                                Function<LocalType, modelType> mapLocalTomodel,
+                                Function<LocalType, modelType> mapLocalToModel,
                                 Function<RemoteType, LocalType> mapRemoteToLocal,
-                                Function<RemoteType, modelType> mapRemoteTomodel) {
+                                Function<RemoteType, modelType> mapRemoteToModel) {
         this.appExecutors = appExecutors;
-        this.mapLocalTomodel = mapLocalTomodel;
+        this.mapLocalToModel = mapLocalToModel;
         this.mapRemoteToLocal = mapRemoteToLocal;
-        this.mapRemoteTomodel = mapRemoteTomodel;
+        this.mapRemoteToModel = mapRemoteToModel;
 
-        result.setValue(Resource.loading(null));
-        Log.d(TAG,"NetworkBoundResource - loadFromDb()");
+        result.postValue(Resource.loading(null));
+
         LiveData<LocalType> dbSource = loadFromDb();
-        result.addSource(dbSource, data -> {
-            result.removeSource(dbSource);
-            if (shouldFetch(data)) {
-                Log.d(TAG,"NetworkBoundResource - fetchFromNetwork()");
-                fetchFromNetwork(dbSource);
-            } else {
-                Log.d(TAG,"NetworkBoundResource - no need to fetch network, processing database value");
-                result.addSource(dbSource, newData -> {
-                    modelType model = (newData != null) ?
-                            mapLocalTomodel.apply(newData) :
-                            null;
-                    setValue(Resource.success(model));
-                });
-            }
-        });
+
+        if (dbSource != null) {
+            Log.d(TAG,"NetworkBoundResource - loadFromDb()");
+            result.addSource(dbSource, data -> {
+                result.removeSource(dbSource);
+                if (shouldFetch(data)) {
+                    Log.d(TAG,"NetworkBoundResource - fetchFromNetwork()");
+                    fetchFromNetwork(dbSource);
+                } else if (mapLocalToModel != null && mapRemoteToLocal != null){
+                    Log.d(TAG,"NetworkBoundResource - no need to fetch network, processing database value");
+                    result.addSource(dbSource, newData -> {
+                        modelType model = (newData != null) ?
+                                mapLocalToModel.apply(newData) :
+                                null;
+                        setValue(Resource.success(model));
+                    });
+                }
+            });
+        }
+        else {
+            LiveData<ApiResponse<RemoteResult<RemoteType>>> apiResponse = createCall();
+            result.addSource(apiResponse, response -> {
+                result.removeSource(apiResponse);
+                if (response.getError() != null) {
+                    Log.d(TAG,"NetworkBoundResource - processing fetch error");
+                    onFetchFailed();
+
+                } else {
+                    Log.d(TAG,"NetworkBoundResource - processing fetch response");
+                    RemoteType remote = processResponse(response);
+                    appExecutors.mainThread().execute(() -> {
+                        modelType model = mapRemoteToModel.apply(remote);
+                        setValue(Resource.success(model));
+                    });
+                }
+            });
+        }
     }
 
     @MainThread
@@ -70,9 +92,7 @@ public abstract class NetworkBoundResource<modelType, LocalType, RemoteType> {
         result.addSource(dbSource,
                 newData -> {
                     Log.d(TAG,"NetworkBoundResource - processing database value");
-                    modelType model = (newData != null) ?
-                            mapLocalTomodel.apply(newData) :
-                            null;
+                    modelType model = (newData != null) ? mapLocalToModel.apply(newData) : null;
                     setValue(Resource.loading(model));
                 }
         );
@@ -87,15 +107,12 @@ public abstract class NetworkBoundResource<modelType, LocalType, RemoteType> {
                 }
                 onFetchFailed();
                 result.addSource(dbSource,
-                        newData -> {
-                            modelType model = (newData != null) ?
-                                    mapLocalTomodel.apply(newData) :
-                                    null;
-
-                            RemoteError remoteError = response.getError();
-                            com.example.smartclick_app.model.Error modelError = new com.example.smartclick_app.model.Error(remoteError.getCode(), remoteError.getDescription().get(0));
-                            setValue(Resource.error(modelError, model));
-                        }
+                    newData -> {
+                        modelType model = (newData != null) ? mapLocalToModel.apply(newData) : null;
+                        RemoteError remoteError = response.getError();
+                        com.example.smartclick_app.model.Error modelError = new com.example.smartclick_app.model.Error(remoteError.getCode(), remoteError.getDescription().get(0));
+                        setValue(Resource.error(modelError, model));
+                    }
                 );
             } else /*if (response.getData() != null)*/ {
                 Log.d(TAG,"NetworkBoundResource - processing fetch response");
@@ -111,27 +128,19 @@ public abstract class NetworkBoundResource<modelType, LocalType, RemoteType> {
                                 result.addSource(loadFromDb(),
                                         newData -> {
                                             modelType model = (newData != null) ?
-                                                    mapLocalTomodel.apply(newData) :
-                                                    mapRemoteTomodel.apply(remote);
+                                                    mapLocalToModel.apply(newData) :
+                                                    mapRemoteToModel.apply(remote);
                                             setValue(Resource.success(model));
                                         })
                         );
                     });
                 } else {
                     appExecutors.mainThread().execute(() -> {
-                        modelType model = mapRemoteTomodel.apply(remote);
+                        modelType model = mapRemoteToModel.apply(remote);
                         setValue(Resource.success(model));
                     });
                 }
-            }  /*else {
-                appExecutors.mainThread().execute(() ->
-                        result.addSource(loadFromDb(),
-                                newData -> {
-                                    modelType model = mapLocalTomodel.apply(newData);
-                                    setValue(Resource.success(model));
-                                })
-                );
-            }*/
+            } 
         });
     }
 

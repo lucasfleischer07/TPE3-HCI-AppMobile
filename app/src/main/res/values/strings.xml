@@ -18,6 +18,7 @@
     <string name="cancel_house_selected">Cancel</string>
 
     <string name="room_selected">You have selected: </string>
+    <string name="routine_execute">You have executed the routine: </string>
 
     <string name="speaker_type">Speaker</string>
     <string name="oven_type">Oven</string>
