@@ -6,9 +6,10 @@ public class Refrigerator extends Device {
     private int temperature;
     private int freezerTemperature;
     private String mode;
+    public final static String TYPE_ID="rnizejqr2di0okho";
 
-    public Refrigerator(String id,String name,String typeId,int temperature,int freezerTemperature, String mode){
-        super(id,name,typeId);
+    public Refrigerator(String id,String name,int temperature,int freezerTemperature, String mode){
+        super(id,name,TYPE_ID);
         this.temperature=temperature;
         this.freezerTemperature=freezerTemperature;
         this.mode=mode;

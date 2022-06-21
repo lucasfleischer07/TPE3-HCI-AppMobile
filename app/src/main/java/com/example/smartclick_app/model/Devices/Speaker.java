@@ -6,9 +6,10 @@ public class Speaker extends Device {
     private int volume;
     private String status;
     private String genre;
+    public final static String TYPE_ID="c89b94e8581855bc";
 
-    public Speaker(String id,String name,String typeId,int volume,String status,String genre){
-        super(id,name,typeId);
+    public Speaker(String id,String name,int volume,String status,String genre){
+        super(id,name,TYPE_ID);
         this.volume=volume;
         this.status=status;
         this.genre=genre;

@@ -8,10 +8,11 @@ public class Oven extends Device {
     private String heatZone;
     private String status;
     private int temperature;
+    public final static String TYPE_ID="im77xxyulpegfmv8";
 
 
-    public Oven(String id,String name,String typeId,String convection,String grillMode, String heatZone,String status,int temperature){
-        super(id,name,typeId);
+    public Oven(String id,String name,String convection,String grillMode, String heatZone,String status,int temperature){
+        super(id,name,TYPE_ID);
         this.convection=convection;
         this.grillMode=grillMode;
         this.heatZone=heatZone;

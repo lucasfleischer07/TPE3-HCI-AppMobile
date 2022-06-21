@@ -6,9 +6,10 @@ public class Lightbulb extends Device {
     private String color;
     private int brightness;
     private String status;
+    public final static String TYPE_ID="go46xmbqeomjrsjr";
 
-    public Lightbulb(String id,String name,String typeId,String color,int brightness,String status){
-        super(id,name,typeId);
+    public Lightbulb(String id,String name,String color,int brightness,String status){
+        super(id,name,TYPE_ID);
         this.color=color;
         this.brightness=brightness;
         this.status=status;
