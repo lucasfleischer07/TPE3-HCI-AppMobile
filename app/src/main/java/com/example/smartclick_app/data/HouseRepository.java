@@ -72,11 +72,11 @@ public class HouseRepository {
     }
 
     private LocalRoom mapRoomRemoteToLocal(RemoteRoom remote) {
-        return new LocalRoom(remote.getId(), remote.getName());
+        return new LocalRoom(remote.getId(), remote.getName(),remote.getHome().getHouseId());
     }
 
     private Room mapRoomRemoteToModel(RemoteRoom remote) {
-        return new Room(remote.getId(), remote.getName());
+        return new Room(remote.getId(), remote.getName(),remote.getHome().getHouseId());
     }
 
     private RemoteRoom mapRoomModelToRemote(Room model) {

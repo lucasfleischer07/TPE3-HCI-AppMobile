@@ -49,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
         MyApplication application = (MyApplication)this.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
         HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
-        houses=new ArrayList<>();
+        List<House> houses=new ArrayList<>();
         viewModel.gethouses().observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
@@ -71,7 +71,27 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        MyApplication application = (MyApplication)this.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
+        HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
+        List<House> houses=new ArrayList<>();
+        viewModel.gethouses().observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+//                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+//                    activity.hideProgressBar();
+                    houses.clear();
+                    if (resource.data != null && resource.data.size() > 0) {
+                        houses.addAll(resource.data);
+                        setHousesList(houses);
 
+                    }
+                    break;
+            }
+        });
+        setHousesList(houses);
     }
     private void setHousesList(List<House> houses){
         StringBuilder[] houseNames = new StringBuilder[houses.size()];
@@ -86,8 +106,11 @@ public class SettingsActivity extends AppCompatActivity {
                     housesOptionsIndex=-1;}
                 else if(houses.get(i).getId().equals(actualId)){
                     housesOptionsIndex=i;
-                    break;}
+                    break;
+                }
             }
+            //Si sale del for y no matcheo con ninguno, es que se elimino la casa, pongo el index en -1
+            housesOptionsIndex=-1;
         }
         Button buttonHouseSelector = findViewById(R.id.openHouseSelectorButton);
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);

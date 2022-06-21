@@ -11,6 +11,7 @@ import com.example.smartclick_app.data.Resource;
 import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.model.House;
 import com.example.smartclick_app.model.Room;
+import com.example.smartclick_app.ui.home.SettingsActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.lifecycle.LiveData;

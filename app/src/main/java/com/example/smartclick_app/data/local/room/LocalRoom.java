@@ -13,7 +13,7 @@ public class LocalRoom {
     public String id;
     @ColumnInfo(name = "name")
     public String name;
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "homeId")
     public String homeId;
 
 
