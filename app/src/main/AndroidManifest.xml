@@ -23,7 +23,7 @@
             android:name=".ui.devices.DevicesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".ui.home.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

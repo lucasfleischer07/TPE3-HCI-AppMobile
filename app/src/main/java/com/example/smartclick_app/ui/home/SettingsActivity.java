@@ -1,4 +1,7 @@
-package com.example.smartclick_app.ui;
+package com.example.smartclick_app.ui.home;
+
+import static com.example.smartclick_app.data.Status.LOADING;
+import static com.example.smartclick_app.data.Status.SUCCESS;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,9 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.HouseRepository;
+import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.databinding.ActivitySettingsBinding;
+import com.example.smartclick_app.model.House;
+import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.room.RoomViewModel;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -22,36 +36,69 @@ public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
 
 
-    //    TODO: Hardcodeado, estoy hay que cambiarlo por las casas que esten en la API
-    private final String [] housesOptions = new String[]{"Casa 1", "Casa 2", "Casa 3"};
-    private int housesOptionsIndex = 0;
+
+    private int housesOptionsIndex=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MyApplication application = (MyApplication)this.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
+        HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
+        List<House> houses=new ArrayList<>();
+        viewModel.gethouses().observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+//                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+//                    activity.hideProgressBar();
+                    houses.clear();
+                    if (resource.data != null && resource.data.size() > 0) {
+                        houses.addAll(resource.data);
+                        setHousesList(houses);
+
+                    }
+                    break;
+            }
+        });
+
+    }
+    private void setHousesList(List<House> houses){
+        StringBuilder[] houseNames = new StringBuilder[houses.size()];
+        Arrays.setAll(houseNames, i -> new StringBuilder(houses.get(i).getName()));
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        housesOptionsIndex= preferences.getInt("actualHouse",-1);
-        
+        String actualId=preferences.getString("actualHouse",null);
+        if(actualId!=null){
+            for(int i=0;i<=houses.size();i++){
+                if(i==houses.size()){
+                    actualId=null;
+                    housesOptionsIndex=-1;}
+                else if(houses.get(i).getId().equals(actualId)){
+                    housesOptionsIndex=i;
+                    break;}
+            }
+        }
         Button buttonHouseSelector = findViewById(R.id.openHouseSelectorButton);
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);
-        
         TextView houseSelectedText = (TextView) findViewById(R.id.houseSelectedText);
-        if(housesOptions==null || housesOptions.length==0) {
+
+        if(houses.size()==0) {
             houseSelectedText.setText(R.string.house_selected_text_null);//Cambiar texto
             buttonHouseSelector.setEnabled(false);
         } else {
             if(housesOptionsIndex!=-1){
-                houseSelected.setText(housesOptions[housesOptionsIndex]);
+                houseSelected.setText(houses.get(housesOptionsIndex).getName());
             }else{
-                houseSelected.setText(housesOptions[0]);
+                houseSelected.setText("No house selected");
             }
             houseSelectedText.setText(R.string.house_selected_text);
+
         }
 
 
@@ -66,20 +113,20 @@ public class SettingsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = preferences.edit();
 
                         if(housesOptionsIndex == 0) {
-                            houseSelected.setText(housesOptions[0]);
+                            houseSelected.setText(houseNames[0]);
                         }
-                        houseSelected.setText(housesOptions[housesOptionsIndex]);
+                        houseSelected.setText(houseNames[housesOptionsIndex]);
                         houseSelectedText.setText(R.string.house_selected_text);
                         Toast.makeText(getApplicationContext(), R.string.selected_house, Toast.LENGTH_SHORT).show();
-                        if(housesOptions.length == 0){
-                            editor.putInt("actualHouse",-1);
+                        if(houses.size() == 0){
+                            editor.putString("actualHouse",null);
                         }else {
-                            editor.putInt("actualHouse", housesOptionsIndex);
+                            editor.putString("actualHouse", houses.get(housesOptionsIndex).getId());
                         }
                         editor.apply();
                     }
                 });
-                builder.setSingleChoiceItems(housesOptions, housesOptionsIndex, new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(houseNames, housesOptionsIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         housesOptionsIndex = which;
