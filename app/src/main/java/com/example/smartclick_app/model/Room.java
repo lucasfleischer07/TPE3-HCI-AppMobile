@@ -4,6 +4,15 @@ public class Room {
 
     private String id;
     private String name;
+    private String homeId;
+
+    public String getHomeId() {
+        return homeId;
+    }
+
+    public void setHomeId(String homeId) {
+        this.homeId = homeId;
+    }
 
     public String getId() {
         return id;
@@ -22,13 +31,14 @@ public class Room {
     }
 
 
-    public Room(String name){
-        this(null, name);
+    public Room(String name,String homeId){
+        this(null, name,homeId);
     }
 
-    public Room(String id, String name) {
+    public Room(String id, String name,String homeId) {
         this.id = id;
         this.name = name;
+        this.homeId = homeId;
     }
 
     @Override

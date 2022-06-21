@@ -34,7 +34,7 @@ import java.util.List;
 public class SettingsActivity extends AppCompatActivity {
 
     private ActivitySettingsBinding binding;
-
+    private List<House> houses;
 
 
     private int housesOptionsIndex=-1;
@@ -49,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
         MyApplication application = (MyApplication)this.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
         HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
-        List<House> houses=new ArrayList<>();
+        houses=new ArrayList<>();
         viewModel.gethouses().observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
@@ -66,6 +66,11 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
             }
         });
+
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
 
     }
     private void setHousesList(List<House> houses){

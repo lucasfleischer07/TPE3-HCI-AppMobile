@@ -13,10 +13,14 @@ public class LocalRoom {
     public String id;
     @ColumnInfo(name = "name")
     public String name;
+    @ColumnInfo(name = "name")
+    public String homeId;
 
 
-    public LocalRoom(String id, String name) {
+
+    public LocalRoom(String id, String name,String homeId) {
         this.id = id;
         this.name = name;
+        this.homeId = homeId;
     }
 }
