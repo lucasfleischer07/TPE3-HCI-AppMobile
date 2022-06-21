@@ -1,4 +1,4 @@
-package com.example.smartclick_app.ui;
+package com.example.smartclick_app.ui.devices;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,15 +20,6 @@ public class DevicesActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        Door myDoor = new Door()
-
-
-
-//        Intent intent = getIntent();
-//        String s = intent.getStringArrayListExtra()
-//
-//        TextView textView = findViewById(R.id.textView);
-//        textView.setText(s);
 
 
     }

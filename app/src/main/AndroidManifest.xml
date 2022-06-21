@@ -20,6 +20,9 @@
             android:name=".ui.HelpActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.devices.DevicesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.SettingsActivity"
             android:exported="false" />
         <activity

@@ -3,6 +3,7 @@ package com.example.smartclick_app.ui.room;
 import static com.example.smartclick_app.data.Status.LOADING;
 import static com.example.smartclick_app.data.Status.SUCCESS;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -32,6 +33,7 @@ import com.example.smartclick_app.data.remote.room.ApiRoomService;
 import com.example.smartclick_app.ui.MainActivity;
 import com.example.smartclick_app.data.Status.*;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.devices.DevicesActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -142,7 +144,6 @@ public class RoomFragment extends Fragment implements Serializable {
     }
 
     private void forRooms(List<Room> rooms, LinearLayout generalLinearLayout){
-
         for(int i = 0; i < rooms.size() ; i++) {
             Log.d("Carga", "En el for");
             LinearLayout row = new LinearLayout(getContext());
@@ -154,20 +155,18 @@ public class RoomFragment extends Fragment implements Serializable {
             roomButton.setTextSize(25);
             roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.main_act_background));
             roomButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            int finalI = i;
             roomButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    RoomRepository passingInfo = getRoomRepository();
 //                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("roomDevices", );
-//                    Intent intent = new Intent(getContext(), DevicesActivity.class);
-//                    intent.putExtra("roomDevices", (Serializable) passingInfo);
-//
-//
-//                    Log.d("Male dijo que haga esto", getRoomRepository().getRoom("2f60a978c6a7f640").toString());
-//                    startActivity(intent);
-//                    Toast.makeText(getContext(), "Ha ingresado en la habitacion: " + actualRoom.getName(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), "Ha ingresado en la habitacion: ", Toast.LENGTH_SHORT).show();
+//                    bundle.putSerializable("roomDevices", (Serializable) rooms);
+                    Intent intent = new Intent(getContext(), DevicesActivity.class);
+//                    intent.putExtra("roomDevices", (Serializable) rooms);
+
+                    startActivity(intent);
+//                    TODO: PAsar el mensaje de ha ingrsado a string para traduccion
+                    Toast.makeText(getContext(), "Ha ingresado en la habitacion: " + rooms.get(finalI).getName(), Toast.LENGTH_SHORT).show();
                 }
             });
 
