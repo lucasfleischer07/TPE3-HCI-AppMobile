@@ -116,7 +116,10 @@ public class RoutinesFragment extends Fragment {
 
 
     private void forRoutines(List<Routine> routines, LinearLayout generalLinearLayout) {
+        SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String actualId=preferences.getString("actualHouse",null);
         for(int i = 0; i < routines.size(); i++) {
+            if(routines.get(i).getHouseId().equals(actualId)){
             LinearLayout row = new LinearLayout(getContext());
             MaterialButton routineButton = new MaterialButton(getContext());
             routineButton.setText(routines.get(i).getName());
@@ -154,7 +157,7 @@ public class RoutinesFragment extends Fragment {
             row = new LinearLayout(getContext());
             row.setPadding(0, 20, 0, 20);
             row.addView(horizontalLine);
-            generalLinearLayout.addView(row);
+            generalLinearLayout.addView(row);}
         }
     }
 

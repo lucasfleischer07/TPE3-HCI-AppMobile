@@ -12,11 +12,7 @@ import com.example.smartclick_app.data.local.routine.LocalRoutine;
 import com.example.smartclick_app.data.local.routine.RoutineDao;
 
 @Database(entities = {LocalRoom.class, LocalHome.class, LocalRoutine.class}, exportSchema = true,
-        autoMigrations =
-        @AutoMigration(
-                from = 4,
-                to = 5
-        ),version = 5)
+        version = 5)
 
 public abstract class MyDatabase extends RoomDatabase {
 

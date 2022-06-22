@@ -4,15 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RemoteHome {
-    @SerializedName("houseId")
+    @SerializedName("id")
     @Expose
-    private String houseId;
+    private String id;
 
     public String getHouseId() {
-        return houseId;
+        return id;
     }
 
     public void setHouseId(String houseId) {
-        this.houseId = houseId;
+        this.id = houseId;
     }
 }

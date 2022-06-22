@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
+import com.example.smartclick_app.data.remote.room.RemoteHome;
 import com.example.smartclick_app.model.Room;
 import com.example.smartclick_app.data.local.MyDatabase;
 import com.example.smartclick_app.data.local.room.LocalRoom;
@@ -40,7 +41,7 @@ public class RoomRepository {
     }
 
     private Room mapRoomLocalToModel(LocalRoom local) {
-        return new Room(local.id, local.name);
+        return new Room(local.id, local.name, local.homeId);
     }
 
     private LocalRoom mapRoomRemoteToLocal(RemoteRoom remote) {
@@ -48,14 +49,16 @@ public class RoomRepository {
     }
 
     private Room mapRoomRemoteToModel(RemoteRoom remote) {
-        return new Room(remote.getId(), remote.getName());
+        return new Room(remote.getId(), remote.getName(),remote.getHome().getHouseId());
     }
 
     private RemoteRoom mapRoomModelToRemote(Room model) {
         RemoteRoom remote = new RemoteRoom();
         remote.setId(model.getId());
         remote.setName(model.getName());
-
+        RemoteHome remoteHome=new RemoteHome();
+        remoteHome.setHouseId(model.getHomeId());
+        remote.setHome(remoteHome);
         return remote;
     }
 

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -62,8 +63,9 @@ public class SettingsActivity extends AppCompatActivity {
                         houses.addAll(resource.data);
                         setHousesList(houses);
 
+
                     }
-                    break;
+
             }
         });
 
@@ -88,11 +90,12 @@ public class SettingsActivity extends AppCompatActivity {
                         setHousesList(houses);
 
                     }
-                    break;
+
             }
         });
-        setHousesList(houses);
+
     }
+
     private void setHousesList(List<House> houses){
         StringBuilder[] houseNames = new StringBuilder[houses.size()];
         Arrays.setAll(houseNames, i -> new StringBuilder(houses.get(i).getName()));
@@ -109,8 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
                 }
             }
-            //Si sale del for y no matcheo con ninguno, es que se elimino la casa, pongo el index en -1
-            housesOptionsIndex=-1;
+
         }
         Button buttonHouseSelector = findViewById(R.id.openHouseSelectorButton);
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);
@@ -150,10 +152,12 @@ public class SettingsActivity extends AppCompatActivity {
                             editor.putString("actualHouse",null);
                         }else {
                             editor.putString("actualHouse", houses.get(housesOptionsIndex).getId());
+
                         }
                         editor.apply();
                     }
                 });
+
                 builder.setSingleChoiceItems(houseNames, housesOptionsIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -163,6 +167,7 @@ public class SettingsActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
     }
 
     @Override
