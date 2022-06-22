@@ -78,15 +78,15 @@ public class DoorFragment extends Fragment {
                 setVisualButtons(deviceStatus[0], deviceStatus[1], doorLockButton, doorUnlockButton, doorOpenButton, doorCloseButton);
             }
         };
-
-        Activity activity = getActivity();
-        MyApplication application = (MyApplication) activity.getApplication();
-        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
-        viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Activity activity = getActivity();
+        MyApplication application = (MyApplication) activity.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
+
         ViewGroup doorFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_door, container, false);
 
         TextView textViewDeviceName = doorFragmentLayout.findViewById(R.id.doorName);
@@ -96,7 +96,7 @@ public class DoorFragment extends Fragment {
         doorLockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.executeDeviceAction(deviceId, "lock").observe(getViewLifecycleOwner(), resource -> {
+                viewModel.executeDeviceAction(deviceId, Door.ACTION_LOCK).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
                             break;
@@ -113,7 +113,7 @@ public class DoorFragment extends Fragment {
         doorUnlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.executeDeviceAction(deviceId, "unlock").observe(getViewLifecycleOwner(), resource -> {
+                viewModel.executeDeviceAction(deviceId, Door.ACTION_UNLOCK).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
                             break;
@@ -131,7 +131,7 @@ public class DoorFragment extends Fragment {
         doorOpenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.executeDeviceAction(deviceId, "open").observe(getViewLifecycleOwner(), resource -> {
+                viewModel.executeDeviceAction(deviceId, Door.ACTION_OPEN).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
                             break;
@@ -148,7 +148,7 @@ public class DoorFragment extends Fragment {
         doorCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.executeDeviceAction(deviceId, "close").observe(getViewLifecycleOwner(), resource -> {
+                viewModel.executeDeviceAction(deviceId, Door.ACTION_CLOSE).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
                             break;
