@@ -106,6 +106,12 @@ public class RoutinesFragment extends Fragment {
         generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
+        if(actualId==null && routines.size()>0){
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("actualHouse",routines.get(0).getHouseId());
+            editor.apply();
+            actualId=preferences.getString("actualHouse",null);
+        }
         for (int i = 0; i < routines.size(); i++) {
             if (routines.get(i).getHouseId().equals(actualId)) {
                 LinearLayout row = new LinearLayout(getContext());

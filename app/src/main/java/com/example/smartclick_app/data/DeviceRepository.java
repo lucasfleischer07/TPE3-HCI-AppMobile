@@ -11,6 +11,9 @@ import com.example.smartclick_app.data.local.routine.LocalRoutine;
 import com.example.smartclick_app.data.remote.ApiResponse;
 import com.example.smartclick_app.data.remote.RemoteResult;
 import com.example.smartclick_app.data.remote.device.ApiDeviceService;
+import com.example.smartclick_app.data.remote.device.RemoteAction;
+import com.example.smartclick_app.data.remote.device.RemoteIntAction;
+import com.example.smartclick_app.data.remote.device.RemoteStringAction;
 
 
 import java.util.concurrent.TimeUnit;
@@ -89,8 +92,85 @@ public class DeviceRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
-                return service.executeAction(deviceId, actionName);
+                RemoteStringAction action = new RemoteStringAction();
+                return service.executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }
+
+    public LiveData<Resource<Void>> executeIntAction(String deviceId,String actionName,int parameter) {
+        Log.d(TAG, "executeAction()");
+        return new NetworkBoundResource<Void, LocalRoutine, Object>(
+                executors,
+                local -> null,
+                remote -> null,
+                remote -> null) {
+
+            @Override
+            protected void saveCallResult(@NonNull LocalRoutine local) {
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable LocalRoutine local) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable Object remote) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<LocalRoutine> loadFromDb() {
+//                return database.routineDao().findById(RoutineId);
+                return null;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
+                RemoteIntAction action = new RemoteIntAction(parameter);
+                return service.executeAction(deviceId, actionName,action);
+            }
+        }.asLiveData();
+    }
+    public LiveData<Resource<Void>> executeStringAction(String deviceId,String actionName,String parameter) {
+        Log.d(TAG, "executeAction()");
+        return new NetworkBoundResource<Void, LocalRoutine, Object>(
+                executors,
+                local -> null,
+                remote -> null,
+                remote -> null) {
+
+            @Override
+            protected void saveCallResult(@NonNull LocalRoutine local) {
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable LocalRoutine local) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable Object remote) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<LocalRoutine> loadFromDb() {
+//                return database.routineDao().findById(RoutineId);
+                return null;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
+                RemoteStringAction action = new RemoteStringAction(parameter);
+                return service.executeAction(deviceId, actionName,action);
+            }
+        }.asLiveData();
+    }
+
 }

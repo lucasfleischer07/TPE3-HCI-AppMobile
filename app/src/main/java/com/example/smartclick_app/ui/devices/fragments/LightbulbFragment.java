@@ -1,10 +1,13 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.DeviceRepository;
+import com.example.smartclick_app.model.Devices.Door;
 import com.example.smartclick_app.model.Devices.Lightbulb;
+import com.example.smartclick_app.ui.MainActivity;
+import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.devices.DeviceViewModel;
+
+import java.util.Objects;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -32,6 +43,9 @@ public class LightbulbFragment extends Fragment {
     private String deviceColor;
     private String deviceStatus;
     private int deviceBrightness;
+
+    private DeviceViewModel viewModel;
+
 
     public LightbulbFragment() {
         // Required empty public constructor
@@ -65,6 +79,12 @@ public class LightbulbFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Activity activity = getActivity();
+        MyApplication application = (MyApplication) activity.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
+
         ViewGroup lampFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_lamp, container, false);
 
         TextView textViewDeviceName = lampFragmentLayout.findViewById(R.id.lampName);
@@ -72,6 +92,7 @@ public class LightbulbFragment extends Fragment {
 
         
         Button lampColorPicker = lampFragmentLayout.findViewById(R.id.lampColorPicker);
+        lampColorPicker.setBackgroundColor(Integer.parseInt(deviceColor));
         lampColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +104,17 @@ public class LightbulbFragment extends Fragment {
 
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-//                        TODO: Aca habria que meter el llamado a la api para que lo cambie
+                        Log.d("color", String.valueOf(color));
+                        viewModel.executeDeviceActionWithString(deviceId, Lightbulb.ACTION_SET_COLOR, String.valueOf(color)).observe(getViewLifecycleOwner(), resource -> {
+                            switch (resource.status) {
+                                case LOADING:
+                                    break;
+                                case SUCCESS:
+                                    Toast.makeText(getContext(), getString(R.string.door_lock), Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        });
+
                         lampColorPicker.setBackgroundColor(color);
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }
@@ -92,19 +123,37 @@ public class LightbulbFragment extends Fragment {
             }
         });
 
-
+        boolean turnOn = false;
+        if(Objects.equals(deviceStatus, "on")) {
+            turnOn = true;
+        }
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch lampSwitchOnOff =  lampFragmentLayout.findViewById(R.id.lampSwitchOnOff);
+        lampSwitchOnOff.setChecked(turnOn);
         lampSwitchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-//                    TODO: llamado a la api
-                    // The toggle is enabled
-                    Toast.makeText(getContext(), getString(R.string.lamp_on), Toast.LENGTH_SHORT).show();
+                    viewModel.executeDeviceAction(deviceId, Lightbulb.ACTION_TURN_ON).observe(getViewLifecycleOwner(), resource -> {
+                        switch (resource.status) {
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                                deviceStatus = "off";
+                                Toast.makeText(getContext(), getString(R.string.lamp_on), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    });
                 } else {
-//                    TODO: llamado a la api
-                    // The toggle is disabled
-                    Toast.makeText(getContext(), getString(R.string.lamp_off), Toast.LENGTH_SHORT).show();
+                    viewModel.executeDeviceAction(deviceId, Lightbulb.ACTION_TURN_OFF).observe(getViewLifecycleOwner(), resource -> {
+                        switch (resource.status) {
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                                deviceStatus = "on";
+                                Toast.makeText(getContext(), getString(R.string.lamp_off), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    });
                 }
             }
         });
@@ -112,8 +161,8 @@ public class LightbulbFragment extends Fragment {
 
         TextView lampTextViewPercentage = lampFragmentLayout.findViewById(R.id.lampTextViewPercentage);
         SeekBar lampSeekBar = lampFragmentLayout.findViewById(R.id.lampSeekBar);
-//        TODO: Ver si nos podemos traer el brillo para poder setearlo desde un principio y no solo cuando lo setea el usuario
-//        lampTextViewPercentage.setText();
+        lampTextViewPercentage.setText(String.valueOf(deviceBrightness) + "%");
+        lampSeekBar.setProgress(deviceBrightness);
         lampSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -131,10 +180,15 @@ public class LightbulbFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // This method will automatically
-                // called when the user
-                // stops touching the SeekBar
-//                TODO: Aca habira que llamar a la api para pasarle el resultado final
+                viewModel.executeDeviceActionWithString(deviceId, Lightbulb.ACTION_SET_BRIGHTNESS, String.valueOf(seekBar.getProgress())).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceBrightness = seekBar.getProgress();
+                            break;
+                    }
+                });
             }
         });
 
