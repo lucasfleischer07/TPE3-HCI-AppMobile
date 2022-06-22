@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.model.Room;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.AppExecutors;
 import com.example.smartclick_app.data.Resource;
@@ -62,7 +63,7 @@ public class RoomFragment extends Fragment implements Serializable {
     RoomRepository roomRepository;
 
     private MainActivity activity;
-
+    private RoomViewModel viewModel;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -112,10 +113,10 @@ public class RoomFragment extends Fragment implements Serializable {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        MainActivity activity = (MainActivity)requireActivity();
+        MainActivity activity = (MainActivity) getActivity();
         MyApplication application = (MyApplication)activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
-        RoomViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
         
         ViewGroup devicesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_room, container, false);
         LinearLayout generalLinearLayout = devicesViewGroup.findViewById(R.id.roomLinearLayout);

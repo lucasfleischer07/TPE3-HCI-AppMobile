@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.smartclick_app.data.remote.ApiResponse;
 import com.example.smartclick_app.data.remote.RemoteResult;
+import com.example.smartclick_app.data.remote.device.RemoteDevice;
 
 import java.util.List;
 
@@ -30,4 +31,8 @@ public interface ApiRoomService {
 
     @DELETE("rooms/{roomId}")
     LiveData<ApiResponse<RemoteResult<Boolean>>> deleteRoom(@Path("roomId") String roomId);
+
+    @GET("rooms/{roomId}/devices")
+    LiveData<ApiResponse<RemoteResult<List<RemoteDevice>>>> getRoomDevices(@Path("roomId") String roomId);
+
 }

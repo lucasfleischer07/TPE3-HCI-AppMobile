@@ -142,19 +142,19 @@ public class RoutinesFragment extends Fragment {
             });
 
 
-            View horizontalLine = new View(getContext());
-            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
+//            View horizontalLine = new View(getContext());
+//            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+//            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
 
-            row.setGravity(Gravity.END);
+            row.setGravity(Gravity.CENTER);
             row.setPadding(3, 1, 50, 1);
             row.addView(routineButton);
             generalLinearLayout.addView(row);
 
-            row = new LinearLayout(getContext());
-            row.setPadding(0, 20, 0, 20);
-            row.addView(horizontalLine);
-            generalLinearLayout.addView(row);
+//            row = new LinearLayout(getContext());
+//            row.setPadding(0, 20, 0, 20);
+//            row.addView(horizontalLine);
+//            generalLinearLayout.addView(row);
         }
     }
 

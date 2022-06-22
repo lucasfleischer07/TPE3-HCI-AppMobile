@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:layout_margin="10dp"
-    android:background="@color/main_act_background">
+    android:background="@color/main_act_background"
+    tools:context=".ui.devices.fragments.DoorFragment">
 
     <ImageView
         android:id="@+id/doorIcon"

@@ -9,24 +9,33 @@ public class Door extends Device {
 
     public Door(String id,String name,String status,String lock){
         super(id,name,TYPE_ID);
-        this.status=status;
-        this.lock=lock;
+        this.status = status;
+        this.lock = lock;
     }
 
-    public void close(){
-        this.status="closed";
+    public void setClose(){
+        this.status = "closed";
     }
-    public void open(){
+
+    public void setOpen(){
         if(!this.lock.equals("locked"))
-        this.status="opened";
+            this.status = "opened";
     }
-    public void lock(){
+
+    public void setLock(){
         if(!this.status.equals("opened"))
-            this.lock="locked";
-    }
-    public void unlock(){
-        this.lock="unlocked";
+            this.lock = "locked";
     }
 
+    public void setUnlock(){
+        this.lock = "unlocked";
+    }
 
+    public String getDoorStatus() {
+        return status;
+    }
+
+    public String getDoorLock() {
+        return lock;
+    }
 }

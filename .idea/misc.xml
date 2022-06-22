@@ -13,7 +13,9 @@
         <entry key="app/src/main/res/drawable/close_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/dorr_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/energy_saving_asset.xml" value="0.3255" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.3255" />
+        <entry key="app/src/main/res/drawable/ic_logosmartclick.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/kitchen_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/microwave_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/play_asset.xml" value="0.3255" />
@@ -25,10 +27,14 @@
         <entry key="app/src/main/res/drawable/volume_down_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/layout/activity_devices.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_door.xml" value="0.3229166666666667" />
-        <entry key="app/src/main/res/layout/fragment_lamp.xml" value="0.3229166666666667" />
-        <entry key="app/src/main/res/layout/fragment_oven.xml" value="0.3229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_lamp.xml" value="0.6580645161290323" />
+        <entry key="app/src/main/res/layout/fragment_oven.xml" value="0.2275132275132275" />
+        <entry key="app/src/main/res/layout/fragment_refrigerator.xml" value="0.1721311475409836" />
         <entry key="app/src/main/res/layout/fragment_room.xml" value="0.3229166666666667" />
         <entry key="app/src/main/res/layout/fragment_routines.xml" value="0.3229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_speaker.xml" value="1.5" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.24" />
       </map>
     </option>
   </component>

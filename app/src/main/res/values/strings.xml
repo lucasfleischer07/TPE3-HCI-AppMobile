@@ -26,11 +26,57 @@
     <string name="refrigerator_type">Refrigerator</string>
     <string name="door_type">Door</string>
 
+
+    <string name="oven_heat_mode">Heat source:</string>
+    <string name="oven_heat_mode_down">Down</string>
+    <string name="oven_heat_mode_normal">Normal</string>
+    <string name="oven_heat_mode_up">Up</string>
+    <string name="oven_grill">Grill</string>
+    <string name="oven_grill_convection_off">Off</string>
+    <string name="oven_grill_convection_eco">Eco</string>
+    <string name="oven_grill_convection_large">Large</string>
+    <string name="oven_convection">Convection</string>
+
+
+    <string name="refrigerator_mode">Mode</string>
+
+    <string name="speaker_gender">Gender:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="routine_not_selected_message">Select a routine to see the details</string>
 
-    <!--    TODO: ES PARA PROBAR LO DE LAS HABITACIONES, DESPUES HABRIA QUE CAMBIARLO-->
-    <string name="rooms_in_screen">Room</string>
+    <!--Textos de las acciones de los dispositivos-->
+    <string name="door_lock">Door locked</string>
+    <string name="door_unlock">Door unlocked</string>
+    <string name="door_open">Door opened</string>
+    <string name="door_close">Door closed</string>
+
+    <string name="lamp_on">Lamp on</string>
+    <string name="lamp_off">Lamp off</string>
+    <string name="lamp_color_confirm">Color seleccionado</string>
+    <string name="lamp_color_cancel">Color selection cancel</string>
+
+    <string name="oven_on">Oven on</string>
+    <string name="oven_off">Oven off</string>
+    <string name="oven_heat_mode_down_activated">Heat source down activated</string>
+    <string name="oven_heat_mode_normal_activated">Heat source normal activated</string>
+    <string name="oven_heat_mode_up_activated">Heat source up activated</string>
+    <string name="oven_grill_mode_off">Grill mode deactivated</string>
+    <string name="oven_grill_mode_eco">Grill mode eco activated</string>
+    <string name="oven_grill_mode_large">Grill mode large activated</string>
+    <string name="oven_convection_mode_off">Convection mode deactivated</string>
+    <string name="oven_convection_mode_eco">Convection mode eco activated</string>
+    <string name="oven_convection_mode_large">Convection mode large activated</string>
+
+
+
+    <string name="refrigerator_mode_fest">Fest mode activated</string>
+    <string name="refrigerator_mode_vacations">Vacations mode activated</string>
+    <string name="refrigerator_mode_auto">Auto mode activated</string>
+
+
+    <string name="speaker_play">Play activated</string>
+
 
 
 </resources>

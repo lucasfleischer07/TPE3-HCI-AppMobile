@@ -11,6 +11,7 @@ import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.data.Status;
 import com.example.smartclick_app.model.Room;
 import com.example.smartclick_app.model.Routine;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.ui.RepositoryViewModel;
 
 import java.util.List;
@@ -72,5 +73,9 @@ public class RoomViewModel extends RepositoryViewModel<RoomRepository> {
                 rooms.setValue(resource);
             }
         });
+    }
+
+    public LiveData<Resource<List<Device>>> getRoomDevices(String roomId){
+        return repository.getRoomDevices(roomId);
     }
 }
