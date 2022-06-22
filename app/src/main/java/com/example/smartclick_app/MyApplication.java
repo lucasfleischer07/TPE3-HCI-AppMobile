@@ -42,7 +42,7 @@ public class MyApplication extends Application {
 
         appExecutors = new AppExecutors();
 
-        MyDatabase database = Room.databaseBuilder(this, MyDatabase.class, DATABASE_NAME).build();
+        MyDatabase database = Room.databaseBuilder(this, MyDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
 
         ApiRoomService roomService = ApiClient.create(ApiRoomService.class);
         roomRepository = new RoomRepository(appExecutors, roomService, database);

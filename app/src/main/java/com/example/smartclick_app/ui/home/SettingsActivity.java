@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,7 @@ import java.util.List;
 public class SettingsActivity extends AppCompatActivity {
 
     private ActivitySettingsBinding binding;
-
+    private List<House> houses;
 
 
     private int housesOptionsIndex=-1;
@@ -62,12 +63,39 @@ public class SettingsActivity extends AppCompatActivity {
                         houses.addAll(resource.data);
                         setHousesList(houses);
 
+
                     }
-                    break;
+
             }
         });
 
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MyApplication application = (MyApplication)this.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
+        HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
+        List<House> houses=new ArrayList<>();
+        viewModel.gethouses().observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+//                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+//                    activity.hideProgressBar();
+                    houses.clear();
+                    if (resource.data != null && resource.data.size() > 0) {
+                        houses.addAll(resource.data);
+                        setHousesList(houses);
+
+                    }
+
+            }
+        });
+
+    }
+
     private void setHousesList(List<House> houses){
         StringBuilder[] houseNames = new StringBuilder[houses.size()];
         Arrays.setAll(houseNames, i -> new StringBuilder(houses.get(i).getName()));
@@ -81,8 +109,10 @@ public class SettingsActivity extends AppCompatActivity {
                     housesOptionsIndex=-1;}
                 else if(houses.get(i).getId().equals(actualId)){
                     housesOptionsIndex=i;
-                    break;}
+                    break;
+                }
             }
+
         }
         Button buttonHouseSelector = findViewById(R.id.openHouseSelectorButton);
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);
@@ -122,10 +152,12 @@ public class SettingsActivity extends AppCompatActivity {
                             editor.putString("actualHouse",null);
                         }else {
                             editor.putString("actualHouse", houses.get(housesOptionsIndex).getId());
+
                         }
                         editor.apply();
                     }
                 });
+
                 builder.setSingleChoiceItems(houseNames, housesOptionsIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -135,6 +167,7 @@ public class SettingsActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
     }
 
     @Override

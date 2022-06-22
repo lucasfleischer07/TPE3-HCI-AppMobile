@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.smartclick_app.MyApplication;
+import com.example.smartclick_app.data.HouseRepository;
+import com.example.smartclick_app.model.House;
 import com.example.smartclick_app.model.Room;
 import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.R;
@@ -36,6 +38,7 @@ import com.example.smartclick_app.ui.MainActivity;
 import com.example.smartclick_app.data.Status.*;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DevicesActivity;
+import com.example.smartclick_app.ui.home.HouseViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.Serializable;
@@ -137,12 +140,15 @@ public class RoomFragment extends Fragment implements Serializable {
                     break;
             }
         });
-
         return devicesViewGroup;
     }
 
+
     private void forRooms(List<Room> rooms, LinearLayout generalLinearLayout){
+        SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String actualId=preferences.getString("actualHouse",null);
         for(int i = 0; i < rooms.size() ; i++) {
+            if(rooms.get(i).getHomeId().equals(actualId)){
             LinearLayout row = new LinearLayout(getContext());
             MaterialButton roomButton= new MaterialButton(getContext());
             roomButton.setTransformationMethod(null);
@@ -168,7 +174,7 @@ public class RoomFragment extends Fragment implements Serializable {
             row.setGravity(Gravity.CENTER);
             row.setPadding(50, 30, 50, 1);
             row.addView(roomButton);
-            generalLinearLayout.addView(row);
+            generalLinearLayout.addView(row);}
         }
 
     }
@@ -177,7 +183,7 @@ public class RoomFragment extends Fragment implements Serializable {
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        // * Si no se selecciono casa arranca en null
+
+       ;
     }
 }

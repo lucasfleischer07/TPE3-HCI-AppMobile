@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class RemoteRoutineMeta {
 
-    @SerializedName("houseId")
+    @SerializedName("homeId")
     @Expose
-    private String houseId;
+    private String homeId;
 
 
     public String getHouseId() {
-        return houseId;
+        return homeId;
     }
 
-    public void setHouseId(String houseId){
-        this.houseId=houseId;
+    public void setHouseId(String homeId){
+        this.homeId=homeId;
     }
 
    

@@ -15,6 +15,18 @@ public class RemoteRoom {
     @Expose
     private RemoteRoomMeta meta;
 
+    public RemoteHome getHome() {
+        return home;
+    }
+
+    public void setHome(RemoteHome home) {
+        this.home = home;
+    }
+
+    @SerializedName("home")
+    @Expose
+    private RemoteHome home;
+
     public String getId() {
         return id;
     }

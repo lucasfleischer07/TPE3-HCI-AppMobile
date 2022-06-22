@@ -66,6 +66,7 @@ public class RoutineRepository {
         remoteMeta.setHouseId(model.getHouseId());
         remote.setId(model.getId());
         remote.setName(model.getName());
+        remote.setMeta(remoteMeta);
 
         return remote;
     }
