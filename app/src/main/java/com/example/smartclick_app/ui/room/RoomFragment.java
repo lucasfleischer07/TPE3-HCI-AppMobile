@@ -60,14 +60,9 @@ public class RoomFragment extends Fragment implements Serializable {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private final int [] testPassingInfoArray = new int[] {1, 2, 3, 4};
-
 
     public static String DATABASE_NAME = "my-db";
-    AppExecutors appExecutors;
-    RoomRepository roomRepository;
 
-    private MainActivity activity;
     private RoomViewModel viewModel;
     private ViewGroup devicesViewGroup;
     private LinearLayout generalLinearLayout;
