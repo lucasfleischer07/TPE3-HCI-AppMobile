@@ -117,21 +117,21 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintVertical_bias="0.971"
         tools:ignore="MissingConstraints,NotSibling">
 
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="159dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:hint="@string/speaker_gender"
+            android:inputType="none"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout"
+            tools:ignore="MissingConstraints" />
+
+
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_width="159dp"
-        android:layout_height="36dp"
-        android:layout_weight="1"
-        android:hint="@string/speaker_gender"
-        android:inputType="none"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout"
-        tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

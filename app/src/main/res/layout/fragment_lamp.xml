@@ -22,11 +22,11 @@
 
     <TextView
         android:id="@+id/lampName"
-        android:layout_width="288dp"
-        android:layout_height="36dp"
+        android:layout_width="230dp"
+        android:layout_height="34dp"
         android:text="TextView"
-        android:textAlignment="center"
         android:textSize="25dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.251"
@@ -36,8 +36,10 @@
 
     <Button
         android:id="@+id/lampColorPicker"
-        android:layout_width="58dp"
-        android:layout_height="52dp"
+        android:layout_width="71dp"
+        android:layout_height="48dp"
+        android:text="Color"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.952"
@@ -47,17 +49,18 @@
 
     <Switch
         android:id="@+id/lampSwitchOnOff"
-        android:layout_width="55dp"
-        android:layout_height="43dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.953"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111"
+        android:layout_width="56dp"
+        android:layout_height="46dp"
         android:checked="false"
         android:textOff="Off"
         android:textOn="On"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.994"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.007"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <SeekBar
@@ -89,15 +92,15 @@
 
     <TextView
         android:id="@+id/lampTextViewPercentage"
-        android:layout_width="83dp"
-        android:layout_height="50dp"
-        android:gravity="center"
+        android:layout_width="77dp"
+        android:layout_height="28dp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.585"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.816" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
