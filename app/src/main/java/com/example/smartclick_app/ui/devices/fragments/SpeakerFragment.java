@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.model.Devices.Speaker;
+import com.example.smartclick_app.ui.devices.playlistDialog;
+import com.google.android.material.textfield.TextInputLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,9 +34,10 @@ public class SpeakerFragment extends Fragment {
     private String deviceGenre;
     private String deviceStatus;
 
-//    String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
-//    AutoCompleteTextView autoCompleteTextView;
-//    ArrayAdapter<String> adapterItems;
+
+    String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
+    AutoCompleteTextView autoCompleteText;
+    ArrayAdapter<String> adapterItems;
 
 
     public SpeakerFragment() {
@@ -115,22 +118,94 @@ public class SpeakerFragment extends Fragment {
             }
         });
 
-        String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
-        AutoCompleteTextView autoCompleteTextView;
-        ArrayAdapter<String> adapterItems;
+//        String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
+//        AutoCompleteTextView autoCompleteTextView;
+//        ArrayAdapter<String> adapterItems;
 
-        autoCompleteTextView = speakerFragmentLayout.findViewById(R.id.autoCompleteTextView);
-        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_items,itemsDropMenu);
-        autoCompleteTextView.setAdapter(adapterItems);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        autoCompleteText = speakerFragmentLayout.findViewById(R.id.autoCompleteTextView);
+        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_item,itemsDropMenu);
+        autoCompleteText.setAdapter(adapterItems);
+        autoCompleteText.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getContext(), "Item"+ item, Toast.LENGTH_SHORT).show();
+                deviceGenre = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getContext(), getString(R.string.speaker_gender_toast) +" "+ deviceGenre, Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        return speakerFragmentLayout;
+
+        Button speakerPlaylist = speakerFragmentLayout.findViewById(R.id.speakerPlaylist);
+//        TODO: Ver de meter la del estado acrual de la api
+//        ovenActualHeatSource.setText();
+        speakerPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO: Meter la accion de llamar a la api
+                String songs;
+                switch (deviceGenre){
+                    case Speaker.GENDER_CLASSICAL:
+                         songs = "Nombre: Speaking Unto Nations (Beethoven Symphony no 7 - II), duración: 5:02\n" +
+                                "Nombre: The Well-Tempered Clavier: Book 1, Prelude in C Major, duración: 2:19\n" +
+                                "Nombre: Handel / Orch. Hale: Keyboard Suite in D Minor, duración: 3:27\n" +
+                                "Nombre: Piano Sonata No. 14 in C-Sharp Minor, Op. 27 No. 2, duración: 7:22";
+                    break;
+
+                    case Speaker.GENDER_COUNTRY:
+                         songs = "Nombre: Singles You Up, duración: 3:02\n" +
+                                "Nombre: Tequila, duración: 3:15\n" +
+                                "Nombre: Get Along, duración: 3:19\n" +
+                                "Nombre: What Ifs, duración: 3:08\n" +
+                                "Nombre: Simple, duración: 3:05";
+                    break;
+
+                    case Speaker.GENDER_DANCE:
+                        songs = "pedido a api";
+                        break;
+
+                    case Speaker.GENDER_LATINA:
+                    songs = "pedido a api 2";
+                    break;
+
+                    case Speaker.GENDER_POP:
+                    songs = "pedido a api 3";
+                    break;
+
+                    case Speaker.GENDER_ROCK:
+                    songs = "pedido a api 4";
+                    break;
+
+
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + deviceGenre);
+                }
+                playlistDialog(songs);
+                Toast.makeText(getContext(), getString(R.string.speaker_playlist_toast), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+                return speakerFragmentLayout;
+    }
+
+    public void playlistDialog(String songs) {
+        playlistDialog playlist = new playlistDialog(songs);
+        playlist.show(getChildFragmentManager(), "h");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

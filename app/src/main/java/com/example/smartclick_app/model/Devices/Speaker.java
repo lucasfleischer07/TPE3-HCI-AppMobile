@@ -16,6 +16,17 @@ public class Speaker extends Device {
     public final static String ACTION_PREVIOUS_SONG="previousSong";
     public final static String ACTION_SET_GENRE="setGenre";
     public final static String ACTION_GET_PLAYLIST="getPlaylist";
+    public final static String GENDER_CLASSICAL="classical";
+    public final static String GENDER_COUNTRY="country";
+    public final static String GENDER_DANCE="dance";
+    public final static String GENDER_LATINA="latina";
+    public final static String GENDER_POP="pop";
+    public final static String GENDER_ROCK="rock";
+
+
+
+
+
 
 
     public Speaker(String id,String name,int volume,String status,String genre){

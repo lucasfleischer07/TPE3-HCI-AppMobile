@@ -78,6 +78,12 @@
     <string name="refrigerator_mode_auto">Modo auto activado</string>
 
     <string name="speaker_play">Play activado</string>
+    <string name="speaker_gender_toast">Género seleccionado:</string>
+    <string name="speaker_playlist_toast">Playlist seleccionada</string>
+    <string name="speaker_playlist_gender">Lista de reproducción</string>
+
+
+
     <!--    DropDownMenu Speaker-->
     <string-array name="playlist_genders">
         <item>Classical</item>

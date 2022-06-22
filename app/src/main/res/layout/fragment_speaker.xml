@@ -102,6 +102,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.777" />
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -113,10 +114,12 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.971"
+        app:startIconDrawable="@drawable/radio_asset"
         tools:ignore="MissingConstraints,NotSibling">
+
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
-            android:layout_width="159dp"
+            android:layout_width="182dp"
             android:layout_height="36dp"
             android:layout_weight="1"
             android:hint="@string/speaker_gender"
@@ -125,7 +128,8 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
