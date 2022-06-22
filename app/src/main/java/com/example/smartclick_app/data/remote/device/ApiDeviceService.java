@@ -11,11 +11,12 @@ import java.util.List;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiDeviceService {
 
-    @POST("devices/{deviceId}/{actionName}")
+    @PUT("devices/{deviceId}/{actionName}")
     LiveData<ApiResponse<RemoteResult<Object>>> executeAction(@Path("deviceId")String deviceId, @Path("actionName")String actionName,@Body RemoteAction parameter);
 
 }
