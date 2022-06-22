@@ -45,6 +45,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,6 +138,12 @@ public class RoomFragment extends Fragment implements Serializable {
         generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
+        if(actualId==null && rooms.size()>0){
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("actualHouse",rooms.get(0).getHomeId());
+            editor.apply();
+            actualId=preferences.getString("actualHouse",null);
+        }
         for(int i = 0; i < rooms.size() ; i++) {
             if(rooms.get(i).getHomeId().equals(actualId)){
             LinearLayout row = new LinearLayout(getContext());
