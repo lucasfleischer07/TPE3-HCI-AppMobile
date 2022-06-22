@@ -118,6 +118,6 @@ public class SpeakerFragment extends Fragment {
         });
 
 
-        return inflater.inflate(R.layout.fragment_speaker, container, false);
+        return speakerFragmentLayout;
     }
 }
