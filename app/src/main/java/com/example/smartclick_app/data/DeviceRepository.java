@@ -11,6 +11,7 @@ import com.example.smartclick_app.data.local.routine.LocalRoutine;
 import com.example.smartclick_app.data.remote.ApiResponse;
 import com.example.smartclick_app.data.remote.RemoteResult;
 import com.example.smartclick_app.data.remote.device.ApiDeviceService;
+import com.example.smartclick_app.data.remote.device.RemoteAction;
 import com.example.smartclick_app.data.remote.device.RemoteIntAction;
 import com.example.smartclick_app.data.remote.device.RemoteStringAction;
 
@@ -91,8 +92,8 @@ public class DeviceRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
-                RemoteIntAction action = new RemoteIntAction();
-                return service.executeActionInt(deviceId, actionName,action);
+                RemoteAction<Integer> action = new RemoteAction<>();
+                return service.<Integer>executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }
@@ -129,9 +130,8 @@ public class DeviceRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
-                RemoteIntAction action = new RemoteIntAction();
-                action.setParams(parameter);
-                return service.executeActionInt(deviceId, actionName,action);
+                RemoteIntAction action = new RemoteIntAction(parameter);
+                return service.<Integer>executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }
@@ -167,9 +167,8 @@ public class DeviceRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
-                RemoteStringAction action = new RemoteStringAction();
-                action.setParams(parameter);
-                return service.executeActionString(deviceId, actionName,action);
+                RemoteStringAction action = new RemoteStringAction(parameter);
+                return service.<String>executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }

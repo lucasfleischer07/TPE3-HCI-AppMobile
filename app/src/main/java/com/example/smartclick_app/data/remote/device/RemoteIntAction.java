@@ -4,16 +4,18 @@ import com.example.smartclick_app.data.remote.room.RemoteHome;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RemoteIntAction {
-    @SerializedName("params")
-    @Expose
-    private int[] params= new int[5];
+import java.util.ArrayList;
 
-    public int[] getParams() {
-        return params;
+public class RemoteIntAction extends RemoteAction<Integer> {
+
+    public RemoteIntAction(int data){
+        super(data);
+
     }
 
-    public void setParams(int parameter) {
-        this.params[0] = parameter;
+    public RemoteIntAction(double data){
+        super( (int)data);
     }
+
+
 }
