@@ -8,4 +8,8 @@ public class RemoteStringAction extends RemoteAction<String> {
     public RemoteStringAction(String data){
         super(data);
     }
+
+    public RemoteStringAction(){
+
+    }
 }

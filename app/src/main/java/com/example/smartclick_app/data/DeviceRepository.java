@@ -92,7 +92,7 @@ public class DeviceRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
-                RemoteAction<Integer> action = new RemoteAction<>();
+                RemoteStringAction action = new RemoteStringAction();
                 return service.executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
