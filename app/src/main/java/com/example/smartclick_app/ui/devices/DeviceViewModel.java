@@ -18,7 +18,16 @@ public class DeviceViewModel extends RepositoryViewModel<DeviceRepository> {
         super(repository);
     }
 
-    public LiveData<Resource<Void>> executeRoutine(String routineId,String actionName) {
+    public LiveData<Resource<Void>> executeDeviceAction(String routineId,String actionName) {
         return repository.executeAction(routineId,actionName);
     }
+
+    public LiveData<Resource<Void>> executeDeviceActionWithInt(String routineId,String actionName,int parameter) {
+        return repository.executeIntAction(routineId,actionName,parameter);
+    }
+
+    public LiveData<Resource<Void>> executeDeviceActionWithString(String routineId,String actionName,String parameter) {
+        return repository.executeStringAction(routineId,actionName,parameter);
+    }
+
 }
