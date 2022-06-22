@@ -11,8 +11,7 @@ import com.example.smartclick_app.data.local.room.RoomDao;
 import com.example.smartclick_app.data.local.routine.LocalRoutine;
 import com.example.smartclick_app.data.local.routine.RoutineDao;
 
-@Database(entities = {LocalRoom.class, LocalHome.class, LocalRoutine.class}, exportSchema = true,
-        version = 5)
+@Database(entities = {LocalRoom.class, LocalHome.class, LocalRoutine.class}, exportSchema = true, version = 6)
 
 public abstract class MyDatabase extends RoomDatabase {
 

@@ -27,12 +27,66 @@
     <string name="refrigerator_type">Heladera</string>
     <string name="door_type">Puerta</string>
 
+    <string name="oven_heat_mode">Fuente calor:</string>
+    <string name="oven_heat_mode_down">Abajo</string>
+    <string name="oven_heat_mode_normal">Normal</string>
+    <string name="oven_heat_mode_up">Arriba</string>
+    <string name="oven_grill">Grill</string>
+    <string name="oven_grill_convection_off">Apagado</string>
+    <string name="oven_grill_convection_eco">Eco</string>
+    <string name="oven_grill_convection_large">Máximo</string>
+    <string name="oven_convection">Convección</string>
+
+
+
+    <string name="refrigerator_mode">Modo</string>
+    <string name="refrigerator_fest">Fiesta</string>
+    <string name="refrigerator_vacations">Vacaciones</string>
+    <string name="refrigerator_auto">Auto</string>
+
+    <string name="speaker_gender">Género:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="routine_not_selected_message">Seleccione una rutina para ver los detalles</string>
 
-    <!--    TODO: ES PARA PROBAR LO DE LAS HABITACIONES, DESPUES HABRIA QUE CAMBIARLO-->
-    <string name="rooms_in_screen">Habitación</string>
+    <!--Textos de las acciones de los dispositivos-->
+    <string name="door_lock">Puerta trabada</string>
+    <string name="door_unlock">Puerta destrabada</string>
+    <string name="door_open">Puerta abierta</string>
+    <string name="door_close">Puerta cerrada</string>
 
+    <string name="lamp_on">Lámpara prendida</string>
+    <string name="lamp_off">Lámpara apagada</string>
+    <string name="lamp_color_confirm">Color seleccionado</string>
+    <string name="lamp_color_cancel">Selección de color cancelada</string>
+
+    <string name="oven_on">Horno prendido</string>
+    <string name="oven_off">Horno apagado</string>
+    <string name="oven_heat_mode_down_activated">Fuente calor abajo activada</string>
+    <string name="oven_heat_mode_normal_activated">Fuente calor normal activada</string>
+    <string name="oven_heat_mode_up_activated">Fuente calor arriba activada</string>
+    <string name="oven_grill_mode_off">Modo grill desactivado</string>
+    <string name="oven_grill_mode_eco">Modo grill eco activado</string>
+    <string name="oven_grill_mode_large">Modo grill máximo activado</string>
+    <string name="oven_convection_mode_off">Modo convección desactivado</string>
+    <string name="oven_convection_mode_eco">Modo convección eco activado</string>
+    <string name="oven_convection_mode_large">Modo convección máximo activado</string>
+
+
+    <string name="refrigerator_mode_fest">Modo fiesta activado</string>
+    <string name="refrigerator_mode_vacations">Modo vacaciones activado</string>
+    <string name="refrigerator_mode_auto">Modo auto activado</string>
+
+    <string name="speaker_play">Play activado</string>
+    <!--    DropDownMenu Speaker-->
+    <string-array name="playlist_genders">
+        <item>Classical</item>
+        <item>Country</item>
+        <item>Dance</item>
+        <item>Latina</item>
+        <item>Pop</item>
+        <item>Rock</item>
+    </string-array>
 
 
 </resources>

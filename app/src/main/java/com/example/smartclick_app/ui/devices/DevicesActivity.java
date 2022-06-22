@@ -1,29 +1,33 @@
 package com.example.smartclick_app.ui.devices;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.databinding.ActivityDevicesBinding;
-import com.example.smartclick_app.model.Room;
-import com.google.android.material.button.MaterialButton;
+import com.example.smartclick_app.model.Device;
+import com.example.smartclick_app.model.Devices.Door;
+import com.example.smartclick_app.model.Devices.Lightbulb;
+import com.example.smartclick_app.model.Devices.Oven;
+import com.example.smartclick_app.model.Devices.Refrigerator;
+import com.example.smartclick_app.model.Devices.Speaker;
+import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.devices.fragments.DoorFragment;
+import com.example.smartclick_app.ui.devices.fragments.LightbulbFragment;
+import com.example.smartclick_app.ui.devices.fragments.OvenFragment;
+import com.example.smartclick_app.ui.devices.fragments.RefrigeratorFragment;
+import com.example.smartclick_app.ui.devices.fragments.SpeakerFragment;
+import com.example.smartclick_app.ui.room.RoomViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,8 @@ import java.util.List;
 public class DevicesActivity extends AppCompatActivity {
 
     private ActivityDevicesBinding binding;
+    private RoomViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,66 +48,104 @@ public class DevicesActivity extends AppCompatActivity {
         String roomId = intent.getStringExtra("ROOM_ID");
         String roomName = intent.getStringExtra("ROOM_NAME");
 
+        LinearLayout generalLinearLayout = findViewById(R.id.devicesRoomLinearLayout);
+//        View generalLinearLayout = findViewById(R.id.activityDevices);
+
+
+        MyApplication application = (MyApplication) this.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
+
+        List<Device> roomDevices = new ArrayList<>();
+        viewModel.getRoomDevices(roomId).observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+//                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+//                    activity.hideProgressBar();
+                    if (resource.data != null && resource.data.size() > 0) {
+                        Log.d("devices", resource.data.toString());
+                        roomDevices.addAll(resource.data);
+                        forDevices(roomDevices, generalLinearLayout);
+                    }
+                    break;
+            }
+        });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(roomName);
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        LinearLayout generalLinearLayout = findViewById(R.id.devicesRoomLinearLayout);
-
-//        TODO: Aca hay que pasarle los devices
-        forDevices(generalLinearLayout);
 
     }
 
 
 //  TODO: Cambiar la lista de rooms por la lista de devices
-    private void forDevices(LinearLayout generalLinearLayout){
-        for(int i = 0; i < 2 ; i++) {
-            LinearLayout row = new LinearLayout(this);
-            LinearLayout card = new LinearLayout(this);
-            card.setBackgroundColor(card.getContext().getResources().getColor(R.color.main_act_background));
+
+    private void forDevices( List<Device> roomDevices, View generalLinearLayout) {
+        for(int i = 0; i < roomDevices.size() ; i++) {
+//            LinearLayout row = new LinearLayout(this);
+            switch (roomDevices.get(i).getTypeId()) {
+                case Door.TYPE_ID:
+                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), DoorFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    break;
+                case Oven.TYPE_ID:
+                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), OvenFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    break;
+                case Refrigerator.TYPE_ID:
+                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RefrigeratorFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    break;
+                case Speaker.TYPE_ID:
+                    Log.d("nombre", roomDevices.get(i).getName());
+                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), SpeakerFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    break;
+                case Lightbulb.TYPE_ID:
+                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), LightbulbFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    break;
+
+            }
 
 
-//            Icono del parlante
-            TextView deviceIcon = new TextView(this);
-            deviceIcon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.speaker_asset, 0, 0, 0);
-            deviceIcon.setText("Parlante");
-            deviceIcon.setTextSize(20);
-            card.addView(deviceIcon);
-
-
-            card = new LinearLayout(this);
-            card.setDividerPadding(10);
-            card.setBackgroundColor(card.getContext().getResources().getColor(R.color.main_act_background));
-            MaterialButton deviceButton= new MaterialButton(this);
-            deviceButton.setId(i);
-            deviceButton.setTextSize(25);
-            deviceButton.setIcon(ContextCompat.getDrawable(this, R.drawable.play_asset));
-            deviceButton.setTransformationMethod(null);
-//            deviceButton.setBackgroundColor(deviceButton.getContext().getResources().getColor(R.color.main_act_background));
-//            deviceButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+//
+//            MaterialButton routineButton = new MaterialButton(getContext());
+//            routineButton.setText(routines.get(i).getName());
+//            routineButton.setId(i);
+//            routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
 //            int finalI = i;
-            deviceButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    String roomId = rooms.get(finalI).getId();
-//                    String roomName = rooms.get(finalI).getName();
-//                    Intent intent = new Intent(getContext(), DevicesActivity.class);
-//                    intent.putExtra("ROOM_ID", roomId);
-//                    intent.putExtra("ROOM_NAME", roomName);
-//                    startActivity(intent);
-//                    Toast.makeText(getContext(), getString(R.string.room_selected) + " " + rooms.get(finalI).getName(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            card.addView(deviceButton);
+//            routineButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    viewModel.executeRoutine(routines.get(finalI).getId()).observe(getViewLifecycleOwner(), resource -> {
+//                        switch (resource.status) {
+//                            case LOADING:
+////                    activity.showProgressBar();
+//                                break;
+//                            case SUCCESS:
+////                    activity.hideProgressBar();
+//                                Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+//                                break;
+//                        }
+//                    });
+////                    viewModel.executeRoutine(routines.get(finalI).getId());
+//                }
+//            });
 
 
-            row.setGravity(Gravity.CENTER);
-            row.setPadding(50, 30, 50, 1);
-            row.addView(card);
-//            row.addView(deviceButton);
-            generalLinearLayout.addView(row);
+//            View horizontalLine = new View(getContext());
+//            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+//            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
+
+//            row.setGravity(Gravity.CENTER);
+//            row.setPadding(3, 1, 50, 1);
+//            row.addView(routineButton);
+//            generalLinearLayout.addView(row);
+
+//            row = new LinearLayout(getContext());
+//            row.setPadding(0, 20, 0, 20);
+//            row.addView(horizontalLine);
+//            generalLinearLayout.addView(row);
         }
 
     }

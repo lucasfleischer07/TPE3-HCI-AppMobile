@@ -26,6 +26,7 @@ import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.data.HouseRepository;
 import com.example.smartclick_app.model.House;
 import com.example.smartclick_app.model.Room;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.AppExecutors;
 import com.example.smartclick_app.data.Resource;
@@ -65,6 +66,7 @@ public class RoomFragment extends Fragment implements Serializable {
     RoomRepository roomRepository;
 
     private MainActivity activity;
+    private RoomViewModel viewModel;
     private ViewGroup devicesViewGroup;
     private LinearLayout generalLinearLayout;
 
@@ -72,7 +74,6 @@ public class RoomFragment extends Fragment implements Serializable {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
 
     public RoomFragment() {
         // Required empty public constructor
@@ -115,19 +116,17 @@ public class RoomFragment extends Fragment implements Serializable {
 
     }
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        MainActivity activity = (MainActivity)requireActivity();
+        MainActivity activity = (MainActivity) getActivity();
         MyApplication application = (MyApplication)activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
-        RoomViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
-        
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
+
         devicesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_room, container, false);
         generalLinearLayout = devicesViewGroup.findViewById(R.id.roomLinearLayout);
         refreshData();
-
         return devicesViewGroup;
     }
 
@@ -165,7 +164,6 @@ public class RoomFragment extends Fragment implements Serializable {
             row.setPadding(50, 30, 50, 1);
             row.addView(roomButton);
             generalLinearLayout.addView(row);}
-
         }
 
     }

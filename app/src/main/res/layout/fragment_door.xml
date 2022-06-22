@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:layout_margin="10dp"
-    android:background="@color/main_act_background">
+    android:background="@color/main_act_background"
+    tools:context=".ui.devices.fragments.DoorFragment">
 
     <ImageView
         android:id="@+id/doorIcon"
@@ -24,7 +25,6 @@
         android:layout_width="288dp"
         android:layout_height="36dp"
         android:text="TextView"
-        android:textAlignment="center"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

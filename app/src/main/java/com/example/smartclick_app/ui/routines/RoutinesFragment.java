@@ -106,46 +106,47 @@ public class RoutinesFragment extends Fragment {
         generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
-        for(int i = 0; i < routines.size(); i++) {
-            if(routines.get(i).getHouseId().equals(actualId)){
-            LinearLayout row = new LinearLayout(getContext());
-            MaterialButton routineButton = new MaterialButton(getContext());
-            routineButton.setText(routines.get(i).getName());
-            routineButton.setId(i);
-            routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
-            int finalI = i;
-            routineButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewModel.executeRoutine(routines.get(finalI).getId()).observe(getViewLifecycleOwner(), resource -> {
-                        switch (resource.status) {
-                            case LOADING:
+        for (int i = 0; i < routines.size(); i++) {
+            if (routines.get(i).getHouseId().equals(actualId)) {
+                LinearLayout row = new LinearLayout(getContext());
+                MaterialButton routineButton = new MaterialButton(getContext());
+                routineButton.setText(routines.get(i).getName());
+                routineButton.setId(i);
+                routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
+                int finalI = i;
+                routineButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewModel.executeRoutine(routines.get(finalI).getId()).observe(getViewLifecycleOwner(), resource -> {
+                            switch (resource.status) {
+                                case LOADING:
 //                    activity.showProgressBar();
-                                break;
-                            case SUCCESS:
+                                    break;
+                                case SUCCESS:
 //                    activity.hideProgressBar();
-                                Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
-                                break;
-                        }
-                    });
+                                    Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        });
 //                    viewModel.executeRoutine(routines.get(finalI).getId());
-                }
-            });
+                    }
+                });
 
 
-            View horizontalLine = new View(getContext());
-            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
+//            View horizontalLine = new View(getContext());
+//            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+//            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
 
-            row.setGravity(Gravity.END);
-            row.setPadding(3, 1, 50, 1);
-            row.addView(routineButton);
-            generalLinearLayout.addView(row);
+                row.setGravity(Gravity.CENTER);
+                row.setPadding(3, 1, 50, 1);
+                row.addView(routineButton);
+                generalLinearLayout.addView(row);
 
-            row = new LinearLayout(getContext());
-            row.setPadding(0, 20, 0, 20);
-            row.addView(horizontalLine);
-            generalLinearLayout.addView(row);}
+//            row = new LinearLayout(getContext());
+//            row.setPadding(0, 20, 0, 20);
+//            row.addView(horizontalLine);
+//            generalLinearLayout.addView(row);
+            }
         }
     }
  void refreshData(){
