@@ -7,6 +7,11 @@ public class Refrigerator extends Device {
     private int freezerTemperature;
     private String mode;
     public final static String TYPE_ID="rnizejqr2di0okho";
+    public final static String ACTION_SET_FREZ_TEMP = "setFreezerTemperature";
+    public final static String ACTION_SET_TEMP = "setTemperature";
+    public final static String ACTION_SET_MODE = "setMode";
+
+
 
     public Refrigerator(String id,String name,int temperature,int freezerTemperature, String mode){
         super(id,name,TYPE_ID);

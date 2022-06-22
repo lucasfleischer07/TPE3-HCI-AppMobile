@@ -7,6 +7,16 @@ public class Speaker extends Device {
     private String status;
     private String genre;
     public final static String TYPE_ID="c89b94e8581855bc";
+    public final static String ACTION_SET_VOLUME="setVolume";
+    public final static String ACTION_PLAY="play";
+    public final static String ACTION_STOP="stop";
+    public final static String ACTION_PAUSE="pause";
+    public final static String ACTION_RESUME="resume";
+    public final static String ACTION_NEXT_SONG="nextSong";
+    public final static String ACTION_PREVIOUS_SONG="previousSong";
+    public final static String ACTION_SET_GENRE="setGenre";
+    public final static String ACTION_GET_PLAYLIST="getPlaylist";
+
 
     public Speaker(String id,String name,int volume,String status,String genre){
         super(id,name,TYPE_ID);
