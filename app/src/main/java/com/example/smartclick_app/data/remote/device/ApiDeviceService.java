@@ -16,6 +16,6 @@ import retrofit2.http.Path;
 public interface ApiDeviceService {
 
     @POST("devices/{deviceId}/{actionName}")
-    <T> LiveData<ApiResponse<RemoteResult<Object>>> executeAction(@Path("deviceId")String deviceId, @Path("actionName")String actionName,@Body RemoteAction<T> parameter);
+    LiveData<ApiResponse<RemoteResult<Object>>> executeAction(@Path("deviceId")String deviceId, @Path("actionName")String actionName,@Body RemoteAction parameter);
 
 }

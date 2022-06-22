@@ -93,7 +93,7 @@ public class DeviceRepository {
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
                 RemoteAction<Integer> action = new RemoteAction<>();
-                return service.<Integer>executeAction(deviceId, actionName,action);
+                return service.executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }
@@ -131,7 +131,7 @@ public class DeviceRepository {
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
                 RemoteIntAction action = new RemoteIntAction(parameter);
-                return service.<Integer>executeAction(deviceId, actionName,action);
+                return service.executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }
@@ -168,7 +168,7 @@ public class DeviceRepository {
             @Override
             protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
                 RemoteStringAction action = new RemoteStringAction(parameter);
-                return service.<String>executeAction(deviceId, actionName,action);
+                return service.executeAction(deviceId, actionName,action);
             }
         }.asLiveData();
     }
