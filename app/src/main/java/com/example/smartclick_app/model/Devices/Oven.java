@@ -9,6 +9,12 @@ public class Oven extends Device {
     private String status;
     private int temperature;
     public final static String TYPE_ID="im77xxyulpegfmv8";
+    public final static String ACTION_TURN_ON = "turnOn";
+    public final static String ACTION_TURN_OFF = "turnOff";
+    public final static String ACTION_SET_TEMPERATURE = "setTemperature";
+    public final static String ACTION_SET_HEAT = "setHeat";
+    public final static String ACTION_SET_GRILL = "setGrill";
+    public final static String ACTION_SET_CONVECTION = "setConvection";
 
 
     public Oven(String id,String name,String convection,String grillMode, String heatZone,String status,int temperature){
