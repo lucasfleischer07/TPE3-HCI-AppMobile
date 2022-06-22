@@ -69,15 +69,20 @@
     <string name="oven_convection_mode_eco">Modo convección eco activado</string>
     <string name="oven_convection_mode_large">Modo convección máximo activado</string>
 
-
-
-
     <string name="refrigerator_mode_fest">Modo fiesta activado</string>
     <string name="refrigerator_mode_vacations">Modo vacaciones activado</string>
     <string name="refrigerator_mode_auto">Modo auto activado</string>
 
-
     <string name="speaker_play">Play activado</string>
+
+    <string-array name="playlist_genders">
+        <item>Classical</item>
+        <item>Country</item>
+        <item>Dance</item>
+        <item>Latina</item>
+        <item>Pop</item>
+        <item>Rock</item>
+    </string-array>
 
 
 

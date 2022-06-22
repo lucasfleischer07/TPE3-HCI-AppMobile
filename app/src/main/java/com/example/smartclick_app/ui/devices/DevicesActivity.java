@@ -98,6 +98,7 @@ public class DevicesActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RefrigeratorFragment.newInstance(roomDevices.get(i).getName())).commit();
                     break;
                 case Speaker.TYPE_ID:
+                    Log.d("nombre", roomDevices.get(i).getName());
                     getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), SpeakerFragment.newInstance(roomDevices.get(i).getName())).commit();
                     break;
                 case Lightbulb.TYPE_ID:

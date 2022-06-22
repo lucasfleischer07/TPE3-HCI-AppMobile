@@ -4,9 +4,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -23,6 +27,11 @@ public class SpeakerFragment extends Fragment {
 
     private String deviceName;
 
+//    String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
+//    AutoCompleteTextView autoCompleteTextView;
+//    ArrayAdapter<String> adapterItems;
+
+
     public SpeakerFragment() {
         // Required empty public constructor
     }
@@ -32,6 +41,7 @@ public class SpeakerFragment extends Fragment {
         SpeakerFragment fragment = new SpeakerFragment();
         Bundle args = new Bundle();
         args.putString("deviceName", deviceName);
+        Log.d("nombre", deviceName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,6 +52,8 @@ public class SpeakerFragment extends Fragment {
         if (getArguments() != null) {
             deviceName = getArguments().getString("deviceName");
         }
+        Log.d("nombreCreate", deviceName);
+
     }
 
     @Override
@@ -90,8 +102,20 @@ public class SpeakerFragment extends Fragment {
             }
         });
 
+        String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
+        AutoCompleteTextView autoCompleteTextView;
+        ArrayAdapter<String> adapterItems;
 
-
+        autoCompleteTextView = speakerFragmentLayout.findViewById(R.id.autoCompleteTextView);
+        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_items,itemsDropMenu);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getContext(), "Item"+ item, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return inflater.inflate(R.layout.fragment_speaker, container, false);
