@@ -11,6 +11,12 @@ public class Door extends Device {
     public final static String ACTION_LOCK = "lock";
     public final static String ACTION_UNLOCK = "unlock";
 
+    public final static String OPEN = "opened";
+    public final static String CLOSE = "closed";
+    public final static String LOCK = "locked";
+    public final static String UNLOCK = "unlocked";
+
+
 
     public Door(String id,String name,String status,String lock){
         super(id,name,TYPE_ID);
