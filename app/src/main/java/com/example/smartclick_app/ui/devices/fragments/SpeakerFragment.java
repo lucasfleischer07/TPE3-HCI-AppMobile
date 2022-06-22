@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.model.Devices.Speaker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +27,10 @@ import com.example.smartclick_app.R;
 public class SpeakerFragment extends Fragment {
 
     private String deviceName;
+    private String deviceId;
+    private int deviceVolume;
+    private String deviceGenre;
+    private String deviceStatus;
 
 //    String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
 //    AutoCompleteTextView autoCompleteTextView;
@@ -37,11 +42,15 @@ public class SpeakerFragment extends Fragment {
     }
 
 
-    public static SpeakerFragment newInstance(String deviceName) {
+    public static SpeakerFragment newInstance(Speaker device) {
         SpeakerFragment fragment = new SpeakerFragment();
         Bundle args = new Bundle();
-        args.putString("deviceName", deviceName);
-        Log.d("nombre", deviceName);
+        args.putString("deviceName", device.getName());
+        args.putString("deviceId", device.getId());
+        args.putInt("deviceVolume", device.getVolume());
+        args.putString("deviceGenre", device.getGenre());
+        args.putString("deviceStatus", device.getStatus());
+        Log.d("nombre", device.getName());
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,6 +60,10 @@ public class SpeakerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             deviceName = getArguments().getString("deviceName");
+            deviceId = getArguments().getString("deviceId");
+            deviceVolume = getArguments().getInt("deviceVolume");
+            deviceGenre = getArguments().getString("deviceGenre");
+            deviceStatus = getArguments().getString("deviceStatus");
         }
         Log.d("nombreCreate", deviceName);
 

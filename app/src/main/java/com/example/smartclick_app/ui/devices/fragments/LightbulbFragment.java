@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.model.Devices.Lightbulb;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -27,7 +28,10 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class LightbulbFragment extends Fragment {
 
     private String deviceName;
-
+    private String deviceId;
+    private String deviceColor;
+    private String deviceStatus;
+    private int deviceBrightness;
 
     public LightbulbFragment() {
         // Required empty public constructor
@@ -35,10 +39,14 @@ public class LightbulbFragment extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static LightbulbFragment newInstance(String deviceName) {
+    public static LightbulbFragment newInstance(Lightbulb device) {
         LightbulbFragment fragment = new LightbulbFragment();
         Bundle args = new Bundle();
-        args.putString("deviceName", deviceName);
+        args.putString("deviceName", device.getName());
+        args.putString("deviceId", device.getId());
+        args.putString("deviceColor", device.getColor());
+        args.putString("deviceStatus", device.getStatus());
+        args.putInt("deviceBrightness", device.getBrightness());
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +56,10 @@ public class LightbulbFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             deviceName = getArguments().getString("deviceName");
-
+            deviceId = getArguments().getString("deviceId");
+            deviceColor = getArguments().getString("deviceColor");
+            deviceStatus = getArguments().getString("deviceStatus");
+            deviceBrightness = getArguments().getInt("deviceBrightness");
         }
     }
 

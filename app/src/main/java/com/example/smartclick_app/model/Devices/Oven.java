@@ -27,6 +27,26 @@ public class Oven extends Device {
 
     }
 
+    public String getConvection() {
+        return convection;
+    }
+
+    public String getGrillMode() {
+        return grillMode;
+    }
+
+    public String getHeatZone() {
+        return heatZone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+
     public void setGrillMode(String newGrillMode){
         if (!newGrillMode.equals(grillMode)){
             //Llamar a la api

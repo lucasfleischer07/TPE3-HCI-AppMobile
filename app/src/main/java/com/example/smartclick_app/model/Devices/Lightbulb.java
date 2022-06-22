@@ -15,6 +15,18 @@ public class Lightbulb extends Device {
         this.status=status;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     public void changeBrightness(int newBrightness){
         if(newBrightness!=brightness) {
             //llamar a la api

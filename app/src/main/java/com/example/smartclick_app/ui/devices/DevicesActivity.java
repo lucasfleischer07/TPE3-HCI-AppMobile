@@ -89,24 +89,38 @@ public class DevicesActivity extends AppCompatActivity {
 //            LinearLayout row = new LinearLayout(this);
             switch (roomDevices.get(i).getTypeId()) {
                 case Door.TYPE_ID:
-                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), DoorFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    if(roomDevices.get(i) instanceof Door){
+                        Door doorDevice = (Door) roomDevices.get(i);
+                        getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), DoorFragment.newInstance(doorDevice)).commit();
+                    }
                     break;
                 case Oven.TYPE_ID:
-                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), OvenFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    if(roomDevices.get(i) instanceof Oven){
+                        Oven ovenDevice = (Oven) roomDevices.get(i);
+                        getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), OvenFragment.newInstance(ovenDevice)).commit();
+                    }
                     break;
                 case Refrigerator.TYPE_ID:
-                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RefrigeratorFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    if(roomDevices.get(i) instanceof Refrigerator){
+                        Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(i);
+                        getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RefrigeratorFragment.newInstance(refrigeratorDevice)).commit();
+                    }
                     break;
                 case Speaker.TYPE_ID:
                     Log.d("nombre", roomDevices.get(i).getName());
-                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), SpeakerFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    if(roomDevices.get(i) instanceof Speaker){
+                        Speaker speakerDevice = (Speaker) roomDevices.get(i);
+                        getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
+                    }
                     break;
                 case Lightbulb.TYPE_ID:
-                    getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), LightbulbFragment.newInstance(roomDevices.get(i).getName())).commit();
+                    if(roomDevices.get(i) instanceof Lightbulb){
+                        Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(i);
+                        getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), LightbulbFragment.newInstance(lightbulbDevice)).commit();
+                    }
                     break;
 
             }
-
 
 //
 //            MaterialButton routineButton = new MaterialButton(getContext());

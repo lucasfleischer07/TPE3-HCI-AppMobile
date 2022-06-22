@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.model.Device;
+import com.example.smartclick_app.model.Devices.Door;
+import com.example.smartclick_app.model.Devices.Oven;
 import com.example.smartclick_app.ui.devices.DevicesActivity;
 
 /**
@@ -26,17 +28,22 @@ import com.example.smartclick_app.ui.devices.DevicesActivity;
 public class DoorFragment extends Fragment {
 
     private String deviceName;
-
+    private String deviceId;
+    private String deviceLockInfo;
+    private String deviceDoorStatus;
     public DoorFragment() {
         // Required empty public constructor
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static DoorFragment newInstance(String deviceName) {
+    public static DoorFragment newInstance(Door device) {
         DoorFragment fragment = new DoorFragment();
         Bundle args = new Bundle();
-        args.putString("deviceName", deviceName);
+        args.putString("deviceName", device.getName());
+        args.putString("deviceId", device.getId());
+        args.putString("deviceLockInfo",device.getDoorLock());
+        args.putString("deviceDoorStatus",device.getDoorStatus());
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,6 +53,9 @@ public class DoorFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             deviceName = getArguments().getString("deviceName");
+            deviceId = getArguments().getString("deviceId");
+            deviceLockInfo = getArguments().getString("deviceLockInfo");
+            deviceDoorStatus = getArguments().getString("deviceDoorStatus");
 
         }
     }

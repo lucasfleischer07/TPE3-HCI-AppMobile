@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.model.Devices.Oven;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,17 +26,28 @@ import com.example.smartclick_app.R;
 public class OvenFragment extends Fragment {
 
     private String deviceName;
-
+    private String deviceId;
+    private String deviceConvection;
+    private String deviceStatus;
+    private String deviceGrill;
+    private String deviceHeatZone;
+    private int deviceTemperature;
 
     public OvenFragment() {
         // Required empty public constructor
     }
 
 
-    public static OvenFragment newInstance(String deviceName) {
+    public static OvenFragment newInstance(Oven device) {
         OvenFragment fragment = new OvenFragment();
         Bundle args = new Bundle();
-        args.putString("deviceName", deviceName);
+        args.putString("deviceName", device.getName());
+        args.putString("deviceId", device.getId());
+        args.putString("deviceConvection", device.getConvection());
+        args.putString("deviceGrill", device.getGrillMode());
+        args.putString("deviceStatus", device.getStatus());
+        args.putString("deviceHeatZone", device.getHeatZone());
+        args.putInt("deviceTemp", device.getTemperature());
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,6 +57,12 @@ public class OvenFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             deviceName = getArguments().getString("deviceName");
+            deviceId = getArguments().getString("deviceId");
+            deviceConvection = getArguments().getString("deviceConvection");
+            deviceStatus = getArguments().getString("deviceGrill");
+            deviceGrill = getArguments().getString("deviceStatus");
+            deviceHeatZone = getArguments().getString("deviceHeatZone");
+            deviceTemperature = getArguments().getInt("deviceTemp");
         }
     }
 

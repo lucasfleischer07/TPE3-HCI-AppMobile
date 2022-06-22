@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.model.Devices.Refrigerator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,16 +24,26 @@ import com.example.smartclick_app.R;
 public class RefrigeratorFragment extends Fragment {
 
     private String deviceName;
+    private String deviceId;
+    private int deviceTemperature;
+    private int deviceFreezerTemperature;
+    private String deviceMode;
+
+
 
     public RefrigeratorFragment() {
         // Required empty public constructor
     }
 
 
-    public static RefrigeratorFragment newInstance(String deviceName) {
+    public static RefrigeratorFragment newInstance(Refrigerator device) {
         RefrigeratorFragment fragment = new RefrigeratorFragment();
         Bundle args = new Bundle();
-        args.putString("deviceName", deviceName);
+        args.putString("deviceName", device.getName());
+        args.putString("deviceId", device.getId());
+        args.putInt("deviceTemperature", device.getTemperature());
+        args.putInt("deviceFreezerTemperature", device.getFreezerTemperature());
+        args.putString("deviceMode", device.getMode());
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,6 +53,10 @@ public class RefrigeratorFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             deviceName = getArguments().getString("deviceName");
+            deviceId = getArguments().getString("deviceId");
+            deviceFreezerTemperature = getArguments().getInt("deviceFreezerTemperature");
+            deviceMode = getArguments().getString("deviceMode");
+            deviceTemperature = getArguments().getInt("deviceTemp");
         }
     }
 

@@ -15,6 +15,18 @@ public class Speaker extends Device {
         this.genre=genre;
     }
 
+    public int getVolume() {
+        return volume;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
     public void changeVolume(int newVolume){
         if(volume!=newVolume){
             //llamar a la api

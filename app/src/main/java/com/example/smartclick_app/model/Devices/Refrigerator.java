@@ -15,6 +15,18 @@ public class Refrigerator extends Device {
         this.mode=mode;
     }
 
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public int getFreezerTemperature() {
+        return freezerTemperature;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
     public void changeTemprature(int newTemperature){
         if(temperature!=newTemperature){
             //llamar api
