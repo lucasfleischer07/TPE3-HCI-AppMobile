@@ -1,5 +1,6 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -61,7 +62,7 @@ public class RefrigeratorFragment extends Fragment {
                 // increment 1 in progress and
                 // increase the textsize
                 // with the value of progress
-                refrigeratorTemperatureNumber.setText(progress + "%");
+                refrigeratorTemperatureNumber.setText(progress + "°");
             }
 
             @Override
@@ -89,7 +90,7 @@ public class RefrigeratorFragment extends Fragment {
                 // increment 1 in progress and
                 // increase the textsize
                 // with the value of progress
-                freezerTemperatureNumber.setText(progress + "%");
+                freezerTemperatureNumber.setText(progress + "°");
             }
 
             @Override
@@ -108,28 +109,37 @@ public class RefrigeratorFragment extends Fragment {
         });
 
         Button modeRefrigeratorFest = refrigeratorFragmentLayout.findViewById(R.id.modeRefrigeratorFest);
+        TextView refrigeratorActualMode = refrigeratorFragmentLayout.findViewById(R.id.refrigeratorActualMode);
+//        TODO: Meter el estado actaul del modo
+//        refrigeratorActualMode.setText();
         modeRefrigeratorFest.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
 //          TODO: Meter la accion de abrir la puerta aca
-            Toast.makeText(getContext(), getString(R.string.refrigerator_mode_fest), Toast.LENGTH_SHORT).show();
-                }
+                refrigeratorActualMode.setText(": " + getString(R.string.refrigerator_fest));
+                Toast.makeText(getContext(), getString(R.string.refrigerator_mode_fest), Toast.LENGTH_SHORT).show();
+            }
         });
             
        Button modeRefrigeratorAuto = refrigeratorFragmentLayout.findViewById(R.id.modeRefrigeratorAuto);
        modeRefrigeratorAuto.setOnClickListener(new View.OnClickListener() {
+           @SuppressLint("SetTextI18n")
            @Override
            public void onClick(View v) {
 //                TODO: Meter la accion de abrir la puerta aca
+               refrigeratorActualMode.setText(": " + getString(R.string.refrigerator_auto));
                Toast.makeText(getContext(), getString(R.string.refrigerator_mode_auto), Toast.LENGTH_SHORT).show();
            }
        });            
      
        Button modeRefrigeratorVacation = refrigeratorFragmentLayout.findViewById(R.id.modeRefrigeratorVacation);
        modeRefrigeratorVacation.setOnClickListener(new View.OnClickListener() {
+          @SuppressLint("SetTextI18n")
           @Override
           public void onClick(View v) {
 //                TODO: Meter la accion de abrir la puerta aca
+              refrigeratorActualMode.setText(": " + getString(R.string.refrigerator_vacations));
               Toast.makeText(getContext(), getString(R.string.refrigerator_mode_vacations), Toast.LENGTH_SHORT).show();
           }
       });  

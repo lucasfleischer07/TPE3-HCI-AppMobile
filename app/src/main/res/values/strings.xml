@@ -39,6 +39,10 @@
 
 
     <string name="refrigerator_mode">Mode</string>
+    <string name="refrigerator_fest">Fest</string>
+    <string name="refrigerator_vacations">Vacations</string>
+    <string name="refrigerator_auto">Auto</string>
+
 
     <string name="speaker_gender">Gender:</string>
 
@@ -73,8 +77,7 @@
     <string name="refrigerator_mode_auto">Auto mode activated</string>
 
     <string name="speaker_play">Play activated</string>
-
-<!--    DropDownMenu Speaker-->
+    <!--    DropDownMenu Speaker-->
     <string-array name="playlist_genders">
         <item>Classical</item>
         <item>Country</item>
@@ -83,6 +86,7 @@
         <item>Pop</item>
         <item>Rock</item>
     </string-array>
+
 
 
 

@@ -26,14 +26,19 @@
         <entry key="app/src/main/res/drawable/thermostat_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/volume_down_asset.xml" value="0.3255" />
         <entry key="app/src/main/res/layout/activity_devices.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_door.xml" value="0.3229166666666667" />
-        <entry key="app/src/main/res/layout/fragment_lamp.xml" value="0.6580645161290323" />
+        <entry key="app/src/main/res/layout/fragment_door.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_lamp.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_oven.xml" value="0.2275132275132275" />
-        <entry key="app/src/main/res/layout/fragment_refrigerator.xml" value="0.1721311475409836" />
+        <entry key="app/src/main/res/layout/fragment_refrigerator.xml" value="1.25" />
         <entry key="app/src/main/res/layout/fragment_room.xml" value="0.3229166666666667" />
         <entry key="app/src/main/res/layout/fragment_routines.xml" value="0.3229166666666667" />
+<<<<<<< HEAD
         <entry key="app/src/main/res/layout/fragment_speaker.xml" value="1.1466498103666245" />
         <entry key="app/src/main/res/layout/list_items.xml" value="0.31979166666666664" />
+=======
+        <entry key="app/src/main/res/layout/fragment_speaker.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.321875" />
+>>>>>>> 4a8e8ae36e155397cc4f99e745c0bd177af62a9c
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.24" />
       </map>

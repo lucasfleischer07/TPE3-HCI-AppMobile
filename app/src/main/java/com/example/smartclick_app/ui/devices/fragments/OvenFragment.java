@@ -83,7 +83,7 @@ public class OvenFragment extends Fragment {
                 // increment 1 in progress and
                 // increase the textsize
                 // with the value of progress
-                ovenTextViewPercentage.setText(progress + "");
+                ovenTextViewPercentage.setText(progress + "°");
             }
 
             @Override
