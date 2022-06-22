@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartclick_app.MyApplication;
@@ -49,6 +50,8 @@ public class RoutinesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ViewGroup routinesViewGroup;
+    private LinearLayout generalLinearLayout;
 
     public RoutinesFragment() {
         // Required empty public constructor
@@ -91,31 +94,16 @@ public class RoutinesFragment extends Fragment {
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
         viewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineViewModel.class);
 
-        ViewGroup routinesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_routines, container, false);
-        LinearLayout generalLinearLayout = routinesViewGroup.findViewById(R.id.routineLinearLayout);
-
-        List<Routine> routines = new ArrayList<>();
-        viewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
-            switch (resource.status) {
-                case LOADING:
-//                    activity.showProgressBar();
-                    break;
-                case SUCCESS:
-//                    activity.hideProgressBar();
-                    routines.clear();
-                    if (resource.data != null && resource.data.size() > 0) {
-                        routines.addAll(resource.data);
-                        forRoutines(routines, generalLinearLayout);
-                    }
-                    break;
-            }
-        });
-
+        routinesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_routines, container, false);
+        generalLinearLayout = routinesViewGroup.findViewById(R.id.routineLinearLayout);
+        refreshData();
         return routinesViewGroup;
     }
 
 
     private void forRoutines(List<Routine> routines, LinearLayout generalLinearLayout) {
+        generalLinearLayout.removeAllViews();
+        generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
         for(int i = 0; i < routines.size(); i++) {
@@ -160,12 +148,33 @@ public class RoutinesFragment extends Fragment {
             generalLinearLayout.addView(row);}
         }
     }
-
-
-    @Override
+ void refreshData(){
+     MainActivity activity = (MainActivity) requireActivity();
+     MyApplication application = (MyApplication) activity.getApplication();
+     ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
+     viewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineViewModel.class);
+     List<Routine> routines = new ArrayList<>();
+     viewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
+         switch (resource.status) {
+             case LOADING:
+//                    activity.showProgressBar();
+                 break;
+             case SUCCESS:
+//                    activity.hideProgressBar();
+                 routines.clear();
+                 if (resource.data != null && resource.data.size() > 0) {
+                     routines.addAll(resource.data);
+                     forRoutines(routines, generalLinearLayout);
+                 }
+                 break;
+         }
+     });
+ }
+ @Override
     public void onResume() {
-        super.onResume();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        // * Si no se selecciono casa arranca en null
-    }
+     refreshData();
+     super.onResume();
+     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+ }
+
 }

@@ -12,8 +12,13 @@ import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.model.House;
 import com.example.smartclick_app.model.Room;
 import com.example.smartclick_app.ui.home.SettingsActivity;
+import com.example.smartclick_app.ui.room.RoomFragment;
+import com.example.smartclick_app.ui.routines.RoutinesFragment;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         HouseRepository houseRepository = application.getHouseRepository();
         rooms = roomRepository.getRooms();
         LiveData<Resource<List<House>>> houses = houseRepository.getHouses();
-
+        viewPager.setOffscreenPageLimit(2);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -82,5 +87,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.overflow_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public void onResume() {
+
+
+        super.onResume();
+
+
     }
 }

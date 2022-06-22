@@ -3,32 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../../../../layout/custom_preview.xml" value="0.1489808153477218" />
         <entry key="..\:/ITBA/HCI/TP3-VERDADERO/TPE3-HCI-AppMobile/app/src/main/res/drawable/auto_asset.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/auto_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/beach_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/bolt_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/celebration_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/close_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/dorr_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/energy_saving_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/kitchen_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/microwave_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/play_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/poweroff_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/prev_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/queue_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/speaker_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/thermostat_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/drawable/volume_down_asset.xml" value="0.3255" />
-        <entry key="app/src/main/res/layout/activity_devices.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_door.xml" value="0.3229166666666667" />
-        <entry key="app/src/main/res/layout/fragment_lamp.xml" value="0.3229166666666667" />
-        <entry key="app/src/main/res/layout/fragment_oven.xml" value="0.3229166666666667" />
+        <entry key="..\:/Users/Mateo/Documents/ITBA/2022S1/HCI/APPv2/XD/TPE3-HCI-AppMobile/app/src/main/res/layout/activity_devices.xml" value="0.10638297872340426" />
+        <entry key="..\:/Users/Mateo/Documents/ITBA/2022S1/HCI/APPv2/XD/TPE3-HCI-AppMobile/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Mateo/Documents/ITBA/2022S1/HCI/APPv2/XD/TPE3-HCI-AppMobile/app/src/main/res/layout/activity_settings.xml" value="0.19429347826086957" />
+        <entry key="..\:/Users/Mateo/Documents/ITBA/2022S1/HCI/APPv2/XD/TPE3-HCI-AppMobile/app/src/main/res/layout/fragment_room.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_devices.xml" value="0.3229166666666667" />
         <entry key="app/src/main/res/layout/fragment_room.xml" value="0.3229166666666667" />
-        <entry key="app/src/main/res/layout/fragment_routines.xml" value="0.3229166666666667" />
       </map>
     </option>
   </component>

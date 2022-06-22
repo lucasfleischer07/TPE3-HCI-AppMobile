@@ -65,11 +65,14 @@ public class RoomFragment extends Fragment implements Serializable {
     RoomRepository roomRepository;
 
     private MainActivity activity;
+    private ViewGroup devicesViewGroup;
+    private LinearLayout generalLinearLayout;
 
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public RoomFragment() {
         // Required empty public constructor
@@ -112,6 +115,7 @@ public class RoomFragment extends Fragment implements Serializable {
 
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -120,30 +124,17 @@ public class RoomFragment extends Fragment implements Serializable {
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
         RoomViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
         
-        ViewGroup devicesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_room, container, false);
-        LinearLayout generalLinearLayout = devicesViewGroup.findViewById(R.id.roomLinearLayout);
+        devicesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_room, container, false);
+        generalLinearLayout = devicesViewGroup.findViewById(R.id.roomLinearLayout);
+        refreshData();
 
-        List<Room> rooms = new ArrayList<>();
-        viewModel.getRooms().observe(getViewLifecycleOwner(), resource -> {
-            switch (resource.status) {
-                case LOADING:
-//                    activity.showProgressBar();
-                    break;
-                case SUCCESS:
-//                    activity.hideProgressBar();
-                    rooms.clear();
-                    if (resource.data != null && resource.data.size() > 0) {
-                        rooms.addAll(resource.data);
-                        forRooms(rooms, generalLinearLayout);
-                    }
-                    break;
-            }
-        });
         return devicesViewGroup;
     }
 
 
     private void forRooms(List<Room> rooms, LinearLayout generalLinearLayout){
+        generalLinearLayout.removeAllViews();
+        generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
         for(int i = 0; i < rooms.size() ; i++) {
@@ -174,6 +165,7 @@ public class RoomFragment extends Fragment implements Serializable {
             row.setPadding(50, 30, 50, 1);
             row.addView(roomButton);
             generalLinearLayout.addView(row);}
+
         }
 
     }
@@ -181,8 +173,32 @@ public class RoomFragment extends Fragment implements Serializable {
 
     @Override
     public void onResume() {
+        refreshData();
         super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // * Si no se selecciono casa arranca en null
+    }
 
-       ;
+    public void refreshData(){
+        MainActivity activity = (MainActivity)requireActivity();
+        MyApplication application = (MyApplication)activity.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
+        RoomViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
+        List<Room> rooms = new ArrayList<>();
+        viewModel.getRooms().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+//                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+//                    activity.hideProgressBar();
+                    rooms.clear();
+                    if (resource.data != null && resource.data.size() > 0) {
+                        rooms.addAll(resource.data);
+                        forRooms(rooms, generalLinearLayout);
+                    }
+                    break;
+            }
+        });
     }
 }
