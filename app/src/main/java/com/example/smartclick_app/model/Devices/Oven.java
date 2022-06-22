@@ -16,6 +16,16 @@ public class Oven extends Device {
     public final static String ACTION_SET_GRILL = "setGrill";
     public final static String ACTION_SET_CONVECTION = "setConvection";
 
+    public final static String HEAT_TYPE_BOTTOM = "bottom";
+    public final static String HEAT_TYPE_CONVENTIONAL = "conventional";
+    public final static String HEAT_TYPE_TOP = "top";
+    public final static String GRILL_TYPE_OFF = "off";
+    public final static String GRILL_TYPE_ECO = "eco";
+    public final static String GRILL_TYPE_LARGE = "large";
+    public final static String CONVECTION_TYPE_OFF = "off";
+    public final static String CONVECTION_TYPE_ECO = "eco";
+    public final static String CONVECTION_TYPE_NORMAL = "normal";
+
 
     public Oven(String id,String name,String convection,String grillMode, String heatZone,String status,int temperature){
         super(id,name,TYPE_ID);

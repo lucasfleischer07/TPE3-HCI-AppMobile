@@ -1,10 +1,13 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.DeviceRepository;
+import com.example.smartclick_app.model.Devices.Lightbulb;
 import com.example.smartclick_app.model.Devices.Oven;
+import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.devices.DeviceViewModel;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +42,9 @@ public class OvenFragment extends Fragment {
     private String deviceGrill;
     private String deviceHeatZone;
     private int deviceTemperature;
+
+    private DeviceViewModel viewModel;
+
 
     public OvenFragment() {
         // Required empty public constructor
@@ -59,8 +72,8 @@ public class OvenFragment extends Fragment {
             deviceName = getArguments().getString("deviceName");
             deviceId = getArguments().getString("deviceId");
             deviceConvection = getArguments().getString("deviceConvection");
-            deviceStatus = getArguments().getString("deviceGrill");
-            deviceGrill = getArguments().getString("deviceStatus");
+            deviceStatus = getArguments().getString("deviceStatus");
+            deviceGrill = getArguments().getString("deviceGrill");
             deviceHeatZone = getArguments().getString("deviceHeatZone");
             deviceTemperature = getArguments().getInt("deviceTemp");
         }
@@ -68,24 +81,46 @@ public class OvenFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Activity activity = getActivity();
+        MyApplication application = (MyApplication) activity.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
+
         ViewGroup ovenFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_oven, container, false);
 
         TextView textViewDeviceName = ovenFragmentLayout.findViewById(R.id.ovenName);
         textViewDeviceName.setText(deviceName);
 
 
+        boolean turnOn = Objects.equals(deviceStatus, "on");
+        Log.d("ovenOn", String.valueOf(turnOn));
         @SuppressLint("UseSwitchCompatOrMaterialCode")
-        Switch ovenSwitchOnOff =  ovenFragmentLayout.findViewById(R.id.ovenSwitchOnOff);
+        Switch ovenSwitchOnOff = ovenFragmentLayout.findViewById(R.id.ovenSwitchOnOff);
+        ovenSwitchOnOff.setChecked(turnOn);
         ovenSwitchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-//                    TODO: llamado a la api
-                    // The toggle is enabled
-                    Toast.makeText(getContext(), getString(R.string.oven_on), Toast.LENGTH_SHORT).show();
+                    viewModel.executeDeviceAction(deviceId, Oven.ACTION_TURN_ON).observe(getViewLifecycleOwner(), resource -> {
+                        switch (resource.status) {
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                                deviceStatus = "on";
+                                Toast.makeText(getContext(), getString(R.string.oven_on), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    });
                 } else {
-//                    TODO: llamado a la api
-                    // The toggle is disabled
-                    Toast.makeText(getContext(), getString(R.string.oven_off), Toast.LENGTH_SHORT).show();
+                    viewModel.executeDeviceAction(deviceId, Oven.ACTION_TURN_OFF).observe(getViewLifecycleOwner(), resource -> {
+                        switch (resource.status) {
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                                deviceStatus = "off";
+                                Toast.makeText(getContext(), getString(R.string.oven_off), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    });
                 }
             }
         });
@@ -93,8 +128,8 @@ public class OvenFragment extends Fragment {
 
         TextView ovenTextViewPercentage = ovenFragmentLayout.findViewById(R.id.ovenTextViewPercentage);
         SeekBar ovenSeekBar = ovenFragmentLayout.findViewById(R.id.ovenSeekBar);
-//        TODO: Ver si nos podemos traer el brillo para poder setearlo desde un principio y no solo cuando lo setea el usuario
-//        ovenTextViewPercentage.setText();
+        ovenTextViewPercentage.setText(String.valueOf(deviceTemperature) + "°");
+        ovenSeekBar.setProgress(deviceTemperature);
         ovenSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -112,119 +147,258 @@ public class OvenFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // This method will automatically
-                // called when the user
-                // stops touching the SeekBar
-//                TODO: Aca habira que llamar a la api para pasarle el resultado final
+                viewModel.executeDeviceActionWithInt(deviceId, Oven.ACTION_SET_TEMPERATURE, seekBar.getProgress()).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceTemperature = seekBar.getProgress();
+                            break;
+                    }
+                });
             }
         });
 
 
-        TextView ovenActualHeatSource = ovenFragmentLayout.findViewById(R.id.ovenActualHeatSource);
-
         Button heatSourceStatusDown = ovenFragmentLayout.findViewById(R.id.heatSourceStatusDown);
-//        TODO: Ver de meter la del estado acrual de la api
-//        ovenActualHeatSource.setText();
+        Button heatSourceStatusNormal = ovenFragmentLayout.findViewById(R.id.heatSourceStatusNormal);
+        Button heatSourceStatusUp = ovenFragmentLayout.findViewById(R.id.heatSourceStatusUp);
+
+        if(Objects.equals(deviceHeatZone, Oven.HEAT_TYPE_BOTTOM)) {
+            heatSourceStatusDown.setEnabled(false);
+            heatSourceStatusNormal.setEnabled(true);
+            heatSourceStatusUp.setEnabled(true);
+        } else if(Objects.equals(deviceHeatZone, Oven.HEAT_TYPE_CONVENTIONAL)) {
+            heatSourceStatusDown.setEnabled(true);
+            heatSourceStatusNormal.setEnabled(false);
+            heatSourceStatusUp.setEnabled(true);
+        } else if(Objects.equals(deviceHeatZone, Oven.HEAT_TYPE_TOP)) {
+            heatSourceStatusDown.setEnabled(true);
+            heatSourceStatusNormal.setEnabled(true);
+            heatSourceStatusUp.setEnabled(false);
+        }
+
+        TextView ovenActualHeatSource = ovenFragmentLayout.findViewById(R.id.ovenActualHeatSource);
+        ovenActualHeatSource.setText(deviceHeatZone);
         heatSourceStatusDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualHeatSource.setText(R.string.oven_heat_mode_down);
-                Toast.makeText(getContext(), getString(R.string.oven_heat_mode_down_activated), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_HEAT, Oven.HEAT_TYPE_BOTTOM).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualHeatSource.setText(R.string.oven_heat_mode_down);
+                            deviceHeatZone = Oven.HEAT_TYPE_BOTTOM;
+                            heatSourceStatusDown.setEnabled(false);
+                            heatSourceStatusNormal.setEnabled(true);
+                            heatSourceStatusUp.setEnabled(true);
+                            Toast.makeText(getContext(), getString(R.string.oven_heat_mode_down_activated), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
-
-        Button heatSourceStatusNormal = ovenFragmentLayout.findViewById(R.id.heatSourceStatusNormal);
         heatSourceStatusNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualHeatSource.setText(R.string.oven_heat_mode_normal);
-                Toast.makeText(getContext(), getString(R.string.oven_heat_mode_normal_activated), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_HEAT, Oven.HEAT_TYPE_CONVENTIONAL).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualHeatSource.setText(R.string.oven_heat_mode_normal);
+                            deviceHeatZone = Oven.HEAT_TYPE_CONVENTIONAL;
+                            heatSourceStatusDown.setEnabled(true);
+                            heatSourceStatusNormal.setEnabled(false);
+                            heatSourceStatusUp.setEnabled(true);
+                            Toast.makeText(getContext(), getString(R.string.oven_heat_mode_normal_activated), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
-
-        Button heatSourceStatusUp = ovenFragmentLayout.findViewById(R.id.heatSourceStatusUp);
         heatSourceStatusUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualHeatSource.setText(R.string.oven_heat_mode_up);
-                Toast.makeText(getContext(), getString(R.string.oven_heat_mode_up_activated), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_HEAT, Oven.HEAT_TYPE_TOP).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualHeatSource.setText(R.string.oven_heat_mode_up);
+                            deviceHeatZone = Oven.HEAT_TYPE_TOP;
+                            heatSourceStatusDown.setEnabled(true);
+                            heatSourceStatusNormal.setEnabled(true);
+                            heatSourceStatusUp.setEnabled(false);
+                            Toast.makeText(getContext(), getString(R.string.oven_heat_mode_up_activated), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
 
-        TextView ovenActualGrill = ovenFragmentLayout.findViewById(R.id.ovenActualGrill);
         Button grillStatusOff = ovenFragmentLayout.findViewById(R.id.grillStatusOff);
-//        TODO: Ver de meter la del estado acrual de la api
-//        ovenActualGrill.setText();
+        Button grillStatusNormal = ovenFragmentLayout.findViewById(R.id.grillStatusNormal);
+        Button grillStatusUp = ovenFragmentLayout.findViewById(R.id.grillStatusUp);
+
+        if(Objects.equals(deviceGrill, Oven.GRILL_TYPE_OFF)) {
+            grillStatusOff.setEnabled(false);
+            grillStatusNormal.setEnabled(true);
+            grillStatusUp.setEnabled(true);
+        } else if(Objects.equals(deviceGrill, Oven.GRILL_TYPE_ECO)) {
+            grillStatusOff.setEnabled(true);
+            grillStatusNormal.setEnabled(false);
+            grillStatusUp.setEnabled(true);
+        } else if(Objects.equals(deviceGrill, Oven.GRILL_TYPE_LARGE)) {
+            grillStatusOff.setEnabled(true);
+            grillStatusNormal.setEnabled(true);
+            grillStatusUp.setEnabled(false);
+        }
+
+        TextView ovenActualGrill = ovenFragmentLayout.findViewById(R.id.ovenActualGrill);
+        ovenActualGrill.setText(deviceGrill);
         grillStatusOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualGrill.setText(R.string.oven_grill_convection_off);
-                Toast.makeText(getContext(), getString(R.string.oven_grill_mode_off), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_GRILL, Oven.GRILL_TYPE_OFF).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualGrill.setText(R.string.oven_grill_convection_off);
+                            deviceGrill = Oven.GRILL_TYPE_OFF;
+                            grillStatusOff.setEnabled(false);
+                            grillStatusNormal.setEnabled(true);
+                            grillStatusUp.setEnabled(true);
+                            Toast.makeText(getContext(), getString(R.string.oven_grill_mode_off), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
-
-        Button grillStatusNormal = ovenFragmentLayout.findViewById(R.id.grillStatusNormal);
         grillStatusNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualGrill.setText(R.string.oven_grill_convection_eco);
-                Toast.makeText(getContext(), getString(R.string.oven_grill_mode_eco), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_GRILL, Oven.GRILL_TYPE_ECO).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualGrill.setText(R.string.oven_grill_convection_eco);
+                            deviceGrill = Oven.GRILL_TYPE_OFF;
+                            grillStatusOff.setEnabled(true);
+                            grillStatusNormal.setEnabled(false);
+                            grillStatusUp.setEnabled(true);
+                            Toast.makeText(getContext(), getString(R.string.oven_grill_mode_eco), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
-
-        Button grillStatusUp = ovenFragmentLayout.findViewById(R.id.grillStatusUp);
         grillStatusUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualGrill.setText(R.string.oven_grill_convection_large);
-                Toast.makeText(getContext(), getString(R.string.oven_grill_mode_large), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_GRILL, Oven.GRILL_TYPE_LARGE).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualGrill.setText(R.string.oven_grill_convection_large);
+                            deviceGrill = Oven.GRILL_TYPE_LARGE;
+                            grillStatusOff.setEnabled(true);
+                            grillStatusNormal.setEnabled(true);
+                            grillStatusUp.setEnabled(false);
+                            Toast.makeText(getContext(), getString(R.string.oven_grill_mode_large), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
 
-        TextView ovenActualConvection = ovenFragmentLayout.findViewById(R.id.ovenActualConvection);
         Button convectionStatusOff = ovenFragmentLayout.findViewById(R.id.convectionStatusOff);
-//        TODO: Ver de meter la del estado acrual de la api
-//        ovenActualConvection.setText();
+        Button convectionStatusNormal = ovenFragmentLayout.findViewById(R.id.convectionStatusNormal);
+        Button convectionStatusUp = ovenFragmentLayout.findViewById(R.id.convectionStatusUp);
+
+        if(Objects.equals(deviceConvection, Oven.CONVECTION_TYPE_OFF)) {
+            convectionStatusOff.setEnabled(false);
+            convectionStatusNormal.setEnabled(true);
+            convectionStatusUp.setEnabled(true);
+        } else if(Objects.equals(deviceConvection, Oven.CONVECTION_TYPE_ECO)) {
+            convectionStatusOff.setEnabled(true);
+            convectionStatusNormal.setEnabled(false);
+            convectionStatusUp.setEnabled(true);
+        } else if(Objects.equals(deviceConvection, Oven.CONVECTION_TYPE_NORMAL)) {
+            convectionStatusOff.setEnabled(true);
+            convectionStatusNormal.setEnabled(true);
+            convectionStatusUp.setEnabled(false);
+        }
+
+        TextView ovenActualConvection = ovenFragmentLayout.findViewById(R.id.ovenActualConvection);
+        ovenActualConvection.setText(deviceConvection);
         convectionStatusOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualConvection.setText(R.string.oven_grill_convection_off);
-                Toast.makeText(getContext(), getString(R.string.oven_convection_mode_off), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_CONVECTION, Oven.CONVECTION_TYPE_OFF).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualConvection.setText(R.string.oven_grill_convection_off);
+                            deviceGrill = Oven.CONVECTION_TYPE_OFF;
+                            convectionStatusOff.setEnabled(false);
+                            convectionStatusNormal.setEnabled(true);
+                            convectionStatusUp.setEnabled(true);
+                            Toast.makeText(getContext(), getString(R.string.oven_convection_mode_off), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
-
-        Button convectionStatusNormal = ovenFragmentLayout.findViewById(R.id.convectionStatusNormal);
         convectionStatusNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualConvection.setText(R.string.oven_grill_convection_eco);
-                Toast.makeText(getContext(), getString(R.string.oven_convection_mode_eco), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_CONVECTION, Oven.CONVECTION_TYPE_ECO).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualConvection.setText(R.string.oven_grill_convection_eco);
+                            deviceGrill = Oven.CONVECTION_TYPE_ECO;
+                            convectionStatusOff.setEnabled(true);
+                            convectionStatusNormal.setEnabled(false);
+                            convectionStatusUp.setEnabled(true);
+                            Toast.makeText(getContext(), getString(R.string.oven_convection_mode_eco), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 
-
-        Button convectionStatusUp = ovenFragmentLayout.findViewById(R.id.convectionStatusUp);
         convectionStatusUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                ovenActualConvection.setText(R.string.oven_grill_convection_large);
-                Toast.makeText(getContext(), getString(R.string.oven_convection_mode_large), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Oven.ACTION_SET_CONVECTION, Oven.CONVECTION_TYPE_NORMAL).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            ovenActualConvection.setText(R.string.oven_grill_convection_large);
+                            deviceGrill = Oven.CONVECTION_TYPE_NORMAL;
+                            convectionStatusOff.setEnabled(true);
+                            convectionStatusNormal.setEnabled(true);
+                            convectionStatusUp.setEnabled(false);
+                            Toast.makeText(getContext(), getString(R.string.oven_convection_mode_large), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
             }
         });
 

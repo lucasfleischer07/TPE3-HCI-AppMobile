@@ -28,13 +28,13 @@
 
 
     <string name="oven_heat_mode">Heat source:</string>
-    <string name="oven_heat_mode_down">Down</string>
-    <string name="oven_heat_mode_normal">Normal</string>
-    <string name="oven_heat_mode_up">Up</string>
+    <string name="oven_heat_mode_down">Bottom</string>
+    <string name="oven_heat_mode_normal">Conventional</string>
+    <string name="oven_heat_mode_up">Top</string>
     <string name="oven_grill">Grill</string>
     <string name="oven_grill_convection_off">Off</string>
     <string name="oven_grill_convection_eco">Eco</string>
-    <string name="oven_grill_convection_large">Large</string>
+    <string name="oven_grill_convection_large">Normal</string>
     <string name="oven_convection">Convection</string>
 
 
@@ -57,20 +57,20 @@
 
     <string name="lamp_on">Lamp on</string>
     <string name="lamp_off">Lamp off</string>
-    <string name="lamp_color_confirm">Color seleccionado</string>
+    <string name="lamp_color_confirm">Color selected</string>
     <string name="lamp_color_cancel">Color selection cancel</string>
 
     <string name="oven_on">Oven on</string>
     <string name="oven_off">Oven off</string>
-    <string name="oven_heat_mode_down_activated">Heat source down activated</string>
-    <string name="oven_heat_mode_normal_activated">Heat source normal activated</string>
-    <string name="oven_heat_mode_up_activated">Heat source up activated</string>
+    <string name="oven_heat_mode_down_activated">Heat source bottom activated</string>
+    <string name="oven_heat_mode_normal_activated">Heat source conventional activated</string>
+    <string name="oven_heat_mode_up_activated">Heat source top activated</string>
     <string name="oven_grill_mode_off">Grill mode deactivated</string>
-    <string name="oven_grill_mode_eco">Grill mode eco activated</string>
-    <string name="oven_grill_mode_large">Grill mode large activated</string>
+    <string name="oven_grill_mode_eco">Grill eco mode activated</string>
+    <string name="oven_grill_mode_large">Grill large mode activated</string>
     <string name="oven_convection_mode_off">Convection mode deactivated</string>
-    <string name="oven_convection_mode_eco">Convection mode eco activated</string>
-    <string name="oven_convection_mode_large">Convection mode large activated</string>
+    <string name="oven_convection_mode_eco">Convection eco mode activated</string>
+    <string name="oven_convection_mode_large">Convection normal mode activated</string>
 
     <string name="refrigerator_mode_fest">Fest mode activated</string>
     <string name="refrigerator_mode_vacations">Vacations mode activated</string>

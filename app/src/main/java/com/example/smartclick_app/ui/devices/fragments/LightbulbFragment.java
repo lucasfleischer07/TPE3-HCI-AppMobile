@@ -123,10 +123,7 @@ public class LightbulbFragment extends Fragment {
             }
         });
 
-        boolean turnOn = false;
-        if(Objects.equals(deviceStatus, "on")) {
-            turnOn = true;
-        }
+        boolean turnOn = Objects.equals(deviceStatus, "on");
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch lampSwitchOnOff =  lampFragmentLayout.findViewById(R.id.lampSwitchOnOff);
         lampSwitchOnOff.setChecked(turnOn);
@@ -138,7 +135,7 @@ public class LightbulbFragment extends Fragment {
                             case LOADING:
                                 break;
                             case SUCCESS:
-                                deviceStatus = "off";
+                                deviceStatus = "on";
                                 Toast.makeText(getContext(), getString(R.string.lamp_on), Toast.LENGTH_SHORT).show();
                                 break;
                         }
@@ -149,7 +146,7 @@ public class LightbulbFragment extends Fragment {
                             case LOADING:
                                 break;
                             case SUCCESS:
-                                deviceStatus = "on";
+                                deviceStatus = "off";
                                 Toast.makeText(getContext(), getString(R.string.lamp_off), Toast.LENGTH_SHORT).show();
                                 break;
                         }

@@ -34,7 +34,7 @@
     <string name="oven_grill">Grill</string>
     <string name="oven_grill_convection_off">Apagado</string>
     <string name="oven_grill_convection_eco">Eco</string>
-    <string name="oven_grill_convection_large">Máximo</string>
+    <string name="oven_grill_convection_large">Normal</string>
     <string name="oven_convection">Convección</string>
 
 
@@ -70,7 +70,7 @@
     <string name="oven_grill_mode_large">Modo grill máximo activado</string>
     <string name="oven_convection_mode_off">Modo convección desactivado</string>
     <string name="oven_convection_mode_eco">Modo convección eco activado</string>
-    <string name="oven_convection_mode_large">Modo convección máximo activado</string>
+    <string name="oven_convection_mode_large">Modo convección normal activado</string>
 
 
     <string name="refrigerator_mode_fest">Modo fiesta activado</string>
