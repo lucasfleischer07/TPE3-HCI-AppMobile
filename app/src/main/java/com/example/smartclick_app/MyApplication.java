@@ -5,11 +5,13 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.example.smartclick_app.data.AppExecutors;
+import com.example.smartclick_app.data.DeviceRepository;
 import com.example.smartclick_app.data.HouseRepository;
 import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.data.RoutineRepository;
 import com.example.smartclick_app.data.local.MyDatabase;
 import com.example.smartclick_app.data.remote.ApiClient;
+import com.example.smartclick_app.data.remote.device.ApiDeviceService;
 import com.example.smartclick_app.data.remote.house.ApiHomeService;
 import com.example.smartclick_app.data.remote.room.ApiRoomService;
 import com.example.smartclick_app.data.remote.routine.ApiRoutineService;
@@ -23,6 +25,7 @@ public class MyApplication extends Application {
     RoomRepository roomRepository;
     HouseRepository houseRepository;
     RoutineRepository routineRepository;
+    DeviceRepository deviceRepository;
 
     public RoomRepository getRoomRepository() {
         return roomRepository;
@@ -34,6 +37,10 @@ public class MyApplication extends Application {
 
     public RoutineRepository getRoutineRepository() {
         return routineRepository;
+    }
+
+    public DeviceRepository getDeviceRepository() {
+        return deviceRepository;
     }
 
     @Override
@@ -52,5 +59,8 @@ public class MyApplication extends Application {
 
         ApiRoutineService routineService = ApiClient.create(ApiRoutineService.class);
         routineRepository = new RoutineRepository(appExecutors, routineService, database);
+
+        ApiDeviceService deviceService = ApiClient.create(ApiDeviceService.class);
+        deviceRepository = new DeviceRepository(appExecutors, deviceService, database);
     }
 }
