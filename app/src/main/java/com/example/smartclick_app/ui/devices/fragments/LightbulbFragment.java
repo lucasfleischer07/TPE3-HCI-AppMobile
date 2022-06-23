@@ -45,6 +45,10 @@ public class LightbulbFragment extends Fragment {
     private String deviceColor;
     private String deviceStatus;
     private int deviceBrightness;
+<<<<<<< HEAD
+=======
+    private String backgroundColorPicker;
+>>>>>>> 0b3e7c641db22b6f4cd0e027262af6a22ab6e2e2
     private DeviceViewModel viewModel;
 
 
@@ -76,9 +80,9 @@ public class LightbulbFragment extends Fragment {
             deviceBrightness = getArguments().getInt("deviceBrightness");
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        deviceColor = preferences.getString(deviceId,null);
-        if(deviceColor==null){
-            deviceColor=String.valueOf(R.color.rooms_and_routine_buttons);
+        backgroundColorPicker = preferences.getString(deviceId,null);
+        if(backgroundColorPicker == null){
+            backgroundColorPicker=String.valueOf(R.color.rooms_and_routine_buttons);
         }
     }
 
@@ -95,7 +99,7 @@ public class LightbulbFragment extends Fragment {
 
         TextView textViewDeviceName = lampFragmentLayout.findViewById(R.id.lampName);
         textViewDeviceName.setText(deviceName);
-        lampFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
+        lampFragmentLayout.setBackgroundColor((int) Long.parseLong(backgroundColorPicker.replace("#", ""), 16));
         Button colorPickerButton = lampFragmentLayout.findViewById(R.id.colorPickerButton);
 
 
@@ -210,8 +214,8 @@ public class LightbulbFragment extends Fragment {
                     public void onOk(AmbilWarnaDialog dialog, int color) {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString(deviceId,Integer.toHexString(color));
-                        deviceColor=Integer.toHexString(color);
-                        lampFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
+                        backgroundColorPicker=Integer.toHexString(color);
+                        lampFragmentLayout.setBackgroundColor((int) Long.parseLong(backgroundColorPicker.replace("#", ""), 16));
                         editor.apply();
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }
