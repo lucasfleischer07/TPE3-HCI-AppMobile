@@ -26,17 +26,6 @@ public class Speaker extends Device {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     public Speaker(String id,String name,int volume,String status,String genre){
         super(id,name,TYPE_ID);
         this.volume=volume;

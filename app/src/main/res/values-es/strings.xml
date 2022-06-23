@@ -31,11 +31,11 @@
     <string name="oven_heat_mode_down">Abajo</string>
     <string name="oven_heat_mode_normal">Normal</string>
     <string name="oven_heat_mode_up">Arriba</string>
-    <string name="oven_grill">Grill</string>
+    <string name="oven_grill">Grill:</string>
     <string name="oven_grill_convection_off">Apagado</string>
     <string name="oven_grill_convection_eco">Eco</string>
     <string name="oven_grill_convection_large">Normal</string>
-    <string name="oven_convection">Convección</string>
+    <string name="oven_convection">Convección:</string>
 
 
 
