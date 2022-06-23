@@ -82,7 +82,6 @@
     <string name="speaker_playlist_gender">Playlist songs:</string>
 
 
-
     <!--    DropDownMenu Speaker-->
     <string-array name="playlist_genders">
         <item>Classical</item>
@@ -92,8 +91,6 @@
         <item>Pop</item>
         <item>Rock</item>
     </string-array>
-
-
 
 
 </resources>
