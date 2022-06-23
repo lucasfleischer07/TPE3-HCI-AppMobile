@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartclick_app.MyApplication;
@@ -19,12 +20,15 @@ import com.example.smartclick_app.data.DeviceRepository;
 import com.example.smartclick_app.data.RoutineRepository;
 import com.example.smartclick_app.model.Actions;
 import com.example.smartclick_app.model.Device;
+import com.example.smartclick_app.model.Devices.Lightbulb;
 import com.example.smartclick_app.model.Routine;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DeviceViewModel;
 import com.example.smartclick_app.ui.routines.RoutineViewModel;
 
 import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,8 +79,11 @@ public class RoutineGenericFragment extends Fragment {
 
         Button routineExecuteButton = routineFragmentLayout.findViewById(R.id.routineExecuteButton);
         Button routineInformationButton = routineFragmentLayout.findViewById(R.id.routineInformationButton);
+        Button colorPickerButton = routineFragmentLayout.findViewById(R.id.colorPickerButton);
 
-//        TODO: Meter los strings de ejecutar para el boton aunque lo puede poner directo en el xml
+        TextView routineNameTextView = routineFragmentLayout.findViewById(R.id.routineNameTextView);
+        routineNameTextView.setText(routineActual.getName());
+
         routineExecuteButton.setText(R.string.execute_routine);
         routineExecuteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,19 +91,36 @@ public class RoutineGenericFragment extends Fragment {
                 viewModel.executeRoutine(routineActual.getId()).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
-//                    activity.showProgressBar();
                             break;
                         case SUCCESS:
-//                    activity.hideProgressBar();
-//                            Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routineActual.getName(), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
             }
         });
 
-        routineInformationButton.setText(routineActual.getName());
+        routineInformationButton.setText(R.string.information_routine);
         routineInformationButton.setBackgroundColor(getResources().getColor(R.color.teal_700));
+
+        colorPickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(getContext(), R.color.blue_main, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+                        Toast.makeText(getContext(), getString(R.string.lamp_color_cancel), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+                        
+                        Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                colorPicker.show();
+            }
+        });
 
 
         return routineFragmentLayout;
