@@ -88,12 +88,9 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.overflow_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public void onResume() {
-
-
         super.onResume();
-
-
     }
 }

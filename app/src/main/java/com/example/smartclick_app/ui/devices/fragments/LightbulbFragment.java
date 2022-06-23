@@ -91,7 +91,8 @@ public class LightbulbFragment extends Fragment {
 
         
         Button lampColorPicker = lampFragmentLayout.findViewById(R.id.lampColorPicker);
-        lampColorPicker.setBackgroundColor(Integer.parseInt(deviceColor));
+        Log.d("Color", deviceColor);
+        lampColorPicker.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
         lampColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,13 +110,12 @@ public class LightbulbFragment extends Fragment {
                                 case LOADING:
                                     break;
                                 case SUCCESS:
-                                    Toast.makeText(getContext(), getString(R.string.door_lock), Toast.LENGTH_SHORT).show();
+                                    lampColorPicker.setBackgroundColor(color);
+                                    deviceColor = Integer.toHexString(color);
+                                    Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                                     break;
                             }
                         });
-
-                        lampColorPicker.setBackgroundColor(color);
-                        Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }
                 });
                 colorPicker.show();

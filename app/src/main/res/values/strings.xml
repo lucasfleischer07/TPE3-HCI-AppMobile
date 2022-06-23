@@ -83,6 +83,10 @@
     <string name="speaker_playlist_toast">Playlist selected</string>
     <string name="speaker_playlist_gender">Playlist songs:</string>
 
+    <string name="color_picker_overflow_menu_background">Select device background color</string>
+    <string name="color_picker_overflow_menu_font">Select device font color</string>
+    <string name="color_picker_overflow_menu_buttons">Select device buttons color</string>
+
 
     <!--    DropDownMenu Speaker-->
     <string-array name="playlist_genders">

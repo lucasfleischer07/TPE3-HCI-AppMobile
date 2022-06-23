@@ -6,6 +6,7 @@
     android:layout_height="300dp"
     android:layout_margin="10dp"
     android:background="@color/main_act_background"
+    android:id="@+id/refrigeratorConstraintLayout"
     tools:context=".ui.devices.fragments.RefrigeratorFragment">
 
     <SeekBar
