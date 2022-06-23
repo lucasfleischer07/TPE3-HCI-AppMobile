@@ -52,7 +52,6 @@ public class LightbulbFragment extends Fragment {
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static LightbulbFragment newInstance(Lightbulb device) {
         LightbulbFragment fragment = new LightbulbFragment();
         Bundle args = new Bundle();
@@ -177,7 +176,7 @@ public class LightbulbFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                viewModel.executeDeviceActionWithString(deviceId, Lightbulb.ACTION_SET_BRIGHTNESS, String.valueOf(seekBar.getProgress())).observe(getViewLifecycleOwner(), resource -> {
+                viewModel.executeDeviceActionWithInt(deviceId, Lightbulb.ACTION_SET_BRIGHTNESS, seekBar.getProgress()).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
                             break;

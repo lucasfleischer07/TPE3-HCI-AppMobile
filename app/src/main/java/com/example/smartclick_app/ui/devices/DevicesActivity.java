@@ -82,11 +82,8 @@ public class DevicesActivity extends AppCompatActivity {
     }
 
 
-//  TODO: Cambiar la lista de rooms por la lista de devices
-
     private void forDevices( List<Device> roomDevices, View generalLinearLayout) {
         for(int i = 0; i < roomDevices.size() ; i++) {
-//            LinearLayout row = new LinearLayout(this);
             switch (roomDevices.get(i).getTypeId()) {
                 case Door.TYPE_ID:
                     if(roomDevices.get(i) instanceof Door){
