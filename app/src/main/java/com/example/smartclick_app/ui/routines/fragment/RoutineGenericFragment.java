@@ -77,25 +77,25 @@ public class RoutineGenericFragment extends Fragment {
         Button routineInformationButton = routineFragmentLayout.findViewById(R.id.routineInformationButton);
 
 //        TODO: Meter los strings de ejecutar para el boton aunque lo puede poner directo en el xml
-        routineExecuteButton.setText(routineActual.getName());
+        routineExecuteButton.setText(R.string.execute_routine);
         routineExecuteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
+                viewModel.executeRoutine(routineActual.getId()).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
 //                    activity.showProgressBar();
                             break;
                         case SUCCESS:
 //                    activity.hideProgressBar();
-                            Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
             }
         });
 
-        routineInformationButton.setText(R.string.execute_routine);
+        routineInformationButton.setText(routineActual.getName());
         routineInformationButton.setBackgroundColor(getResources().getColor(R.color.teal_700));
 
 
