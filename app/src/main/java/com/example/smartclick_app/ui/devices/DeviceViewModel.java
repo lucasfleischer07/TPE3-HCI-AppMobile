@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.example.smartclick_app.data.DeviceRepository;
 
 import com.example.smartclick_app.data.Resource;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.ui.RepositoryViewModel;
 
 
@@ -28,6 +29,10 @@ public class DeviceViewModel extends RepositoryViewModel<DeviceRepository> {
 
     public LiveData<Resource<Void>> executeDeviceActionWithString(String routineId,String actionName,String parameter) {
         return repository.executeStringAction(routineId,actionName,parameter);
+    }
+
+    public LiveData<Resource<Device>> getDevice(String deviceId){
+        return repository.getDevice(deviceId);
     }
 
 }
