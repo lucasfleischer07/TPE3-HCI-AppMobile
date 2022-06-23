@@ -1,11 +1,13 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +48,7 @@ public class SpeakerFragment extends Fragment {
     private String deviceSong;
     private String deviceSongProgress;
     private String deviceSongTotalDuration;
-
+    private String deviceColor;
     String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
     AutoCompleteTextView autoCompleteText;
     ArrayAdapter<String> adapterItems;
@@ -89,6 +91,11 @@ public class SpeakerFragment extends Fragment {
             deviceSongProgress = getArguments().getString("deviceProgress");
             deviceSongTotalDuration = getArguments().getString("deviceDuration");
         }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        deviceColor = preferences.getString(deviceId,null);
+        if(deviceColor==null){
+            deviceColor=String.valueOf(R.color.rooms_and_routine_buttons);
+        }
         Log.d("nombreCreate", deviceName);
 
     }
@@ -101,10 +108,12 @@ public class SpeakerFragment extends Fragment {
         viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
 
         ViewGroup speakerFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_speaker, container, false);
-
+        speakerFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
         TextView textViewDeviceName = speakerFragmentLayout.findViewById(R.id.speakerName);
         textViewDeviceName.setText(deviceName);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        Button colorPickerButton = speakerFragmentLayout.findViewById(R.id.colorPickerButton);
         Button speakerPlayButton = speakerFragmentLayout.findViewById(R.id.speakerPlay);
         Button speakerStopButton = speakerFragmentLayout.findViewById(R.id.speakerStop);
         Button speakerPauseButton = speakerFragmentLayout.findViewById(R.id.speakerPause);
@@ -204,6 +213,29 @@ public class SpeakerFragment extends Fragment {
 
 
 
+            }
+        });
+
+        colorPickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(getContext(), R.color.blue_main, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+                        Toast.makeText(getContext(), getString(R.string.lamp_color_cancel), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(deviceId,Integer.toHexString(color));
+                        deviceColor=Integer.toHexString(color);
+                        speakerFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
+                        editor.apply();
+                        Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                colorPicker.show();
             }
         });
 

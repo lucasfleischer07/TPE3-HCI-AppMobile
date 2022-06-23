@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class OvenFragment extends Fragment {
     private String deviceGrill;
     private String deviceHeatZone;
     private int deviceTemperature;
-
+    private String deviceColor;
     private DeviceViewModel viewModel;
 
 
@@ -80,6 +81,11 @@ public class OvenFragment extends Fragment {
             deviceHeatZone = getArguments().getString("deviceHeatZone");
             deviceTemperature = getArguments().getInt("deviceTemp");
         }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        deviceColor = preferences.getString(deviceId,null);
+        if(deviceColor==null){
+            deviceColor=String.valueOf(R.color.rooms_and_routine_buttons);
+        }
     }
 
     @Override
@@ -90,12 +96,12 @@ public class OvenFragment extends Fragment {
         viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
 
         ViewGroup ovenFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_oven, container, false);
-
+        ovenFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
         TextView textViewDeviceName = ovenFragmentLayout.findViewById(R.id.ovenName);
         textViewDeviceName.setText(deviceName);
 
         Button colorPickerButton = ovenFragmentLayout.findViewById(R.id.colorPickerButton);
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         boolean turnOn = Objects.equals(deviceStatus, "on");
         Log.d("ovenOn", String.valueOf(turnOn));
@@ -419,9 +425,9 @@ public class OvenFragment extends Fragment {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(routineActual.getId(),Integer.toHexString(color));
-                        routineColor=Integer.toHexString(color);
-                        routineFragmentLayout.setBackgroundColor((int) Long.parseLong(routineColor.replace("#", ""), 16));
+                        editor.putString(deviceId,Integer.toHexString(color));
+                        deviceColor=Integer.toHexString(color);
+                        ovenFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
                         editor.apply();
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }

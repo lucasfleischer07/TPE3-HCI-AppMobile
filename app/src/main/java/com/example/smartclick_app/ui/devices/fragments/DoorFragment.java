@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class DoorFragment extends Fragment {
 
     private String deviceName;
     private String deviceId;
-
+    private String deviceColor;
     private String [] deviceStatus;
     private String deviceLockInfo;
     private String deviceDoorStatus;
@@ -68,6 +69,11 @@ public class DoorFragment extends Fragment {
             deviceLockInfo = getArguments().getString("deviceLockInfo");
             deviceDoorStatus = getArguments().getString("deviceDoorStatus");
         }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        deviceColor = preferences.getString(deviceId,null);
+        if(deviceColor==null){
+            deviceColor=String.valueOf(R.color.rooms_and_routine_buttons);
+        }
     }
 
     @Override
@@ -79,9 +85,11 @@ public class DoorFragment extends Fragment {
 
         ViewGroup doorFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_door, container, false);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         TextView textViewDeviceName = doorFragmentLayout.findViewById(R.id.doorName);
         textViewDeviceName.setText(deviceName);
-
+        doorFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
         Button doorLockButton = doorFragmentLayout.findViewById(R.id.doorLockButton);
         Button doorUnlockButton = doorFragmentLayout.findViewById(R.id.doorUnlockButton);
         Button doorOpenButton = doorFragmentLayout.findViewById(R.id.doorOpenButton);
@@ -225,9 +233,9 @@ public class DoorFragment extends Fragment {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(routineActual.getId(),Integer.toHexString(color));
-                        routineColor=Integer.toHexString(color);
-                        routineFragmentLayout.setBackgroundColor((int) Long.parseLong(routineColor.replace("#", ""), 16));
+                        editor.putString(deviceId,Integer.toHexString(color));
+                        deviceColor=Integer.toHexString(color);
+                        doorFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
                         editor.apply();
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }

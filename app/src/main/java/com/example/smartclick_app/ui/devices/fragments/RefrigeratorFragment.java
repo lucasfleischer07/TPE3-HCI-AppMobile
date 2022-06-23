@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class RefrigeratorFragment extends Fragment {
     private int deviceTemperature;
     private int deviceFreezerTemperature;
     private String deviceMode;
-
+    private String deviceColor;
     private DeviceViewModel viewModel;
 
 
@@ -72,6 +73,11 @@ public class RefrigeratorFragment extends Fragment {
             deviceMode = getArguments().getString("deviceMode");
             deviceTemperature = getArguments().getInt("deviceTemp");
         }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        deviceColor = preferences.getString(deviceId,null);
+        if(deviceColor==null){
+            deviceColor=String.valueOf(R.color.rooms_and_routine_buttons);
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -90,8 +96,8 @@ public class RefrigeratorFragment extends Fragment {
 
         Button colorPickerButton = refrigeratorFragmentLayout.findViewById(R.id.colorPickerButton);
 
-
-
+        refrigeratorFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         Button modeRefrigeratorFest = refrigeratorFragmentLayout.findViewById(R.id.modeRefrigeratorFest);
         Button modeRefrigeratorAuto = refrigeratorFragmentLayout.findViewById(R.id.modeRefrigeratorAuto);
         Button modeRefrigeratorVacation = refrigeratorFragmentLayout.findViewById(R.id.modeRefrigeratorVacation);
@@ -311,9 +317,9 @@ public class RefrigeratorFragment extends Fragment {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(routineActual.getId(),Integer.toHexString(color));
-                        routineColor=Integer.toHexString(color);
-                        routineFragmentLayout.setBackgroundColor((int) Long.parseLong(routineColor.replace("#", ""), 16));
+                        editor.putString(deviceId,Integer.toHexString(color));
+                        deviceColor=Integer.toHexString(color);
+                        refrigeratorFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
                         editor.apply();
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }

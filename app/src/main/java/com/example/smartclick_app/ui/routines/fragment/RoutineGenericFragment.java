@@ -82,6 +82,7 @@ public class RoutineGenericFragment extends Fragment {
         MyApplication application = (MyApplication) activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
         viewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineViewModel.class);
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         ViewGroup routineFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_routine_generic, container, false);
         routineFragmentLayout.setBackgroundColor((int) Long.parseLong(routineColor.replace("#", ""), 16));
