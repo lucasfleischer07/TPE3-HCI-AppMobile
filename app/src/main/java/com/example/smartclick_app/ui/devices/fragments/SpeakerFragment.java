@@ -135,35 +135,35 @@ public class SpeakerFragment extends Fragment {
             speakerForwardButton.setVisibility(View.VISIBLE);
             speakerStopButton.setVisibility(View.VISIBLE);
             speakerPauseButton.setVisibility(View.VISIBLE);
-            updateStatus();
+            updateStatus(speakerFragmentLayout);
         } else if(Objects.equals(deviceStatus, Speaker.PAUSE)) {
             speakerPlayButton.setVisibility(View.VISIBLE);
             speakerBackwardButton.setVisibility(View.GONE);
             speakerForwardButton.setVisibility(View.GONE);
             speakerStopButton.setVisibility(View.VISIBLE);
             speakerPauseButton.setVisibility(View.GONE);
-            updateStatus();
+            updateStatus(speakerFragmentLayout);
         } else if(Objects.equals(deviceStatus, Speaker.STOP)) {
             speakerPlayButton.setVisibility(View.VISIBLE);
             speakerBackwardButton.setVisibility(View.GONE);
             speakerForwardButton.setVisibility(View.GONE);
             speakerStopButton.setVisibility(View.GONE);
             speakerPauseButton.setVisibility(View.GONE);
-            updateStatus();
+            updateStatus(speakerFragmentLayout);
         }else if(Objects.equals(deviceStatus, Speaker.NEXT_SONG)){
             speakerPlayButton.setVisibility(View.GONE);
             speakerBackwardButton.setVisibility(View.VISIBLE);
             speakerForwardButton.setVisibility(View.VISIBLE);
             speakerStopButton.setVisibility(View.VISIBLE);
             speakerPauseButton.setVisibility(View.VISIBLE);
-            updateStatus();
+            updateStatus(speakerFragmentLayout);
         }else if(Objects.equals(deviceStatus, Speaker.PREVIOUS_SONG)){
             speakerPlayButton.setVisibility(View.GONE);
             speakerBackwardButton.setVisibility(View.VISIBLE);
             speakerForwardButton.setVisibility(View.VISIBLE);
             speakerStopButton.setVisibility(View.VISIBLE);
             speakerPauseButton.setVisibility(View.VISIBLE);
-            updateStatus();
+            updateStatus(speakerFragmentLayout);
         }
 
         Log.d("statusPause1", deviceStatus);
@@ -178,14 +178,14 @@ public class SpeakerFragment extends Fragment {
                                 break;
                             case SUCCESS:
                                 deviceStatus = Speaker.PLAY;
-                                speakerPlayButton.setVisibility(View.VISIBLE);
-                                speakerBackwardButton.setVisibility(View.GONE);
-                                speakerForwardButton.setVisibility(View.GONE);
-                                speakerStopButton.setVisibility(View.GONE);
-                                speakerPauseButton.setVisibility(View.GONE);
+                                speakerPlayButton.setVisibility(View.GONE);
+                                speakerBackwardButton.setVisibility(View.VISIBLE);
+                                speakerForwardButton.setVisibility(View.VISIBLE);
+                                speakerStopButton.setVisibility(View.VISIBLE);
+                                speakerPauseButton.setVisibility(View.VISIBLE);
 
                                 Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
-                                updateStatus();
+                                updateStatus(speakerFragmentLayout);
                                 break;
                         }
                     });
@@ -205,7 +205,7 @@ public class SpeakerFragment extends Fragment {
                                 speakerPauseButton.setVisibility(View.VISIBLE);
 
                                 Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
-                                updateStatus();
+                                updateStatus(speakerFragmentLayout);
                                 break;
                         }
                     });
@@ -218,6 +218,7 @@ public class SpeakerFragment extends Fragment {
         speakerPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateStatus(speakerFragmentLayout);
                 viewModel.executeDeviceAction(deviceId, Speaker.ACTION_PAUSE).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
@@ -231,7 +232,7 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_pause), Toast.LENGTH_SHORT).show();
-                            updateStatus();
+                            updateStatus(speakerFragmentLayout);
                             break;
                     }
                 });
@@ -242,6 +243,7 @@ public class SpeakerFragment extends Fragment {
         speakerStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateStatus(speakerFragmentLayout);
                 viewModel.executeDeviceAction(deviceId, Speaker.ACTION_STOP).observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
@@ -255,7 +257,6 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
-                            updateStatus();
                             break;
                     }
                 });
@@ -275,7 +276,7 @@ public class SpeakerFragment extends Fragment {
                             speakerForwardButton.setVisibility(View.VISIBLE);
                             speakerStopButton.setVisibility(View.VISIBLE);
                             speakerPauseButton.setVisibility(View.VISIBLE);
-//                            updateStatus();
+                            updateStatus(speakerFragmentLayout);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_next_song), Toast.LENGTH_SHORT).show();
                             break;
@@ -297,7 +298,7 @@ public class SpeakerFragment extends Fragment {
                             speakerForwardButton.setVisibility(View.VISIBLE);
                             speakerStopButton.setVisibility(View.VISIBLE);
                             speakerPauseButton.setVisibility(View.VISIBLE);
-//                            updateStatus();
+                            updateStatus(speakerFragmentLayout);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_previous_song), Toast.LENGTH_SHORT).show();
                             break;
@@ -452,7 +453,7 @@ public class SpeakerFragment extends Fragment {
 
         TextView speakerSongProgress = speakerFragmentLayout.findViewById(R.id.speakerSongProgress);
         speakerSongProgress.setText(deviceSongProgress + " " + "|" + " " + deviceSongTotalDuration);
-        updateStatus();
+        updateStatus(speakerFragmentLayout);
 
 
 
@@ -467,7 +468,7 @@ public class SpeakerFragment extends Fragment {
         playlist.show(getChildFragmentManager(), "h");
     }
 
-    public void updateStatus(){
+    public void updateStatus(ViewGroup speakerFragmentLayout){
         viewModel.getDevice(deviceId).observe(getViewLifecycleOwner(), resource1 -> {
             switch (resource1.status) {
                 case LOADING:
@@ -478,6 +479,10 @@ public class SpeakerFragment extends Fragment {
                         deviceSong = mySpeaker.getSong();
                         deviceSongProgress = mySpeaker.getSongProgress();
                         deviceSongTotalDuration = mySpeaker.getSongTotalDuration();
+                        TextView speakerSongName = speakerFragmentLayout.findViewById(R.id.speakerSongName);
+                        speakerSongName.setText(deviceSong);
+                        TextView speakerSongProgress = speakerFragmentLayout.findViewById(R.id.speakerSongProgress);
+                        speakerSongProgress.setText(deviceSongProgress + " " + "|" + " " + deviceSongTotalDuration);
 //                      Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
                     }
                     break;

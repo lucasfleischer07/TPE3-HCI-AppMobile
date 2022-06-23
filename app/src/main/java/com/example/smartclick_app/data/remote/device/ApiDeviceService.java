@@ -19,6 +19,6 @@ public interface ApiDeviceService {
     @PUT("devices/{deviceId}/{actionName}")
     LiveData<ApiResponse<RemoteResult<Object>>> executeAction(@Path("deviceId")String deviceId, @Path("actionName")String actionName,@Body RemoteAction parameter);
 
-    @GET("deviceas/{deviceId}")
+    @GET("devices/{deviceId}")
     LiveData<ApiResponse<RemoteResult<RemoteDevice>>> getDevice(@Path("deviceId")String deviceId);
 }
