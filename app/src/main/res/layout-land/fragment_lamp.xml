@@ -36,16 +36,16 @@
 
     <Button
         android:id="@+id/lampColorPicker"
-        android:layout_width="71dp"
-        android:layout_height="48dp"
+        android:layout_width="70dp"
+        android:layout_height="41dp"
         android:text="Color"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintVertical_bias="0.516" />
 
     <Switch
         android:id="@+id/lampSwitchOnOff"
@@ -63,18 +63,18 @@
 
     <SeekBar
         android:id="@+id/lampSeekBar"
-        android:layout_width="141dp"
-        android:layout_height="50dp"
+        android:layout_width="138dp"
+        android:layout_height="48dp"
         android:max="100"
         android:progress="50"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942" />
+        app:layout_constraintVertical_bias="0.985" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -85,7 +85,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.897"
+        app:layout_constraintVertical_bias="0.903"
         app:srcCompat="@drawable/brightness_asset" />
 
     <Button
@@ -103,15 +103,15 @@
 
     <TextView
         android:id="@+id/lampTextViewPercentage"
-        android:layout_width="45dp"
-        android:layout_height="28dp"
+        android:layout_width="38dp"
+        android:layout_height="36dp"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.638"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.915" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

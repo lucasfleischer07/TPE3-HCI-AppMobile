@@ -136,7 +136,7 @@ public class DevicesActivity extends AppCompatActivity {
                 }
             }
         } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            for(int i = 0; i < roomDevices.size() ; i++) {
+            for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
                 LinearLayout rowLinearLayout = new LinearLayout(getApplicationContext());
                 rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 rowLinearLayout.setId(i);
