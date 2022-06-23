@@ -1,6 +1,5 @@
 package com.example.smartclick_app.ui.routines;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,29 +8,24 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
-import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.data.RoutineRepository;
-import com.example.smartclick_app.data.Status;
 import com.example.smartclick_app.model.Actions;
 import com.example.smartclick_app.model.Device;
-import com.example.smartclick_app.model.Room;
 import com.example.smartclick_app.model.Routine;
 import com.example.smartclick_app.ui.MainActivity;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
-import com.example.smartclick_app.ui.devices.DevicesActivity;
-import com.example.smartclick_app.ui.room.RoomViewModel;
+import com.example.smartclick_app.ui.routines.fragment.RoutineGenericFragment;
 import com.google.android.material.button.MaterialButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +101,8 @@ public class RoutinesFragment extends Fragment {
     private void forRoutines(List<Routine> routines, LinearLayout generalLinearLayout) {
         generalLinearLayout.removeAllViews();
         generalLinearLayout.removeAllViewsInLayout();
+
+
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
         if(actualId==null && routines.size()>0){
@@ -128,8 +124,18 @@ public class RoutinesFragment extends Fragment {
 
                 //SI QUERES PASAR LA DATA DE UNA RUTINA PODES SACARLO HACIENDO ASIs
                 for(Map.Entry<Device, Actions> entry : routines.get(i).getDeviceAndActionsMap().entrySet()){
-                    Log.d("Rutina con action: ",entry.getValue().getActionName());
+//                    Log.d("Rutina con action: ", entry.getValue().getActionName());
+                    Device routineDevice = entry.getKey();
+                    Actions routineActions = entry.getValue();
+                    getChildFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RoutineGenericFragment.newInstance(routineDevice, routineActions)).commit();
                 }
+
+
+
+
+
+
+
                 routineButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

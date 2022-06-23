@@ -16,9 +16,13 @@ import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.DeviceRepository;
 import com.example.smartclick_app.data.RoutineRepository;
+import com.example.smartclick_app.model.Actions;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DeviceViewModel;
 import com.example.smartclick_app.ui.routines.RoutineViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,11 +31,10 @@ import com.example.smartclick_app.ui.routines.RoutineViewModel;
  */
 public class RoutineGenericFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    private String routineDeviceName;
+    private String routineDeviceId;
+    private String routineActionsName;
+    private String routineActionsParams;
 
     private RoutineViewModel viewModel;
 
@@ -41,11 +44,17 @@ public class RoutineGenericFragment extends Fragment {
     }
 
 
-    public static RoutineGenericFragment newInstance(String param1, String param2) {
+    public static RoutineGenericFragment newInstance(Device routineDevice, Actions routineActions) {
         RoutineGenericFragment fragment = new RoutineGenericFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("routineDeviceName", routineDevice.getName());
+        args.putString("routineDeviceId", routineDevice.getId());
+        args.putString("routineActionsName", routineActions.getActionName());
+        if(routineActions.getParams().size() > 0) {
+            args.putString("routineActionsParams", routineActions.getParams().get(0).toString());
+        } else {
+            args.putString("routineActionsParams", null);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,8 +63,10 @@ public class RoutineGenericFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            routineDeviceName = getArguments().getString("routineDeviceName");
+            routineDeviceId = getArguments().getString("routineDeviceId");
+            routineActionsName = getArguments().getString("routineActionsName");
+            routineActionsParams = getArguments().getString("routineActionsParams");
         }
     }
 
