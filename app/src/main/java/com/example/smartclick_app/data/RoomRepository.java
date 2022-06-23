@@ -280,7 +280,7 @@ public class RoomRepository {
             }
         }.asLiveData();
     }
-        
+
     private Device mapDeviceRemoteToModel(RemoteDevice device) {
         switch (device.getType().getId())
         {
@@ -293,7 +293,7 @@ public class RoomRepository {
             case Refrigerator.TYPE_ID:
                 return new Refrigerator(device.getId(),device.getName(),device.getState().getTemperature(),device.getState().getFreezerTemperature(),device.getState().getMode());
             case Speaker.TYPE_ID:
-                return new Speaker(device.getId(),device.getName(),device.getState().getVolume(),device.getState().getStatus(),device.getState().getGenre());
+                return new Speaker(device.getId(),device.getName(),device.getState().getVolume(),device.getState().getStatus(),device.getState().getGenre(),device.getState().getSong().getTitle() + " (" +device.getState().getSong().getAlbum() + ")\"",device.getState().getSong().getProgress(),device.getState().getSong().getDuration());
             default:
                 return null;
         }

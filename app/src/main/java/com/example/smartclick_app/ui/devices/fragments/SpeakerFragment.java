@@ -43,6 +43,9 @@ public class SpeakerFragment extends Fragment {
     private int deviceVolume;
     private String deviceGenre;
     private String deviceStatus;
+    private String deviceSong;
+    private String deviceSongProgress;
+    private String deviceSongTotalDuration;
 
     String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
     AutoCompleteTextView autoCompleteText;
@@ -65,6 +68,9 @@ public class SpeakerFragment extends Fragment {
         args.putInt("deviceVolume", device.getVolume());
         args.putString("deviceGenre", device.getGenre());
         args.putString("deviceStatus", device.getStatus());
+        args.putString("deviceSong",device.getSong());
+        args.putString("deviceProgress", device.getSongProgress());
+        args.putString("deviceDuration",device.getSongTotalDuration());
         Log.d("nombre", device.getName());
         fragment.setArguments(args);
         return fragment;
@@ -79,6 +85,9 @@ public class SpeakerFragment extends Fragment {
             deviceVolume = getArguments().getInt("deviceVolume");
             deviceGenre = getArguments().getString("deviceGenre");
             deviceStatus = getArguments().getString("deviceStatus");
+            deviceSong = getArguments().getString("deviceSong");
+            deviceSongProgress = getArguments().getString("deviceProgress");
+            deviceSongTotalDuration = getArguments().getString("deviceDuration");
         }
         Log.d("nombreCreate", deviceName);
 
@@ -184,9 +193,16 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
+
+                            /*if (device instanceof Speaker){
+                                Speaker mySpeaker = (Speaker) device;
+
+                            }*/
                             break;
                     }
                 });
+
+
 
             }
         });
