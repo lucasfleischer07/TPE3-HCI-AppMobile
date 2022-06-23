@@ -45,7 +45,6 @@ public class LightbulbFragment extends Fragment {
     private String deviceColor;
     private String deviceStatus;
     private int deviceBrightness;
-    private String deviceColor;
     private DeviceViewModel viewModel;
 
 
