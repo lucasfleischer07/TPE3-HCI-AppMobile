@@ -45,7 +45,6 @@ public class DoorFragment extends Fragment {
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static DoorFragment newInstance(Door device) {
         DoorFragment fragment = new DoorFragment();
         Bundle args = new Bundle();
@@ -84,6 +83,39 @@ public class DoorFragment extends Fragment {
         Button doorUnlockButton = doorFragmentLayout.findViewById(R.id.doorUnlockButton);
         Button doorOpenButton = doorFragmentLayout.findViewById(R.id.doorOpenButton);
         Button doorCloseButton = doorFragmentLayout.findViewById(R.id.doorCloseButton);
+
+        if(Objects.equals(deviceLockInfo, Door.LOCK)) {
+            doorLockButton.setVisibility(View.GONE);
+            doorUnlockButton.setVisibility(View.VISIBLE);
+            doorOpenButton.setVisibility(View.VISIBLE);
+            doorCloseButton.setVisibility(View.GONE);
+            doorOpenButton.setEnabled(false);
+        } else if(Objects.equals(deviceLockInfo, Door.UNLOCK) && Objects.equals(deviceDoorStatus, Door.OPEN)) {
+            doorUnlockButton.setVisibility(View.GONE);
+            doorLockButton.setVisibility(View.VISIBLE);
+            doorLockButton.setEnabled(false);
+            doorOpenButton.setVisibility(View.GONE);
+            doorCloseButton.setVisibility(View.VISIBLE);
+        } else if(Objects.equals(deviceLockInfo, Door.UNLOCK) && Objects.equals(deviceDoorStatus, Door.CLOSE)) {
+            doorUnlockButton.setVisibility(View.GONE);
+            doorLockButton.setVisibility(View.VISIBLE);
+            doorCloseButton.setVisibility(View.GONE);
+            doorOpenButton.setVisibility(View.VISIBLE);
+            doorOpenButton.setEnabled(true);
+        } else if(Objects.equals(deviceDoorStatus, Door.OPEN)) {
+            doorOpenButton.setVisibility(View.GONE);
+            doorCloseButton.setVisibility(View.VISIBLE);
+            doorUnlockButton.setVisibility(View.GONE);
+            doorLockButton.setVisibility(View.VISIBLE);
+            doorLockButton.setEnabled(false);
+        } else if(Objects.equals(deviceDoorStatus, Door.CLOSE)) {
+            doorUnlockButton.setVisibility(View.GONE);
+            doorLockButton.setVisibility(View.VISIBLE);
+            doorCloseButton.setVisibility(View.GONE);
+            doorOpenButton.setVisibility(View.VISIBLE);
+            doorLockButton.setEnabled(true);
+        }
+
 
         doorLockButton.setOnClickListener(new View.OnClickListener() {
             @Override

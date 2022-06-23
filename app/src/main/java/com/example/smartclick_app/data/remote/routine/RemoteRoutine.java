@@ -14,6 +14,9 @@ public class RemoteRoutine {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("actions")
+    @Expose
+    private List<RemoteRoutineActions> actions;
     @SerializedName("meta")
     @Expose
     private RemoteRoutineMeta meta;
@@ -40,5 +43,13 @@ public class RemoteRoutine {
 
     public void setMeta(RemoteRoutineMeta meta) {
         this.meta = meta;
+    }
+
+    public List<RemoteRoutineActions> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<RemoteRoutineActions> actions) {
+        this.actions = actions;
     }
 }

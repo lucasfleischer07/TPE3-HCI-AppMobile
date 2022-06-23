@@ -12,10 +12,14 @@ import com.example.smartclick_app.data.local.MyDatabase;
 import com.example.smartclick_app.data.local.routine.LocalRoutine;
 import com.example.smartclick_app.data.remote.routine.ApiRoutineService;
 import com.example.smartclick_app.data.remote.routine.ApiRoutineService;
+import com.example.smartclick_app.data.remote.routine.RemoteRoutinActionsDeviceType;
 import com.example.smartclick_app.data.remote.routine.RemoteRoutine;
+import com.example.smartclick_app.data.remote.routine.RemoteRoutineActions;
+import com.example.smartclick_app.data.remote.routine.RemoteRoutineActionsDevice;
 import com.example.smartclick_app.data.remote.routine.RemoteRoutineMeta;
 import com.example.smartclick_app.data.remote.ApiResponse;
 import com.example.smartclick_app.data.remote.RemoteResult;
+import com.example.smartclick_app.model.Actions;
 import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.model.Devices.Door;
 import com.example.smartclick_app.model.Devices.Lightbulb;
@@ -25,7 +29,9 @@ import com.example.smartclick_app.model.Devices.Speaker;
 import com.example.smartclick_app.model.Routine;
 import com.example.smartclick_app.model.Routine;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -57,17 +63,39 @@ public class RoutineRepository {
     }
 
     private Routine mapRoutineRemoteToModel(RemoteRoutine remote) {
-        return new Routine(remote.getId(), remote.getName(), remote.getMeta().getHouseId());
+        Routine newRoutine = new Routine(remote.getId(), remote.getName(), remote.getMeta().getHouseId());
+        Device newDevice;
+        for(RemoteRoutineActions actions : remote.getActions()){
+            newDevice = new Device(actions.getDevice().getId(),actions.getDevice().getName(),actions.getDevice().getType().getId());
+            newRoutine.addDeviceAndActions(newDevice,new Actions(actions.getActionName(),actions.getParams()));
+        }
+        return newRoutine;
     }
 
     private RemoteRoutine mapRoutineModelToRemote(Routine model) {
+
         RemoteRoutine remote = new RemoteRoutine();
+        List<RemoteRoutineActions> remoteRoutineActionsList = new ArrayList<>() ;
+        for(Map.Entry<Device,Actions> deviceActionsEntry : model.getDeviceAndActionsMap().entrySet()){
+            RemoteRoutineActions newRemoteRoutineActions = new RemoteRoutineActions();
+            newRemoteRoutineActions.setActionName(deviceActionsEntry.getValue().getActionName());
+            RemoteRoutinActionsDeviceType remoteRoutinActionsDeviceType = new RemoteRoutinActionsDeviceType();
+            remoteRoutinActionsDeviceType.setId(deviceActionsEntry.getKey().getId());
+
+            RemoteRoutineActionsDevice remoteRoutineActionsDevice = new RemoteRoutineActionsDevice();
+            remoteRoutineActionsDevice.setType(remoteRoutinActionsDeviceType);
+            remoteRoutineActionsDevice.setId(deviceActionsEntry.getKey().getId());
+            remoteRoutineActionsDevice.setName(deviceActionsEntry.getKey().getName());
+            newRemoteRoutineActions.setDevice(remoteRoutineActionsDevice);
+            newRemoteRoutineActions.setParams(deviceActionsEntry.getValue().getParams());
+            remoteRoutineActionsList.add(newRemoteRoutineActions);
+        }
         RemoteRoutineMeta remoteMeta = new RemoteRoutineMeta();
         remoteMeta.setHouseId(model.getHouseId());
         remote.setId(model.getId());
         remote.setName(model.getName());
         remote.setMeta(remoteMeta);
-
+        remote.setActions(remoteRoutineActionsList);
         return remote;
     }
 
@@ -75,16 +103,8 @@ public class RoutineRepository {
         Log.d(TAG, "RoutineRepository - getRoutines()");
         return new NetworkBoundResource<List<Routine>, List<LocalRoutine>, List<RemoteRoutine>>(
                 executors,
-                locals -> {
-                    return locals.stream()
-                            .map(this::mapRoutineLocalToModel)
-                            .collect(toList());
-                },
-                remotes -> {
-                    return remotes.stream()
-                            .map(this::mapRoutineRemoteToLocal)
-                            .collect(toList());
-                },
+                null,
+                null,
                 remotes -> {
                     return remotes.stream()
                             .map(this::mapRoutineRemoteToModel)
@@ -109,7 +129,7 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<List<LocalRoutine>> loadFromDb() {
-                return database.routineDao().findAll();
+                return null;
             }
 
             @NonNull

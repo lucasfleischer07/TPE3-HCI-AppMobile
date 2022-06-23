@@ -34,8 +34,9 @@ public class RoutineViewModel extends RepositoryViewModel<RoutineRepository> {
     }
 
     public LiveData<Resource<List<Routine>>> getRoutines() {
-        loadRoutines();
-        return routines;
+        //loadRoutines();
+        //return routines;
+        return repository.getRoutines();
     }
 
     public LiveData<Resource<Routine>> getRoutine() {

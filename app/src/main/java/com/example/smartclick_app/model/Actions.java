@@ -1,12 +1,13 @@
 package com.example.smartclick_app.model;
 
+import java.io.ObjectStreamException;
 import java.util.List;
 
 public class Actions {
     private final String name;
-    private final List<String> params;
+    private final List<Object> params;
 
-    public Actions(String name, List<String> params){
+    public Actions(String name, List<Object> params){
         this.name=name;
         this.params=params;
     }
@@ -15,7 +16,7 @@ public class Actions {
         return name;
     }
 
-    public List<String> getParams(){
+    public List<Object> getParams(){
         return params;
     }
 }

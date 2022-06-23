@@ -11,6 +11,17 @@ public class Refrigerator extends Device {
     public final static String ACTION_SET_TEMP = "setTemperature";
     public final static String ACTION_SET_MODE = "setMode";
 
+    public final static String MODE_DEFAULT = "default";
+    public final static String MODE_PARTY = "party";
+    public final static String MODE_VACATION = "vacation";
+
+    public final static int MODE_PARTY_TEMPERATURE = 3;
+    public final static int MODE_PARTY_TEMPERATURE_FREEZER = -20;
+    public final static int MODE_VACATION_TEMPERATURE = 6;
+    public final static int MODE_VACATION_TEMPERATURE_FREEZER = -17;
+    public final static int MODE_DEFAULT_TEMPERATURE_FREEZER = -17;
+
+
 
 
     public Refrigerator(String id,String name,int temperature,int freezerTemperature, String mode){
