@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation 'androidx.room:room-common:2.4.2'
     implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'androidx.work:work-runtime:2.5.0'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
     def retrofit_version = "2.9.0"
     def ok_http_version = "4.9.1"

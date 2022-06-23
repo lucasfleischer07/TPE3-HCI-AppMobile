@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/color_picker_device_background_menu_button"
+        android:icon="@drawable/color_picker_asset"
+        app:showAsAction="never"
+        android:title = "@string/color_picker_overflow_menu_background" />
+
+    <item
+        android:id="@+id/color_picker_device_font_menu_button"
+        android:icon="@drawable/color_picker_asset"
+        app:showAsAction="never"
+        android:title="@string/color_picker_overflow_menu_font" />
+
+    <item
+        android:id="@+id/color_picker_device_buttons_menu_button"
+        android:icon="@drawable/color_picker_asset"
+        app:showAsAction="never"
+        android:title="@string/color_picker_overflow_menu_buttons" />
+</menu>

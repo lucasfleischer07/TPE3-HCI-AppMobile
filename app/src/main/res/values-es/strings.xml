@@ -84,6 +84,12 @@
     <string name="speaker_playlist_toast">Playlist seleccionada</string>
     <string name="speaker_playlist_gender">Lista de reproducción</string>
 
+    <string name="color_picker_overflow_menu_background">Seleccione el color de los dispositivos</string>
+    <string name="color_picker_overflow_menu_font">Seleccione el color de letra de los dispositivos</string>
+    <string name="color_picker_overflow_menu_buttons">Seleccione el color de los botones de los dispositivos</string>
+
+    <string name="execute_routine">Ejecutar</string>
+    <string name="information_routine">+Info</string>
 
 
     <!--    DropDownMenu Speaker-->

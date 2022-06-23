@@ -2,6 +2,7 @@ package com.example.smartclick_app.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.example.smartclick_app.MyApplication;
@@ -40,25 +41,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.toolbar);
-
+        RoomFragment room =RoomFragment.newInstance(null,null);
+        FragmentManager manager=getSupportFragmentManager();
+        RoutinesFragment routine=RoutinesFragment.newInstance(null,null);
+        if(!isTablet() || (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)){
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-
+        viewPager.setOffscreenPageLimit(2);}
         LiveData<Resource<List<Room>>> rooms;
         MyApplication application = (MyApplication)this.getApplication();
         RoomRepository roomRepository= application.getRoomRepository();
         HouseRepository houseRepository = application.getHouseRepository();
         rooms = roomRepository.getRooms();
         LiveData<Resource<List<House>>> houses = houseRepository.getHouses();
-        viewPager.setOffscreenPageLimit(2);
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -88,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.overflow_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public void onResume() {
-
-
         super.onResume();
-
-
+    }
+    boolean isTablet(){
+        return getResources().getBoolean(R.bool.isTablet);
     }
 }
