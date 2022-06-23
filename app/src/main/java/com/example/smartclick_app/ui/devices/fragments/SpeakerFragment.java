@@ -23,6 +23,7 @@ import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.DeviceRepository;
 import com.example.smartclick_app.model.Devices.Door;
 import com.example.smartclick_app.model.Devices.Oven;
+import com.example.smartclick_app.model.Devices.Refrigerator;
 import com.example.smartclick_app.model.Devices.Speaker;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DeviceViewModel;
@@ -65,6 +66,7 @@ public class SpeakerFragment extends Fragment {
         args.putInt("deviceVolume", device.getVolume());
         args.putString("deviceGenre", device.getGenre());
         args.putString("deviceStatus", device.getStatus());
+//        args.putStringArrayList("deviceSongs", device.get);
         Log.d("nombre", device.getName());
         fragment.setArguments(args);
         return fragment;
@@ -80,12 +82,11 @@ public class SpeakerFragment extends Fragment {
             deviceGenre = getArguments().getString("deviceGenre");
             deviceStatus = getArguments().getString("deviceStatus");
         }
-        Log.d("nombreCreate", deviceName);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         Activity activity = getActivity();
         MyApplication application = (MyApplication) activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
@@ -101,6 +102,7 @@ public class SpeakerFragment extends Fragment {
         Button speakerPauseButton = speakerFragmentLayout.findViewById(R.id.speakerPause);
         Button speakerBackwardButton = speakerFragmentLayout.findViewById(R.id.speakerBackward);
         Button speakerForwardButton = speakerFragmentLayout.findViewById(R.id.speakerForward);
+
 
         if(Objects.equals(deviceStatus, Speaker.ACTION_PLAY)) {
             speakerPlayButton.setVisibility(View.GONE);
@@ -121,6 +123,7 @@ public class SpeakerFragment extends Fragment {
             speakerStopButton.setVisibility(View.GONE);
             speakerPauseButton.setVisibility(View.GONE);
         }
+
 
         speakerPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,26 +195,18 @@ public class SpeakerFragment extends Fragment {
         });
 
 
-
-
-
-
-
-
-
-
-
         TextView speakerVolumeNumber = speakerFragmentLayout.findViewById(R.id.speakerVolumeNumber);
         SeekBar speakerSeekBar = speakerFragmentLayout.findViewById(R.id.speakerSeekBar);
-//        TODO: Ver si nos podemos traer el brillo para poder setearlo desde un principio y no solo cuando lo setea el usuario
-//        lampTextViewPercentage.setText();
+
+        speakerVolumeNumber.setText(String.valueOf(deviceVolume));
+        speakerSeekBar.setProgress(deviceVolume);
         speakerSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // increment 1 in progress and
                 // increase the textsize
                 // with the value of progress
-                speakerVolumeNumber.setText(progress + "%");
+                speakerVolumeNumber.setText(String.valueOf(progress));
             }
 
             @Override
@@ -222,19 +217,23 @@ public class SpeakerFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // This method will automatically
-                // called when the user
-                // stops touching the SeekBar
-//                TODO: Aca habira que llamar a la api para pasarle el resultado final
+                // This method will automatically called when the user stops touching the SeekBar
+                viewModel.executeDeviceActionWithInt(deviceId, Speaker.ACTION_SET_VOLUME, seekBar.getProgress()).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceVolume = seekBar.getProgress();
+                            break;
+                    }
+                });
+
             }
         });
 
-//        String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
-//        AutoCompleteTextView autoCompleteTextView;
-//        ArrayAdapter<String> adapterItems;
 
         autoCompleteText = speakerFragmentLayout.findViewById(R.id.autoCompleteTextView);
-        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_item,itemsDropMenu);
+        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_item, itemsDropMenu);
         autoCompleteText.setAdapter(adapterItems);
         autoCompleteText.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -247,8 +246,7 @@ public class SpeakerFragment extends Fragment {
 
 
         Button speakerPlaylist = speakerFragmentLayout.findViewById(R.id.speakerPlaylist);
-//        TODO: Ver de meter la del estado acrual de la api
-//        ovenActualHeatSource.setText();
+
         speakerPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,19 +269,36 @@ public class SpeakerFragment extends Fragment {
                     break;
 
                     case Speaker.GENDER_DANCE:
-                        songs = "pedido a api";
+                        songs = "Nombre: All Day And Night, duración: 2:49\n" +
+                                "Nombre: No Sleep, duración: 3:27\n" +
+                                "Nombre: Speechless, duración: 3:37\n" +
+                                "Nombre: Carry On, duración: 3:35\n" +
+                                "Nombre: Better When You're Gone, duración: 3:12";
                         break;
 
                     case Speaker.GENDER_LATINA:
-                    songs = "pedido a api 2";
+                    songs = "Nombre: Prometiste, duración: 5:05\n" +
+                            "Nombre: Tu de Que Vas, duración: 3:58\n" +
+                            "Nombre: Me Dedique a Perderte, duración: 3:51\n" +
+                            "Nombre: El Sol No Regresa, duración: 3:48\n" +
+                            "Nombre: Antologia, duración: 4:11";
                     break;
 
                     case Speaker.GENDER_POP:
-                    songs = "pedido a api 3";
+                    songs = "Nombre: Memories, duración: 3:09\n" +
+                            "Nombre: Dance Monkey, duración: 3:29\n" +
+                            "Nombre: Don't Call Me Angel, duración: 3:10\n" +
+                            "Nombre: Graveyard, duración: 3:01\n" +
+                            "Nombre: Someone You Loved, duración: 3:02\n" +
+                            "Nombre: Liar, duración: 3:27";
                     break;
 
                     case Speaker.GENDER_ROCK:
-                    songs = "pedido a api 4";
+                    songs = "Nombre: Hotel California, duración: 6:49\n" +
+                            "Nombre: Bohemian Rapsody, duración: 5:54\n" +
+                            "Nombre: Sweet Child O' Mine, duración: 5:54\n" +
+                            "Nombre: Have You Ever Seen The Rain, duración: 2:40\n" +
+                            "Nombre: Come Together, duración: 4:19";
                     break;
 
 
