@@ -1,6 +1,7 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,8 @@ import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DeviceViewModel;
 
 import java.util.Objects;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,6 +86,7 @@ public class DoorFragment extends Fragment {
         Button doorUnlockButton = doorFragmentLayout.findViewById(R.id.doorUnlockButton);
         Button doorOpenButton = doorFragmentLayout.findViewById(R.id.doorOpenButton);
         Button doorCloseButton = doorFragmentLayout.findViewById(R.id.doorCloseButton);
+        Button colorPickerButton = doorFragmentLayout.findViewById(R.id.colorPickerButton);
 
         if(Objects.equals(deviceLockInfo, Door.LOCK)) {
             doorLockButton.setVisibility(View.GONE);
@@ -206,6 +210,29 @@ public class DoorFragment extends Fragment {
                             break;
                     }
                 });
+            }
+        });
+
+        colorPickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(getContext(), R.color.blue_main, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+                        Toast.makeText(getContext(), getString(R.string.lamp_color_cancel), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(routineActual.getId(),Integer.toHexString(color));
+                        routineColor=Integer.toHexString(color);
+                        routineFragmentLayout.setBackgroundColor((int) Long.parseLong(routineColor.replace("#", ""), 16));
+                        editor.apply();
+                        Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                colorPicker.show();
             }
         });
 
