@@ -114,7 +114,7 @@ public class RoutineGenericFragment extends Fragment {
 
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-                        
+
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }
                 });
