@@ -93,7 +93,7 @@ public class RoutinesFragment extends Fragment {
 
         routinesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_routines, container, false);
         generalLinearLayout = routinesViewGroup.findViewById(R.id.routineLinearLayout);
-        refreshData();
+
         return routinesViewGroup;
     }
 
