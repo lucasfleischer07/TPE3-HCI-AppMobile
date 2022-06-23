@@ -37,7 +37,7 @@
 
     <string name="oven_heat_mode">Heat source:</string>
     <string name="oven_heat_mode_down">Bottom</string>
-    <string name="oven_heat_mode_normal">Conventional</string>
+    <string name="oven_heat_mode_normal">Normal</string>
     <string name="oven_heat_mode_up">Top</string>
     <string name="oven_grill">Grill:</string>
     <string name="oven_grill_convection_off">Off</string>
