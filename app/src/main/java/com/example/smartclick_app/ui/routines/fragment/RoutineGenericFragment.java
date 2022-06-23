@@ -57,18 +57,7 @@ public class RoutineGenericFragment extends Fragment {
     public static RoutineGenericFragment newInstance(Routine routineActual) {
         RoutineGenericFragment fragment = new RoutineGenericFragment();
         Bundle args = new Bundle();
-<<<<<<< HEAD
-        args.putString("routineDeviceName", routineDevice.getName());
-        args.putString("routineDeviceId", routineDevice.getId());
-        args.putString("routineActionsName", routineActions.getActionName());
-//        if(routineActions.getParams().size() > 0) {
-//            args.putString("routineActionsParams", routineActions.getParams().get(0).toString());
-//        } else {
-//            args.putString("routineActionsParams", null);
-//        }
-=======
         args.putParcelable("routineActual", routineActual);
->>>>>>> 59381a7bc1926b41aacad554f068ec64709a4f16
         fragment.setArguments(args);
         return fragment;
     }
