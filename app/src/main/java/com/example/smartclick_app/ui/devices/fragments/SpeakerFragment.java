@@ -127,8 +127,10 @@ public class SpeakerFragment extends Fragment {
         Button speakerBackwardButton = speakerFragmentLayout.findViewById(R.id.speakerBackward);
         Button speakerForwardButton = speakerFragmentLayout.findViewById(R.id.speakerForward);
 
+        TextView speakerSongName = speakerFragmentLayout.findViewById(R.id.speakerSongName);
+        TextView speakerSongProgress = speakerFragmentLayout.findViewById(R.id.speakerSongProgress);
 
-        Log.d("Status", deviceStatus);
+
         if(Objects.equals(deviceStatus, Speaker.PLAY)) {
             speakerPlayButton.setVisibility(View.GONE);
             speakerBackwardButton.setVisibility(View.VISIBLE);
@@ -165,8 +167,6 @@ public class SpeakerFragment extends Fragment {
             speakerPauseButton.setVisibility(View.VISIBLE);
             updateStatus(speakerFragmentLayout);
         }
-
-        Log.d("statusPause1", deviceStatus);
 
         speakerPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,7 +255,8 @@ public class SpeakerFragment extends Fragment {
                             speakerForwardButton.setVisibility(View.GONE);
                             speakerStopButton.setVisibility(View.GONE);
                             speakerPauseButton.setVisibility(View.GONE);
-
+                            speakerSongProgress.setText("");
+                            speakerSongName.setText("");
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
                             break;
                     }
@@ -448,17 +449,10 @@ public class SpeakerFragment extends Fragment {
             }
         });
 
-        TextView speakerSongName = speakerFragmentLayout.findViewById(R.id.speakerSongName);
         speakerSongName.setText(deviceSong);
 
-        TextView speakerSongProgress = speakerFragmentLayout.findViewById(R.id.speakerSongProgress);
         speakerSongProgress.setText(deviceSongProgress + " " + "|" + " " + deviceSongTotalDuration);
         updateStatus(speakerFragmentLayout);
-
-
-
-
-
 
         return speakerFragmentLayout;
     }
