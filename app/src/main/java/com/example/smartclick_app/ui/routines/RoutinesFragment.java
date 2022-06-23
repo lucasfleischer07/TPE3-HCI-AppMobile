@@ -22,6 +22,8 @@ import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.RoomRepository;
 import com.example.smartclick_app.data.RoutineRepository;
 import com.example.smartclick_app.data.Status;
+import com.example.smartclick_app.model.Actions;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.model.Room;
 import com.example.smartclick_app.model.Routine;
 import com.example.smartclick_app.ui.MainActivity;
@@ -32,6 +34,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -114,12 +117,19 @@ public class RoutinesFragment extends Fragment {
         }
         for (int i = 0; i < routines.size(); i++) {
             if (routines.get(i).getHouseId().equals(actualId)) {
+                Log.d("Rutina con nombre",routines.get(i).getName());
+
                 LinearLayout row = new LinearLayout(getContext());
                 MaterialButton routineButton = new MaterialButton(getContext());
                 routineButton.setText(routines.get(i).getName());
                 routineButton.setId(i);
                 routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
                 int finalI = i;
+
+                //SI QUERES PASAR LA DATA DE UNA RUTINA PODES SACARLO HACIENDO ASIs
+                for(Map.Entry<Device, Actions> entry : routines.get(i).getDeviceAndActionsMap().entrySet()){
+                    Log.d("Rutina con action: ",entry.getValue().getActionName());
+                }
                 routineButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
