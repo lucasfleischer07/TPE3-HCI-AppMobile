@@ -20,10 +20,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="0.631"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.374" />
 
     <ImageView
         android:id="@+id/speakerIcon"
@@ -61,7 +61,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintHorizontal_bias="0.237"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405"
+        app:layout_constraintVertical_bias="0.372"
         app:srcCompat="@drawable/volume_down_asset" />
 
     <TextView
@@ -74,7 +74,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintHorizontal_bias="0.831"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintVertical_bias="0.376" />
 
     <Button
         android:id="@+id/colorPickerButton"
@@ -162,6 +162,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.685" />
@@ -189,10 +190,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintHorizontal_bias="0.574"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.543" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -201,10 +202,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.762"
+        app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982"
+        app:layout_constraintVertical_bias="0.981"
         app:startIconDrawable="@drawable/radio_asset"
         tools:ignore="MissingConstraints,NotSibling">
 
