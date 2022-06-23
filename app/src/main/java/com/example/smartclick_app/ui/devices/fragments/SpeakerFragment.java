@@ -1,13 +1,12 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +22,11 @@ import android.widget.Toast;
 import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.DeviceRepository;
+import com.example.smartclick_app.data.Resource;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.model.Devices.Door;
 import com.example.smartclick_app.model.Devices.Oven;
+import com.example.smartclick_app.model.Devices.Refrigerator;
 import com.example.smartclick_app.model.Devices.Speaker;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
 import com.example.smartclick_app.ui.devices.DeviceViewModel;
@@ -48,7 +50,7 @@ public class SpeakerFragment extends Fragment {
     private String deviceSong;
     private String deviceSongProgress;
     private String deviceSongTotalDuration;
-    private String deviceColor;
+
     String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
     AutoCompleteTextView autoCompleteText;
     ArrayAdapter<String> adapterItems;
@@ -73,7 +75,7 @@ public class SpeakerFragment extends Fragment {
         args.putString("deviceSong",device.getSong());
         args.putString("deviceProgress", device.getSongProgress());
         args.putString("deviceDuration",device.getSongTotalDuration());
-        Log.d("nombre", device.getName());
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,34 +93,27 @@ public class SpeakerFragment extends Fragment {
             deviceSongProgress = getArguments().getString("deviceProgress");
             deviceSongTotalDuration = getArguments().getString("deviceDuration");
         }
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        deviceColor = preferences.getString(deviceId,null);
-        if(deviceColor==null){
-            deviceColor=String.valueOf(R.color.rooms_and_routine_buttons);
-        }
-        Log.d("nombreCreate", deviceName);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         Activity activity = getActivity();
         MyApplication application = (MyApplication) activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
         viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
 
         ViewGroup speakerFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_speaker, container, false);
-        speakerFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
+
         TextView textViewDeviceName = speakerFragmentLayout.findViewById(R.id.speakerName);
         textViewDeviceName.setText(deviceName);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        Button colorPickerButton = speakerFragmentLayout.findViewById(R.id.colorPickerButton);
         Button speakerPlayButton = speakerFragmentLayout.findViewById(R.id.speakerPlay);
         Button speakerStopButton = speakerFragmentLayout.findViewById(R.id.speakerStop);
         Button speakerPauseButton = speakerFragmentLayout.findViewById(R.id.speakerPause);
         Button speakerBackwardButton = speakerFragmentLayout.findViewById(R.id.speakerBackward);
         Button speakerForwardButton = speakerFragmentLayout.findViewById(R.id.speakerForward);
+
 
         if(Objects.equals(deviceStatus, Speaker.ACTION_PLAY)) {
             speakerPlayButton.setVisibility(View.GONE);
@@ -140,6 +135,7 @@ public class SpeakerFragment extends Fragment {
             speakerPauseButton.setVisibility(View.GONE);
         }
 
+
         speakerPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +152,7 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.VISIBLE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
+                            updateStatus();
                             break;
                     }
                 });
@@ -179,6 +176,7 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_pause), Toast.LENGTH_SHORT).show();
+                            updateStatus();
                             break;
                     }
                 });
@@ -202,64 +200,27 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
-
-                            /*if (device instanceof Speaker){
-                                Speaker mySpeaker = (Speaker) device;
-
-                            }*/
+                            updateStatus();
                             break;
                     }
                 });
-
-
-
             }
         });
-
-        colorPickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(getContext(), R.color.blue_main, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-                    @Override
-                    public void onCancel(AmbilWarnaDialog dialog) {
-                        Toast.makeText(getContext(), getString(R.string.lamp_color_cancel), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onOk(AmbilWarnaDialog dialog, int color) {
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(deviceId,Integer.toHexString(color));
-                        deviceColor=Integer.toHexString(color);
-                        speakerFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
-                        editor.apply();
-                        Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
-                    }
-                });
-                colorPicker.show();
-            }
-        });
-
-
-
-
-
-
-
-
 
 
 
         TextView speakerVolumeNumber = speakerFragmentLayout.findViewById(R.id.speakerVolumeNumber);
         SeekBar speakerSeekBar = speakerFragmentLayout.findViewById(R.id.speakerSeekBar);
-//        TODO: Ver si nos podemos traer el brillo para poder setearlo desde un principio y no solo cuando lo setea el usuario
-//        lampTextViewPercentage.setText();
+
+        speakerVolumeNumber.setText(String.valueOf(deviceVolume));
+        speakerSeekBar.setProgress(deviceVolume);
         speakerSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // increment 1 in progress and
                 // increase the textsize
                 // with the value of progress
-                speakerVolumeNumber.setText(progress + "%");
+                speakerVolumeNumber.setText(String.valueOf(progress));
             }
 
             @Override
@@ -270,19 +231,23 @@ public class SpeakerFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // This method will automatically
-                // called when the user
-                // stops touching the SeekBar
-//                TODO: Aca habira que llamar a la api para pasarle el resultado final
+                // This method will automatically called when the user stops touching the SeekBar
+                viewModel.executeDeviceActionWithInt(deviceId, Speaker.ACTION_SET_VOLUME, seekBar.getProgress()).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceVolume = seekBar.getProgress();
+                            break;
+                    }
+                });
+
             }
         });
 
-//        String[] itemsDropMenu = {"Classical", "Country", "Dance", "Latina", "Pop","Rock"};
-//        AutoCompleteTextView autoCompleteTextView;
-//        ArrayAdapter<String> adapterItems;
 
         autoCompleteText = speakerFragmentLayout.findViewById(R.id.autoCompleteTextView);
-        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_item,itemsDropMenu);
+        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_item, itemsDropMenu);
         autoCompleteText.setAdapter(adapterItems);
         autoCompleteText.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -295,8 +260,7 @@ public class SpeakerFragment extends Fragment {
 
 
         Button speakerPlaylist = speakerFragmentLayout.findViewById(R.id.speakerPlaylist);
-//        TODO: Ver de meter la del estado acrual de la api
-//        ovenActualHeatSource.setText();
+
         speakerPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -319,19 +283,36 @@ public class SpeakerFragment extends Fragment {
                     break;
 
                     case Speaker.GENDER_DANCE:
-                        songs = "pedido a api";
+                        songs = "Nombre: All Day And Night, duración: 2:49\n" +
+                                "Nombre: No Sleep, duración: 3:27\n" +
+                                "Nombre: Speechless, duración: 3:37\n" +
+                                "Nombre: Carry On, duración: 3:35\n" +
+                                "Nombre: Better When You're Gone, duración: 3:12";
                         break;
 
                     case Speaker.GENDER_LATINA:
-                    songs = "pedido a api 2";
+                    songs = "Nombre: Prometiste, duración: 5:05\n" +
+                            "Nombre: Tu de Que Vas, duración: 3:58\n" +
+                            "Nombre: Me Dedique a Perderte, duración: 3:51\n" +
+                            "Nombre: El Sol No Regresa, duración: 3:48\n" +
+                            "Nombre: Antologia, duración: 4:11";
                     break;
 
                     case Speaker.GENDER_POP:
-                    songs = "pedido a api 3";
+                    songs = "Nombre: Memories, duración: 3:09\n" +
+                            "Nombre: Dance Monkey, duración: 3:29\n" +
+                            "Nombre: Don't Call Me Angel, duración: 3:10\n" +
+                            "Nombre: Graveyard, duración: 3:01\n" +
+                            "Nombre: Someone You Loved, duración: 3:02\n" +
+                            "Nombre: Liar, duración: 3:27";
                     break;
 
                     case Speaker.GENDER_ROCK:
-                    songs = "pedido a api 4";
+                    songs = "Nombre: Hotel California, duración: 6:49\n" +
+                            "Nombre: Bohemian Rapsody, duración: 5:54\n" +
+                            "Nombre: Sweet Child O' Mine, duración: 5:54\n" +
+                            "Nombre: Have You Ever Seen The Rain, duración: 2:40\n" +
+                            "Nombre: Come Together, duración: 4:19";
                     break;
 
 
@@ -351,6 +332,25 @@ public class SpeakerFragment extends Fragment {
         playlistDialog playlist = new playlistDialog(songs);
         playlist.show(getChildFragmentManager(), "h");
     }
+
+    public void updateStatus(){
+        viewModel.getDevice(deviceId).observe(getViewLifecycleOwner(), resource1 -> {
+            switch (resource1.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (resource1.data instanceof Speaker){
+                        Speaker mySpeaker = (Speaker) resource1.data;
+                        deviceSong = mySpeaker.getSong();
+                        deviceSongProgress = mySpeaker.getSongProgress();
+                        deviceSongTotalDuration = mySpeaker.getSongTotalDuration();
+//                      Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        });
+    }
+
 }
 
 

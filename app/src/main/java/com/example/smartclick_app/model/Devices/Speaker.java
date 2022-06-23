@@ -73,14 +73,6 @@ public class Speaker extends Device {
         //llamar la api
     }
 
-    public void startSong(){
-        //llamar la api
-    }
-
-    public void pauseSong(){
-        //llamar la api
-    }
-
     public void prevSong(){
         //llamar la api
     }
