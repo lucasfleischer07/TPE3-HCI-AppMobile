@@ -51,6 +51,7 @@
         android:id="@+id/colorPickerButton"
         android:layout_width="48dp"
         android:layout_height="36dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@drawable/color_picker_asset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
