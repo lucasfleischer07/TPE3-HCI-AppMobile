@@ -8,10 +8,11 @@ android:layout_margin="10dp"
 android:background="@color/main_act_background"
 tools:context=".ui.devices.fragments.SpeakerFragment">
 
+
     <SeekBar
         android:id="@+id/speakerSeekBar"
-        android:layout_width="144dp"
-        android:layout_height="41dp"
+        android:layout_width="175dp"
+        android:layout_height="42dp"
         android:max="10"
         android:min="0"
         android:progress="2"
@@ -19,7 +20,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.432" />
@@ -31,29 +32,28 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.003"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.009"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/speaker_asset" />
 
     <TextView
         android:id="@+id/speakerName"
         android:layout_width="288dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="20dp"
         android:textAlignment="center"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.006" />
-
+        app:layout_constraintVertical_bias="0.007" />
 
     <ImageView
         android:id="@+id/speakerVolumeIcon"
-        android:layout_width="40dp"
-        android:layout_height="41dp"
+        android:layout_width="42dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.235"
@@ -70,57 +70,108 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.433" />
+
+    <Button
+        android:id="@+id/speakerStop"
+        android:layout_width="58dp"
+        android:layout_height="52dp"
+        android:drawableLeft="@drawable/stop_asset"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.173" />
 
     <Button
         android:id="@+id/speakerPlay"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginBottom="24dp"
-        android:drawableBottom="@drawable/play_asset"
+        android:layout_width="58dp"
+        android:layout_height="52dp"
+        android:drawableLeft="@drawable/play_asset"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.697"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
+        app:layout_constraintVertical_bias="0.173" />
+
+    <Button
+        android:id="@+id/speakerBackward"
+        android:layout_width="58dp"
+        android:layout_height="52dp"
+        android:drawableLeft="@drawable/prev_asset"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.173" />
+
+    <Button
+        android:id="@+id/speakerForward"
+        android:layout_width="58dp"
+        android:layout_height="52dp"
+        android:drawableLeft="@drawable/next_asset"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.173" />
+
+    <Button
+        android:id="@+id/speakerPause"
+        android:layout_width="58dp"
+        android:layout_height="52dp"
+        android:drawableLeft="@drawable/pause_asset"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.173" />
 
     <Button
         android:id="@+id/speakerPlaylist"
-        android:layout_width="40dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="192dp"
+        android:layout_width="58dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="24dp"
-        android:drawableBottom="@drawable/queue_asset"
-
+        android:drawableLeft="@drawable/queue_asset"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.777" />
-
+        app:layout_constraintVertical_bias="0.759" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="208dp"
-        android:layout_height="55dp"
+        android:layout_width="249dp"
+        android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
+        app:layout_constraintHorizontal_bias="0.681"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.971"
+        app:layout_constraintVertical_bias="0.974"
         app:startIconDrawable="@drawable/radio_asset"
         tools:ignore="MissingConstraints,NotSibling">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
-            android:layout_width="182dp"
-            android:layout_height="36dp"
+            android:layout_width="233dp"
+            android:layout_height="53dp"
             android:layout_weight="1"
             android:hint="@string/speaker_gender"
             android:inputType="none"
@@ -128,8 +179,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout"
-            tools:ignore="MissingConstraints"
-            />
+            tools:ignore="MissingConstraints" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

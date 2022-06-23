@@ -12,16 +12,24 @@ public class Speaker extends Device {
     public final static String ACTION_STOP="stop";
     public final static String ACTION_PAUSE="pause";
     public final static String ACTION_RESUME="resume";
-    public final static String ACTION_NEXT_SONG="nextSong";
-    public final static String ACTION_PREVIOUS_SONG="previousSong";
+    public final static String ACTION_NEXT_SONG="forward";
+    public final static String ACTION_PREVIOUS_SONG="backward";
     public final static String ACTION_SET_GENRE="setGenre";
     public final static String ACTION_GET_PLAYLIST="getPlaylist";
+
     public final static String GENDER_CLASSICAL="classical";
     public final static String GENDER_COUNTRY="country";
     public final static String GENDER_DANCE="dance";
     public final static String GENDER_LATINA="latina";
     public final static String GENDER_POP="pop";
     public final static String GENDER_ROCK="rock";
+
+
+
+
+
+
+
 
 
 
@@ -84,7 +92,7 @@ public class Speaker extends Device {
         private String nombreIngles;
         private String nombreEsp;
 
-        private Genre(String nombreIngles, String nombreEsp){
+        Genre(String nombreIngles, String nombreEsp){
             this.nombreIngles=nombreIngles;
             this.nombreEsp=nombreEsp;
         }

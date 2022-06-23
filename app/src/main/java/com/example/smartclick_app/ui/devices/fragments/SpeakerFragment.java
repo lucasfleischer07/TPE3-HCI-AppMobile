@@ -1,8 +1,10 @@
 package com.example.smartclick_app.ui.devices.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +18,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.DeviceRepository;
+import com.example.smartclick_app.model.Devices.Door;
+import com.example.smartclick_app.model.Devices.Oven;
 import com.example.smartclick_app.model.Devices.Speaker;
+import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.devices.DeviceViewModel;
 import com.example.smartclick_app.ui.devices.playlistDialog;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +44,12 @@ public class SpeakerFragment extends Fragment {
     private String deviceGenre;
     private String deviceStatus;
 
-
     String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
     AutoCompleteTextView autoCompleteText;
     ArrayAdapter<String> adapterItems;
+
+    private DeviceViewModel viewModel;
+
 
 
     public SpeakerFragment() {
@@ -74,21 +86,120 @@ public class SpeakerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Activity activity = getActivity();
+        MyApplication application = (MyApplication) activity.getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
+
         ViewGroup speakerFragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_speaker, container, false);
 
         TextView textViewDeviceName = speakerFragmentLayout.findViewById(R.id.speakerName);
         textViewDeviceName.setText(deviceName);
 
-        Button speakerPlay = speakerFragmentLayout.findViewById(R.id.speakerPlay);
-//        TODO: Ver de meter la del estado acrual de la api
-//        ovenActualHeatSource.setText();
-        speakerPlay.setOnClickListener(new View.OnClickListener() {
+        Button speakerPlayButton = speakerFragmentLayout.findViewById(R.id.speakerPlay);
+        Button speakerStopButton = speakerFragmentLayout.findViewById(R.id.speakerStop);
+        Button speakerPauseButton = speakerFragmentLayout.findViewById(R.id.speakerPause);
+        Button speakerBackwardButton = speakerFragmentLayout.findViewById(R.id.speakerBackward);
+        Button speakerForwardButton = speakerFragmentLayout.findViewById(R.id.speakerForward);
+
+        if(Objects.equals(deviceStatus, Speaker.ACTION_PLAY)) {
+            speakerPlayButton.setVisibility(View.GONE);
+            speakerBackwardButton.setVisibility(View.VISIBLE);
+            speakerForwardButton.setVisibility(View.VISIBLE);
+            speakerStopButton.setVisibility(View.VISIBLE);
+            speakerPauseButton.setVisibility(View.VISIBLE);
+        } else if(Objects.equals(deviceStatus, Speaker.ACTION_PAUSE)) {
+            speakerPlayButton.setVisibility(View.VISIBLE);
+            speakerBackwardButton.setVisibility(View.GONE);
+            speakerForwardButton.setVisibility(View.GONE);
+            speakerStopButton.setVisibility(View.VISIBLE);
+            speakerPauseButton.setVisibility(View.GONE);
+        } else if(Objects.equals(deviceStatus, Speaker.ACTION_STOP)) {
+            speakerPlayButton.setVisibility(View.VISIBLE);
+            speakerBackwardButton.setVisibility(View.GONE);
+            speakerForwardButton.setVisibility(View.GONE);
+            speakerStopButton.setVisibility(View.GONE);
+            speakerPauseButton.setVisibility(View.GONE);
+        }
+
+        speakerPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
-                Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceAction(deviceId, Speaker.ACTION_PLAY).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceStatus = Speaker.ACTION_PLAY;
+                            speakerPlayButton.setVisibility(View.GONE);
+                            speakerBackwardButton.setVisibility(View.VISIBLE);
+                            speakerForwardButton.setVisibility(View.VISIBLE);
+                            speakerStopButton.setVisibility(View.VISIBLE);
+                            speakerPauseButton.setVisibility(View.VISIBLE);
+
+                            Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+
             }
         });
+
+        speakerPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.executeDeviceAction(deviceId, Speaker.ACTION_PAUSE).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceStatus = Speaker.ACTION_PAUSE;
+                            speakerPlayButton.setVisibility(View.VISIBLE);
+                            speakerBackwardButton.setVisibility(View.GONE);
+                            speakerForwardButton.setVisibility(View.GONE);
+                            speakerStopButton.setVisibility(View.VISIBLE);
+                            speakerPauseButton.setVisibility(View.GONE);
+
+                            Toast.makeText(getContext(), getString(R.string.speaker_pause), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+
+            }
+        });
+
+        speakerStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.executeDeviceAction(deviceId, Speaker.ACTION_STOP).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            deviceStatus = Speaker.ACTION_STOP;
+                            speakerPlayButton.setVisibility(View.VISIBLE);
+                            speakerBackwardButton.setVisibility(View.GONE);
+                            speakerForwardButton.setVisibility(View.GONE);
+                            speakerStopButton.setVisibility(View.GONE);
+                            speakerPauseButton.setVisibility(View.GONE);
+
+                            Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
         TextView speakerVolumeNumber = speakerFragmentLayout.findViewById(R.id.speakerVolumeNumber);
         SeekBar speakerSeekBar = speakerFragmentLayout.findViewById(R.id.speakerSeekBar);

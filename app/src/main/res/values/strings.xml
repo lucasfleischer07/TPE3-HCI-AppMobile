@@ -76,7 +76,9 @@
     <string name="refrigerator_mode_vacations">Vacations mode activated</string>
     <string name="refrigerator_mode_auto">Auto mode activated</string>
 
-    <string name="speaker_play">Play activated</string>
+    <string name="speaker_play">Speaker playing</string>
+    <string name="speaker_pause">Speaker paused</string>
+    <string name="speaker_stop">Speaker stoped</string>
     <string name="speaker_gender_toast">Gender selected:</string>
     <string name="speaker_playlist_toast">Playlist selected</string>
     <string name="speaker_playlist_gender">Playlist songs:</string>
