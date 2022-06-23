@@ -87,9 +87,12 @@
     <string name="color_picker_overflow_menu_background">Seleccione el color de los dispositivos</string>
     <string name="color_picker_overflow_menu_font">Seleccione el color de letra de los dispositivos</string>
     <string name="color_picker_overflow_menu_buttons">Seleccione el color de los botones de los dispositivos</string>
+    <string name="speaker_next_song">Siguiente canción</string>
+    <string name="speaker_previous_song">Canción previa</string>
 
     <string name="execute_routine">Ejecutar</string>
     <string name="information_routine">+Info</string>
+    <string name="details_routine">Detalle de rutina: </string>
 
 
     <!--    DropDownMenu Speaker-->

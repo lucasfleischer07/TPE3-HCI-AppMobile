@@ -55,6 +55,7 @@ public class SpeakerFragment extends Fragment {
     private String deviceSongProgress;
     private String deviceSongTotalDuration;
     private String deviceColor;
+
     String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
     AutoCompleteTextView autoCompleteText;
     ArrayAdapter<String> adapterItems;
@@ -127,47 +128,89 @@ public class SpeakerFragment extends Fragment {
         Button speakerForwardButton = speakerFragmentLayout.findViewById(R.id.speakerForward);
 
 
-        if(Objects.equals(deviceStatus, Speaker.ACTION_PLAY)) {
+        Log.d("Status", deviceStatus);
+        if(Objects.equals(deviceStatus, Speaker.PLAY)) {
             speakerPlayButton.setVisibility(View.GONE);
             speakerBackwardButton.setVisibility(View.VISIBLE);
             speakerForwardButton.setVisibility(View.VISIBLE);
             speakerStopButton.setVisibility(View.VISIBLE);
             speakerPauseButton.setVisibility(View.VISIBLE);
-        } else if(Objects.equals(deviceStatus, Speaker.ACTION_PAUSE)) {
+            updateStatus();
+        } else if(Objects.equals(deviceStatus, Speaker.PAUSE)) {
             speakerPlayButton.setVisibility(View.VISIBLE);
             speakerBackwardButton.setVisibility(View.GONE);
             speakerForwardButton.setVisibility(View.GONE);
             speakerStopButton.setVisibility(View.VISIBLE);
             speakerPauseButton.setVisibility(View.GONE);
-        } else if(Objects.equals(deviceStatus, Speaker.ACTION_STOP)) {
+            updateStatus();
+        } else if(Objects.equals(deviceStatus, Speaker.STOP)) {
             speakerPlayButton.setVisibility(View.VISIBLE);
             speakerBackwardButton.setVisibility(View.GONE);
             speakerForwardButton.setVisibility(View.GONE);
             speakerStopButton.setVisibility(View.GONE);
             speakerPauseButton.setVisibility(View.GONE);
+            updateStatus();
+        }else if(Objects.equals(deviceStatus, Speaker.NEXT_SONG)){
+            speakerPlayButton.setVisibility(View.GONE);
+            speakerBackwardButton.setVisibility(View.VISIBLE);
+            speakerForwardButton.setVisibility(View.VISIBLE);
+            speakerStopButton.setVisibility(View.VISIBLE);
+            speakerPauseButton.setVisibility(View.VISIBLE);
+            updateStatus();
+        }else if(Objects.equals(deviceStatus, Speaker.PREVIOUS_SONG)){
+            speakerPlayButton.setVisibility(View.GONE);
+            speakerBackwardButton.setVisibility(View.VISIBLE);
+            speakerForwardButton.setVisibility(View.VISIBLE);
+            speakerStopButton.setVisibility(View.VISIBLE);
+            speakerPauseButton.setVisibility(View.VISIBLE);
+            updateStatus();
         }
 
+        Log.d("statusPause1", deviceStatus);
 
         speakerPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.executeDeviceAction(deviceId, Speaker.ACTION_PLAY).observe(getViewLifecycleOwner(), resource -> {
-                    switch (resource.status) {
-                        case LOADING:
-                            break;
-                        case SUCCESS:
-                            deviceStatus = Speaker.ACTION_PLAY;
-                            speakerPlayButton.setVisibility(View.GONE);
-                            speakerBackwardButton.setVisibility(View.VISIBLE);
-                            speakerForwardButton.setVisibility(View.VISIBLE);
-                            speakerStopButton.setVisibility(View.VISIBLE);
-                            speakerPauseButton.setVisibility(View.VISIBLE);
+                if(Objects.equals(deviceStatus, Speaker.STOP)){
+                    viewModel.executeDeviceAction(deviceId, Speaker.ACTION_PLAY).observe(getViewLifecycleOwner(), resource -> {
+                        switch (resource.status) {
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                                deviceStatus = Speaker.PLAY;
+                                speakerPlayButton.setVisibility(View.VISIBLE);
+                                speakerBackwardButton.setVisibility(View.GONE);
+                                speakerForwardButton.setVisibility(View.GONE);
+                                speakerStopButton.setVisibility(View.GONE);
+                                speakerPauseButton.setVisibility(View.GONE);
 
-                            Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
-                            updateStatus();
-                            break;
-                    }
-                });
+                                Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
+                                updateStatus();
+                                break;
+                        }
+                    });
+                }else if (Objects.equals(deviceStatus, Speaker.PAUSE)){
+                    viewModel.executeDeviceAction(deviceId, Speaker.ACTION_RESUME).observe(getViewLifecycleOwner(), resource -> {
+                        switch (resource.status) {
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                                Log.d("statusPause2", deviceStatus);
+                                deviceStatus = Speaker.PLAY;
+                                Log.d("statusPause3", deviceStatus);
+                                speakerPlayButton.setVisibility(View.GONE);
+                                speakerBackwardButton.setVisibility(View.VISIBLE);
+                                speakerForwardButton.setVisibility(View.VISIBLE);
+                                speakerStopButton.setVisibility(View.VISIBLE);
+                                speakerPauseButton.setVisibility(View.VISIBLE);
+
+                                Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
+                                updateStatus();
+                                break;
+                        }
+                    });
+                }
+
 
             }
         });
@@ -180,7 +223,7 @@ public class SpeakerFragment extends Fragment {
                         case LOADING:
                             break;
                         case SUCCESS:
-                            deviceStatus = Speaker.ACTION_PAUSE;
+                            deviceStatus = Speaker.PAUSE;
                             speakerPlayButton.setVisibility(View.VISIBLE);
                             speakerBackwardButton.setVisibility(View.GONE);
                             speakerForwardButton.setVisibility(View.GONE);
@@ -204,7 +247,7 @@ public class SpeakerFragment extends Fragment {
                         case LOADING:
                             break;
                         case SUCCESS:
-                            deviceStatus = Speaker.ACTION_STOP;
+                            deviceStatus = Speaker.STOP;
                             speakerPlayButton.setVisibility(View.VISIBLE);
                             speakerBackwardButton.setVisibility(View.GONE);
                             speakerForwardButton.setVisibility(View.GONE);
@@ -213,6 +256,50 @@ public class SpeakerFragment extends Fragment {
 
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
                             updateStatus();
+                            break;
+                    }
+                });
+            }
+        });
+
+        speakerForwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.executeDeviceAction(deviceId, Speaker.ACTION_NEXT_SONG).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            speakerPlayButton.setVisibility(View.GONE);
+                            speakerBackwardButton.setVisibility(View.VISIBLE);
+                            speakerForwardButton.setVisibility(View.VISIBLE);
+                            speakerStopButton.setVisibility(View.VISIBLE);
+                            speakerPauseButton.setVisibility(View.VISIBLE);
+//                            updateStatus();
+
+                            Toast.makeText(getContext(), getString(R.string.speaker_next_song), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+            }
+        });
+
+        speakerBackwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.executeDeviceAction(deviceId, Speaker.PREVIOUS_SONG).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            speakerPlayButton.setVisibility(View.GONE);
+                            speakerBackwardButton.setVisibility(View.VISIBLE);
+                            speakerForwardButton.setVisibility(View.VISIBLE);
+                            speakerStopButton.setVisibility(View.VISIBLE);
+                            speakerPauseButton.setVisibility(View.VISIBLE);
+//                            updateStatus();
+
+                            Toast.makeText(getContext(), getString(R.string.speaker_previous_song), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
@@ -271,7 +358,7 @@ public class SpeakerFragment extends Fragment {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString(deviceId,Integer.toHexString(color));
                         deviceColor=Integer.toHexString(color);
-                        speakerBackwardButton.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
+                        speakerFragmentLayout.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
                         editor.apply();
                         Toast.makeText(getContext(), getString(R.string.lamp_color_confirm), Toast.LENGTH_SHORT).show();
                     }
@@ -360,7 +447,19 @@ public class SpeakerFragment extends Fragment {
             }
         });
 
-                return speakerFragmentLayout;
+        TextView speakerSongName = speakerFragmentLayout.findViewById(R.id.speakerSongName);
+        speakerSongName.setText(deviceSong);
+
+        TextView speakerSongProgress = speakerFragmentLayout.findViewById(R.id.speakerSongProgress);
+        speakerSongProgress.setText(deviceSongProgress + " " + "|" + " " + deviceSongTotalDuration);
+        updateStatus();
+
+
+
+
+
+
+        return speakerFragmentLayout;
     }
 
     public void playlistDialog(String songs) {

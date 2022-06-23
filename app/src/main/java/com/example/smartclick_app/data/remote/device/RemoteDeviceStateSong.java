@@ -21,6 +21,7 @@ public class RemoteDeviceStateSong {
     private String progress;
 
     public String getTitle() {
+
         return title;
     }
 

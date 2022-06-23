@@ -15,10 +15,17 @@ public class Speaker extends Device {
     public final static String ACTION_STOP="stop";
     public final static String ACTION_PAUSE="pause";
     public final static String ACTION_RESUME="resume";
-    public final static String ACTION_NEXT_SONG="forward";
-    public final static String ACTION_PREVIOUS_SONG="backward";
+    public final static String ACTION_NEXT_SONG="nextSong";
+    public final static String ACTION_PREVIOUS_SONG="previousSong";
     public final static String ACTION_SET_GENRE="setGenre";
     public final static String ACTION_GET_PLAYLIST="getPlaylist";
+
+    public final static String PLAY="playing";
+    public final static String STOP="stopped";
+    public final static String PAUSE="paused";
+    public final static String RESUME="resume";
+    public final static String NEXT_SONG="nextSong";
+    public final static String PREVIOUS_SONG="previousSong";
 
     public final static String GENDER_CLASSICAL="classical";
     public final static String GENDER_COUNTRY="country";

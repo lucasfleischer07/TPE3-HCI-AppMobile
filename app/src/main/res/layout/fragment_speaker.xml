@@ -153,6 +153,32 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.173" />
 
+    <TextView
+        android:id="@+id/speakerSongName"
+        android:layout_width="350dp"
+        android:layout_height="53dp"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685" />
+
+    <TextView
+        android:id="@+id/speakerSongProgress"
+        android:layout_width="177dp"
+        android:layout_height="28dp"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.801" />
+
+
     <Button
         android:id="@+id/speakerPlaylist"
         android:layout_width="58dp"
@@ -162,10 +188,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintVertical_bias="0.574" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
