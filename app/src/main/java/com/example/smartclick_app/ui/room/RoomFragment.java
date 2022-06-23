@@ -140,14 +140,15 @@ public class RoomFragment extends Fragment implements Serializable {
             actualId=preferences.getString("actualHouse",null);
         }
         else if(rooms.size()>0){
-            boolean found=false;
+            int found=0;
             for (Room room:rooms
                  ) {
-                if(room.getHomeId()==actualId)
-                {found=true;
-                break;}
+                if(room.getHomeId().equals(actualId)) {
+                    found=1;
+                    break;
+                }
             }
-            if(!found){
+            if(found==0){
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("actualHouse",rooms.get(0).getHomeId());
                 editor.apply();
