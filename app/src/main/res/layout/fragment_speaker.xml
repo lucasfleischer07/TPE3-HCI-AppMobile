@@ -42,13 +42,14 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:id="@+id/speakerName"
         android:layout_width="288dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="40dp"
+        android:text="TextView"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.007" />
+        app:layout_constraintVertical_bias="0.006" />
 
 
     <ImageView
