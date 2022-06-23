@@ -1,24 +1,22 @@
-package com.example.smartclick_app.ui.devices;
+package com.example.smartclick_app.ui.routines.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-//import com.example.smartclick_app.ui.MainActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.smartclick_app.R;
-import com.example.smartclick_app.ui.devices.fragments.SpeakerFragment;
 
-public class playlistDialog extends AppCompatDialogFragment {
-
-    private String songs;
+public class RoutineDetailDialog extends AppCompatDialogFragment {
+    private String routineInfo;
+    private String routineName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builer = new AlertDialog.Builder(getActivity());
-        builer.setTitle(getString(R.string.speaker_playlist_gender)).setMessage(songs).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builer.setTitle(getString(R.string.details_routine) + " " + routineName).setMessage(routineInfo).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -27,7 +25,8 @@ public class playlistDialog extends AppCompatDialogFragment {
         return builer.create();
     }
 
-    public playlistDialog(String songs){
-        this.songs = songs;
+    public RoutineDetailDialog(String routineInfo, String routineName) {
+        this.routineInfo = routineInfo;
+        this.routineName = routineName;
     }
 }

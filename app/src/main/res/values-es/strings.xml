@@ -3,14 +3,21 @@
     <string name="app_name">SmartClick</string>
 
     <string name="tab_rooms">Habitaciones</string>
+    <string name="tab_devices">Dispositivos</string>
     <string name="tab_routines">Rutinas</string>
+    <string name="tab_houses">Casas</string>
 
     <string name="overflow_settings">Selección de casa</string>
     <string name="house_selected_text">Su casa seleccionada es: </string>
     <string name="house_selected_text_null">No tiene ninguna casa registrada. Por favor registre una en el sitio web.</string>
     <string name="overflow_help">Ayuda</string>
-    <string name="description_help1">Para seleccionar una casa, por favor diríjase a la vista principal y seleccione los tres puntos superiores.
+    <string name="home_help_title">Ayuda para el manejo de casas</string>
+    <string name="device_help_title">Ayuda para el manejo de dispositivos</string>
+    <string name="routine_help_title">Ayuda para el manejo de rutinas</string>
+    <string name="description_help_home">Para seleccionar una casa, por favor diríjase a la vista principal y seleccione los tres puntos superiores.
         Luego seleccione la opción de \"Selección de casa\". Una vez hecho ésto, presione el botón para seleccionar su casa de preferencia. </string>
+    <string name="description_help_device">Para cambiar el color del dispositivo, haga click en el icono superior de la derecha, seleccione el color que desea y haga click en confirmar.</string>
+    <string name="description_help_routine">Para cambiar el color de una rutina, haga click en el icono superior de la izquierda, seleccione el color que desea y haga click en confirmar. Para obtener mas información de la rutina, haga click en el boton \"+Info\". Si quiere ejecutarla, simplemente haga click en el botón de \"Ejecutar\".</string>
 
     <string name="button_select_house">Seleccione una casa</string>
     <string name="title_select_house">Seleccione una casa:</string>
@@ -87,9 +94,12 @@
     <string name="color_picker_overflow_menu_background">Seleccione el color de los dispositivos</string>
     <string name="color_picker_overflow_menu_font">Seleccione el color de letra de los dispositivos</string>
     <string name="color_picker_overflow_menu_buttons">Seleccione el color de los botones de los dispositivos</string>
+    <string name="speaker_next_song">Siguiente canción</string>
+    <string name="speaker_previous_song">Canción previa</string>
 
     <string name="execute_routine">Ejecutar</string>
     <string name="information_routine">+Info</string>
+    <string name="details_routine">Detalle de rutina: </string>
 
 
     <!--    DropDownMenu Speaker-->

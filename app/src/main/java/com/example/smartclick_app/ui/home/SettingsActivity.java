@@ -47,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         MyApplication application = (MyApplication)this.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
         HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
@@ -62,10 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
                     if (resource.data != null && resource.data.size() > 0) {
                         houses.addAll(resource.data);
                         setHousesList(houses);
-
-
                     }
-
             }
         });
 

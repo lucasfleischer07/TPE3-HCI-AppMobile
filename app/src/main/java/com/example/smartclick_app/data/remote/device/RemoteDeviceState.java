@@ -101,11 +101,11 @@ public class RemoteDeviceState {
     }
 
     public RemoteDeviceStateSong getSong() {
-        return song;
+            return song;
     }
 
     public void setSong(RemoteDeviceStateSong song) {
-        this.song = song;
+            this.song = song;
     }
 
     @SerializedName("status")
