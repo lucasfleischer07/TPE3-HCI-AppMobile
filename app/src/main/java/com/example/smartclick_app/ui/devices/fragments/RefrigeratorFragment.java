@@ -321,7 +321,7 @@ public class RefrigeratorFragment extends Fragment {
                 colorPicker.show();
             }
        });
-       
+
 
         return refrigeratorFragmentLayout;
     }
