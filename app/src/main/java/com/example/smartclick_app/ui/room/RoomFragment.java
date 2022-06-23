@@ -139,6 +139,21 @@ public class RoomFragment extends Fragment implements Serializable {
             editor.apply();
             actualId=preferences.getString("actualHouse",null);
         }
+        else if(rooms.size()>0){
+            boolean found=false;
+            for (Room room:rooms
+                 ) {
+                if(room.getHomeId()==actualId)
+                {found=true;
+                break;}
+            }
+            if(!found){
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("actualHouse",rooms.get(0).getHomeId());
+                editor.apply();
+                actualId=preferences.getString("actualHouse",null);
+            }
+        }
         for(int i = 0; i < rooms.size() ; i++) {
             if(rooms.get(i).getHomeId().equals(actualId)){
             LinearLayout row = new LinearLayout(getContext());
