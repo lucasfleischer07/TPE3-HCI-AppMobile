@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
+    android:layout_width="270dp"
     android:layout_height="190dp"
     android:layout_margin="10dp"
     android:background="@color/main_act_background"
@@ -23,8 +23,8 @@
 
     <TextView
         android:id="@+id/lampName"
-        android:layout_width="238dp"
-        android:layout_height="36dp"
+        android:layout_width="157dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="48dp"
         android:text="TextView"
         android:textAlignment="center"
@@ -103,7 +103,7 @@
 
     <TextView
         android:id="@+id/lampTextViewPercentage"
-        android:layout_width="77dp"
+        android:layout_width="45dp"
         android:layout_height="28dp"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"

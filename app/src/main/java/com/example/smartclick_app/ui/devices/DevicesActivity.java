@@ -92,6 +92,8 @@ public class DevicesActivity extends AppCompatActivity {
 
 
     private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout) {
+        generalLinearLayout.removeAllViewsInLayout();
+        generalLinearLayout.removeAllViews();
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             for(int i = 0; i < roomDevices.size() ; i++) {
                 switch (roomDevices.get(i).getTypeId()) {

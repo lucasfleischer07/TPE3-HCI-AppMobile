@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="350dp"
+android:layout_width="280dp"
 android:layout_height="400dp"
 android:layout_margin="10dp"
 android:background="@color/main_act_background"
@@ -20,10 +20,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintVertical_bias="0.379" />
 
     <ImageView
         android:id="@+id/speakerIcon"
@@ -41,8 +41,8 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
 
     <TextView
         android:id="@+id/speakerName"
-        android:layout_width="237dp"
-        android:layout_height="38dp"
+        android:layout_width="163dp"
+        android:layout_height="29dp"
         android:layout_marginEnd="48dp"
         android:text="TextView"
         android:textAlignment="center"
@@ -58,10 +58,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintHorizontal_bias="0.021"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372"
+        app:layout_constraintVertical_bias="0.377"
         app:srcCompat="@drawable/volume_down_asset" />
 
     <TextView
@@ -97,10 +97,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <Button
         android:id="@+id/speakerPlay"
@@ -110,10 +110,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <Button
         android:id="@+id/speakerBackward"
@@ -123,10 +123,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <Button
         android:id="@+id/speakerForward"
@@ -136,10 +136,10 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <Button
         android:id="@+id/speakerPause"
@@ -149,15 +149,15 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <TextView
         android:id="@+id/speakerSongName"
-        android:layout_width="350dp"
-        android:layout_height="53dp"
+        android:layout_width="276dp"
+        android:layout_height="36dp"
         android:textAlignment="center"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -190,7 +190,6 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.574"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.543" />
