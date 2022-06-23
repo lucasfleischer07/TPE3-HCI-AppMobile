@@ -67,12 +67,12 @@ public class RoutineRepository {
         Device newDevice;
         for(RemoteRoutineActions actions : remote.getActions()){
             newDevice = new Device(actions.getDevice().getId(),actions.getDevice().getName(),actions.getDevice().getType().getId());
-            newRoutine.addDeviceAndActions(newDevice,new Actions(actions.getActionName(),actions.getParams()));
+            newRoutine.addDeviceAndActions(newDevice,new Actions(actions.getActionName(),actions.getParams().size() ==0 ? null : (actions.getParams().get(0) == null ? null :  actions.getParams().get(0).toString())));
         }
         return newRoutine;
     }
 
-    private RemoteRoutine mapRoutineModelToRemote(Routine model) {
+   /* private RemoteRoutine mapRoutineModelToRemote(Routine model) {
 
         RemoteRoutine remote = new RemoteRoutine();
         List<RemoteRoutineActions> remoteRoutineActionsList = new ArrayList<>() ;
@@ -97,7 +97,7 @@ public class RoutineRepository {
         remote.setMeta(remoteMeta);
         remote.setActions(remoteRoutineActionsList);
         return remote;
-    }
+    }*/
 
     public LiveData<Resource<List<Routine>>> getRoutines() {
         Log.d(TAG, "RoutineRepository - getRoutines()");
@@ -140,7 +140,7 @@ public class RoutineRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<Routine>> getRoutine(String RoutineId) {
+    /*public LiveData<Resource<Routine>> getRoutine(String RoutineId) {
         Log.d(TAG, "getRoutine()");
         return new NetworkBoundResource<Routine, LocalRoutine, RemoteRoutine>(
                 executors,
@@ -175,7 +175,7 @@ public class RoutineRepository {
                 return service.getRoutine(RoutineId);
             }
         }.asLiveData();
-    }
+    }*/
 
     public LiveData<Resource<Void>> executeRoutine(String RoutineId) {
         Log.d(TAG, "getRoutine()");
