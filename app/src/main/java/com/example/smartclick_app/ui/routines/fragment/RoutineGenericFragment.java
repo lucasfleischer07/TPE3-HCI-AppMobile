@@ -29,6 +29,8 @@ import com.example.smartclick_app.ui.devices.DeviceViewModel;
 import com.example.smartclick_app.ui.routines.RoutineViewModel;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -111,7 +113,19 @@ public class RoutineGenericFragment extends Fragment {
 
         routineInformationButton.setText(R.string.information_routine);
         routineInformationButton.setBackgroundColor(getResources().getColor(R.color.teal_700));
+        routineInformationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuilder routineInfo = new StringBuilder();
 
+                for(Map.Entry<Device,Actions> deviceActionsEntry : routineActual.getDeviceAndActionsMap().entrySet()) {
+                    routineInfo.append(deviceActionsEntry.getKey().getName()).append(": ").append(deviceActionsEntry.getValue().getActionName()).append("\n");
+                }
+
+                routineDetailDialog(routineInfo.toString(), routineActual.getName());
+
+            }
+        });
 
         colorPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +150,11 @@ public class RoutineGenericFragment extends Fragment {
             }
         });
 
-
         return routineFragmentLayout;
+    }
+
+    private void routineDetailDialog(String routineInfo, String routineName) {
+        RoutineDetailDialog routineDetails = new RoutineDetailDialog(routineInfo, routineName);
+        routineDetails.show(getChildFragmentManager(), "Routine");
     }
 }

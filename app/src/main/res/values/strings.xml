@@ -89,6 +89,8 @@
 
     <string name="execute_routine">Execute</string>
     <string name="information_routine">+Info</string>
+    <string name="details_routine">Routine details: </string>
+
 
 
     <!--    DropDownMenu Speaker-->

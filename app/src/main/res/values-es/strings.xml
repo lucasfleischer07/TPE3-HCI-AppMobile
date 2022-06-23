@@ -90,6 +90,7 @@
 
     <string name="execute_routine">Ejecutar</string>
     <string name="information_routine">+Info</string>
+    <string name="details_routine">Detalle de rutina: </string>
 
 
     <!--    DropDownMenu Speaker-->
