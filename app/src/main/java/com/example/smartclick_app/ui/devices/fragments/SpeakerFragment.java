@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
 import com.example.smartclick_app.data.DeviceRepository;
+import com.example.smartclick_app.data.Resource;
+import com.example.smartclick_app.model.Device;
 import com.example.smartclick_app.model.Devices.Door;
 import com.example.smartclick_app.model.Devices.Oven;
 import com.example.smartclick_app.model.Devices.Refrigerator;
@@ -44,6 +47,9 @@ public class SpeakerFragment extends Fragment {
     private int deviceVolume;
     private String deviceGenre;
     private String deviceStatus;
+    private String deviceSong;
+    private String deviceSongProgress;
+    private String deviceSongTotalDuration;
 
     String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
     AutoCompleteTextView autoCompleteText;
@@ -66,8 +72,10 @@ public class SpeakerFragment extends Fragment {
         args.putInt("deviceVolume", device.getVolume());
         args.putString("deviceGenre", device.getGenre());
         args.putString("deviceStatus", device.getStatus());
-//        args.putStringArrayList("deviceSongs", device.get);
-        Log.d("nombre", device.getName());
+        args.putString("deviceSong",device.getSong());
+        args.putString("deviceProgress", device.getSongProgress());
+        args.putString("deviceDuration",device.getSongTotalDuration());
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,6 +89,9 @@ public class SpeakerFragment extends Fragment {
             deviceVolume = getArguments().getInt("deviceVolume");
             deviceGenre = getArguments().getString("deviceGenre");
             deviceStatus = getArguments().getString("deviceStatus");
+            deviceSong = getArguments().getString("deviceSong");
+            deviceSongProgress = getArguments().getString("deviceProgress");
+            deviceSongTotalDuration = getArguments().getString("deviceDuration");
         }
     }
 
@@ -141,6 +152,7 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.VISIBLE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
+                            updateStatus();
                             break;
                     }
                 });
@@ -164,6 +176,7 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_pause), Toast.LENGTH_SHORT).show();
+                            updateStatus();
                             break;
                     }
                 });
@@ -187,12 +200,13 @@ public class SpeakerFragment extends Fragment {
                             speakerPauseButton.setVisibility(View.GONE);
 
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
+                            updateStatus();
                             break;
                     }
                 });
-
             }
         });
+
 
 
         TextView speakerVolumeNumber = speakerFragmentLayout.findViewById(R.id.speakerVolumeNumber);
@@ -318,6 +332,25 @@ public class SpeakerFragment extends Fragment {
         playlistDialog playlist = new playlistDialog(songs);
         playlist.show(getChildFragmentManager(), "h");
     }
+
+    public void updateStatus(){
+        viewModel.getDevice(deviceId).observe(getViewLifecycleOwner(), resource1 -> {
+            switch (resource1.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (resource1.data instanceof Speaker){
+                        Speaker mySpeaker = (Speaker) resource1.data;
+                        deviceSong = mySpeaker.getSong();
+                        deviceSongProgress = mySpeaker.getSongProgress();
+                        deviceSongTotalDuration = mySpeaker.getSongTotalDuration();
+//                      Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        });
+    }
+
 }
 
 

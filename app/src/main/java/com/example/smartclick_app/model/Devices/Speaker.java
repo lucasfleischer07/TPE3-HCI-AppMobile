@@ -6,6 +6,9 @@ public class Speaker extends Device {
     private int volume;
     private String status;
     private String genre;
+    private String song;
+    private String songProgress;
+    private String songTotalDuration;
     public final static String TYPE_ID="c89b94e8581855bc";
     public final static String ACTION_SET_VOLUME="setVolume";
     public final static String ACTION_PLAY="play";
@@ -26,11 +29,26 @@ public class Speaker extends Device {
 
 
 
-    public Speaker(String id,String name,int volume,String status,String genre){
+    public Speaker(String id,String name,int volume,String status,String genre,String song,String songProgress,String songTotalDuration){
         super(id,name,TYPE_ID);
         this.volume=volume;
         this.status=status;
         this.genre=genre;
+        this.song=song;
+        this.songProgress=songProgress;
+        this.songTotalDuration=songTotalDuration;
+    }
+
+    public String getSongTotalDuration() {
+        return songTotalDuration;
+    }
+
+    public String getSong() {
+        return song;
+    }
+
+    public String getSongProgress() {
+        return songProgress;
     }
 
     public int getVolume() {
@@ -52,14 +70,6 @@ public class Speaker extends Device {
     }
 
     public void nextSong(){
-        //llamar la api
-    }
-
-    public void startSong(){
-        //llamar la api
-    }
-
-    public void pauseSong(){
         //llamar la api
     }
 

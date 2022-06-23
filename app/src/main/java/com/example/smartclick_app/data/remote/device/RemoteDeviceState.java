@@ -100,6 +100,14 @@ public class RemoteDeviceState {
         return brightness;
     }
 
+    public RemoteDeviceStateSong getSong() {
+        return song;
+    }
+
+    public void setSong(RemoteDeviceStateSong song) {
+        this.song = song;
+    }
+
     @SerializedName("status")
     @Expose
     private String status;
@@ -136,4 +144,10 @@ public class RemoteDeviceState {
     @SerializedName("brightness")
     @Expose
     private int brightness;
+    @SerializedName("song")
+    @Expose
+    private RemoteDeviceStateSong song;
+
+
+
 }

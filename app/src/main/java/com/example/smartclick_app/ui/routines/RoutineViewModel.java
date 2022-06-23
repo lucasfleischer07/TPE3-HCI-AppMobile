@@ -19,18 +19,18 @@ public class RoutineViewModel extends RepositoryViewModel<RoutineRepository> {
 
     private final MediatorLiveData<Resource<List<Routine>>> routines = new MediatorLiveData<>();
     private final MutableLiveData<String> routineId = new MutableLiveData<>();
-    private final LiveData<Resource<Routine>> routine;
+    //private final LiveData<Resource<Routine>> routine;
 
     public RoutineViewModel(RoutineRepository repository) {
         super(repository);
         
-        routine = Transformations.switchMap(routineId, routineId -> {
+        /*routine = Transformations.switchMap(routineId, routineId -> {
             if (routineId == null) {
                 return AbsentLiveData.create();
             } else {
                 return repository.getRoutine(routineId);
             }
-        });
+        });*/
     }
 
     public LiveData<Resource<List<Routine>>> getRoutines() {
@@ -39,9 +39,11 @@ public class RoutineViewModel extends RepositoryViewModel<RoutineRepository> {
         return repository.getRoutines();
     }
 
-    public LiveData<Resource<Routine>> getRoutine() {
+    /*public LiveData<Resource<Routine>> getRoutine() {
         return routine;
     }
+
+     */
 
 //    public LiveData<Resource<Routine>> addRoutine(Routine routine) {
 //        return repositor

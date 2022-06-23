@@ -50,11 +50,11 @@ public class RoutineGenericFragment extends Fragment {
         args.putString("routineDeviceName", routineDevice.getName());
         args.putString("routineDeviceId", routineDevice.getId());
         args.putString("routineActionsName", routineActions.getActionName());
-        if(routineActions.getParams().size() > 0) {
-            args.putString("routineActionsParams", routineActions.getParams().get(0).toString());
-        } else {
-            args.putString("routineActionsParams", null);
-        }
+//        if(routineActions.getParams().size() > 0) {
+//            args.putString("routineActionsParams", routineActions.getParams().get(0).toString());
+//        } else {
+//            args.putString("routineActionsParams", null);
+//        }
         fragment.setArguments(args);
         return fragment;
     }
