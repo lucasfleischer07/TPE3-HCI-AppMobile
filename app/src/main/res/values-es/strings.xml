@@ -88,6 +88,9 @@
     <string name="color_picker_overflow_menu_font">Seleccione el color de letra de los dispositivos</string>
     <string name="color_picker_overflow_menu_buttons">Seleccione el color de los botones de los dispositivos</string>
 
+    <string name="execute_routine">Ejecutar</string>
+
+
     <!--    DropDownMenu Speaker-->
     <string-array name="playlist_genders">
         <item>Classical</item>

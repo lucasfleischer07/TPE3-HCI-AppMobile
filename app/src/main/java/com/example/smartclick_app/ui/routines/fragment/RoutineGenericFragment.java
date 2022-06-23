@@ -33,10 +33,10 @@ import java.util.List;
  */
 public class RoutineGenericFragment extends Fragment {
 
-    private String routineDeviceName;
-    private String routineDeviceId;
-    private String routineActionsName;
-    private String routineActionsParams;
+//    private String routineDeviceName;
+//    private String routineDeviceId;
+//    private String routineActionsName;
+//    private String routineActionsParams;
     private Routine routineActual;
 
     private RoutineViewModel viewModel;
@@ -60,11 +60,6 @@ public class RoutineGenericFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             routineActual = getArguments().getParcelable("routineActual");
-            Log.d("Ian", routineActual.getName());
-//            routineDeviceName = getArguments().getString("routineDeviceName");
-//            routineDeviceId = getArguments().getString("routineDeviceId");
-//            routineActionsName = getArguments().getString("routineActionsName");
-//            routineActionsParams = getArguments().getString("routineActionsParams");
         }
     }
 
@@ -82,25 +77,25 @@ public class RoutineGenericFragment extends Fragment {
         Button routineInformationButton = routineFragmentLayout.findViewById(R.id.routineInformationButton);
 
 //        TODO: Meter los strings de ejecutar para el boton aunque lo puede poner directo en el xml
-//        routineExecuteButton.setText(R.string.);
-//        routineExecuteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
-//                    switch (resource.status) {
-//                        case LOADING:
-////                    activity.showProgressBar();
-//                            break;
-//                        case SUCCESS:
-////                    activity.hideProgressBar();
-//                            Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
-//                            break;
-//                    }
-//                });
-//            }
-//        });
+        routineExecuteButton.setText(routineActual.getName());
+        routineExecuteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+//                    activity.showProgressBar();
+                            break;
+                        case SUCCESS:
+//                    activity.hideProgressBar();
+                            Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+            }
+        });
 
-
+        routineInformationButton.setText(R.string.execute_routine);
         routineInformationButton.setBackgroundColor(getResources().getColor(R.color.teal_700));
 
 

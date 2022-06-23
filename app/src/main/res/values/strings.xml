@@ -87,6 +87,8 @@
     <string name="color_picker_overflow_menu_font">Select device font color</string>
     <string name="color_picker_overflow_menu_buttons">Select device buttons color</string>
 
+    <string name="execute_routine">Execute</string>
+
 
     <!--    DropDownMenu Speaker-->
     <string-array name="playlist_genders">
