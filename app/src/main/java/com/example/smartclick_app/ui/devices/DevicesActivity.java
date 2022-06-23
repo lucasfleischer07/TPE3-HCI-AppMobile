@@ -57,8 +57,6 @@ public class DevicesActivity extends AppCompatActivity {
         String roomName = intent.getStringExtra("ROOM_NAME");
 
         LinearLayout generalLinearLayout = findViewById(R.id.devicesRoomLinearLayout);
-//        View generalLinearLayout = findViewById(R.id.activityDevices);
-
 
         MyApplication application = (MyApplication) this.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
@@ -68,10 +66,8 @@ public class DevicesActivity extends AppCompatActivity {
         viewModel.getRoomDevices(roomId).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
-//                    activity.showProgressBar();
                     break;
                 case SUCCESS:
-//                    activity.hideProgressBar();
                     if (resource.data != null && resource.data.size() > 0) {
                         Log.d("devices", resource.data.toString());
                         roomDevices.addAll(resource.data);
@@ -99,18 +95,21 @@ public class DevicesActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), DoorFragment.newInstance(doorDevice)).commit();
                     }
                     break;
+
                 case Oven.TYPE_ID:
                     if(roomDevices.get(i) instanceof Oven){
                         Oven ovenDevice = (Oven) roomDevices.get(i);
                         getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), OvenFragment.newInstance(ovenDevice)).commit();
                     }
                     break;
+
                 case Refrigerator.TYPE_ID:
                     if(roomDevices.get(i) instanceof Refrigerator){
                         Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(i);
                         getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RefrigeratorFragment.newInstance(refrigeratorDevice)).commit();
                     }
                     break;
+
                 case Speaker.TYPE_ID:
                     Log.d("nombre", roomDevices.get(i).getName());
                     if(roomDevices.get(i) instanceof Speaker){
@@ -118,6 +117,7 @@ public class DevicesActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
                     }
                     break;
+
                 case Lightbulb.TYPE_ID:
                     if(roomDevices.get(i) instanceof Lightbulb){
                         Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(i);
@@ -127,44 +127,6 @@ public class DevicesActivity extends AppCompatActivity {
 
             }
 
-//
-//            MaterialButton routineButton = new MaterialButton(getContext());
-//            routineButton.setText(routines.get(i).getName());
-//            routineButton.setId(i);
-//            routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
-//            int finalI = i;
-//            routineButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    viewModel.executeRoutine(routines.get(finalI).getId()).observe(getViewLifecycleOwner(), resource -> {
-//                        switch (resource.status) {
-//                            case LOADING:
-////                    activity.showProgressBar();
-//                                break;
-//                            case SUCCESS:
-////                    activity.hideProgressBar();
-//                                Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
-//                                break;
-//                        }
-//                    });
-////                    viewModel.executeRoutine(routines.get(finalI).getId());
-//                }
-//            });
-
-
-//            View horizontalLine = new View(getContext());
-//            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-//            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
-
-//            row.setGravity(Gravity.CENTER);
-//            row.setPadding(3, 1, 50, 1);
-//            row.addView(routineButton);
-//            generalLinearLayout.addView(row);
-
-//            row = new LinearLayout(getContext());
-//            row.setPadding(0, 20, 0, 20);
-//            row.addView(horizontalLine);
-//            generalLinearLayout.addView(row);
         }
 
     }
