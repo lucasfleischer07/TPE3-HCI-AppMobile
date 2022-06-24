@@ -115,26 +115,32 @@ public class SettingsActivity extends AppCompatActivity {
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);
         TextView houseSelectedText = (TextView) findViewById(R.id.houseSelectedText);
         ConstraintLayout constraintLayoutSettings = findViewById(R.id.constraintLayoutSettings);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/70);
+            houseSelected.setTextSize(constraintLayoutSettings.getWidth()/60);
+        } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/40);
+            houseSelected.setTextSize(constraintLayoutSettings.getWidth()/30);
+        }
+        houseSelectedText.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
+        houseSelected.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
+
+        houseSelectedText.setPadding(20,100, 20, 0);
+        houseSelected.setPadding(20,100, 20, 0);
 
         if(houses.size()==0) {
             houseSelectedText.setText(R.string.house_selected_text_null);
             buttonHouseSelector.setEnabled(false);
         } else {
             if(housesOptionsIndex!=-1){
+                houseSelectedText.setText(R.string.house_selected_text);
                 houseSelected.setText(houses.get(housesOptionsIndex).getName());
             }else{
                 houseSelected.setText(R.string.house_selected_null);
             }
-            houseSelectedText.setText(R.string.house_selected_text);
         }
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/70);
-        } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/40);
-        }
-        houseSelectedText.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
-        houseSelectedText.setPadding(20,100, 20, 0);
+
 
 
         buttonHouseSelector.setOnClickListener(new View.OnClickListener() {
