@@ -73,6 +73,7 @@ public class RoomFragment extends Fragment implements Serializable {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<House> houses;
 
     public RoomFragment() {
         // Required empty public constructor
@@ -108,7 +109,7 @@ public class RoomFragment extends Fragment implements Serializable {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        houses=new ArrayList<>();
         MainActivity activity = (MainActivity) getActivity();
         MyApplication application = (MyApplication)activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
@@ -129,28 +130,25 @@ public class RoomFragment extends Fragment implements Serializable {
         String actualId=preferences.getString("actualHouse",null);
         String actualHouseName=preferences.getString("actualHouseName",null);
 
-        if(actualId==null && rooms.size()>0){
+        if(actualId==null && houses.size()>0){
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("actualHouse",rooms.get(0).getHomeId());
+            editor.putString("actualHouse",houses.get(0).getId());
+            editor.putString("actualHouseName",houses.get(0).getName());
             editor.apply();
             actualId=preferences.getString("actualHouse",null);
+            actualHouseName=preferences.getString("actualHouseName",null);
         }
-        else if(rooms.size()>0){
-            int found=0;
-            for (Room room:rooms
-                 ) {
-                if(room.getHomeId().equals(actualId)) {
-                    found=1;
-                    break;
-                }
-            }
-            if(found==0){
+
+            else if(houses.size()==0){
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("actualHouse",rooms.get(0).getHomeId());
+                editor.putString("actualHouse",null);
+                editor.putString("actualHouseName",null);
                 editor.apply();
                 actualId=preferences.getString("actualHouse",null);
+                actualHouseName=preferences.getString("actualHouseName",null);
+
             }
-        }
+
         int added=0;
         for(int i = 0; i < rooms.size() ; i++) {
             if(rooms.get(i).getHomeId().equals(actualId)){
@@ -205,10 +203,25 @@ public class RoomFragment extends Fragment implements Serializable {
 
     @Override
     public void onResume() {
-        refreshData();
-        super.onResume();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        // Si no se selecciono casa arranca en null
+        MyApplication application = (MyApplication)this.getActivity().getApplication();
+        ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
+        HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
+        viewModel.gethouses().observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    break;
+
+                case SUCCESS:
+                    houses.clear();
+                    if (resource.data != null) {
+                        houses.addAll(resource.data);
+                    }
+
+            }
+        });
+        super.onResume();
+        refreshData();
     }
 
     public void refreshData(){

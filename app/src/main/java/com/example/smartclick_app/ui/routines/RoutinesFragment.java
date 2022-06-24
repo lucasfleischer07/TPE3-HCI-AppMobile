@@ -18,12 +18,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartclick_app.MyApplication;
 import com.example.smartclick_app.R;
+import com.example.smartclick_app.data.HouseRepository;
 import com.example.smartclick_app.data.RoutineRepository;
 import com.example.smartclick_app.model.Actions;
 import com.example.smartclick_app.model.Device;
+import com.example.smartclick_app.model.House;
 import com.example.smartclick_app.model.Routine;
 import com.example.smartclick_app.ui.MainActivity;
 import com.example.smartclick_app.ui.RepositoryViewModelFactory;
+import com.example.smartclick_app.ui.home.HouseViewModel;
 import com.example.smartclick_app.ui.routines.fragment.RoutineGenericFragment;
 import com.google.android.material.button.MaterialButton;
 
@@ -49,6 +52,7 @@ public class RoutinesFragment extends Fragment {
     private String mParam2;
     private ViewGroup routinesViewGroup;
     private LinearLayout generalLinearLayout;
+    private List<House> houses;
 
     public RoutinesFragment() {
         // Required empty public constructor
@@ -76,7 +80,7 @@ public class RoutinesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        houses=new ArrayList<>();
         MainActivity activity = (MainActivity) requireActivity();
         MyApplication application = (MyApplication) activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
@@ -98,9 +102,20 @@ public class RoutinesFragment extends Fragment {
 
         if(actualId==null && routines.size()>0){
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("actualHouse",routines.get(0).getHouseId());
+            editor.putString("actualHouse",houses.get(0).getId());
+            editor.putString("actualHouseName",houses.get(0).getName());
             editor.apply();
             actualId=preferences.getString("actualHouse",null);
+            actualHouseName=preferences.getString("actualHouseName",null);
+
+        }else if(houses.size()==0){
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("actualHouse",null);
+            editor.putString("actualHouseName",null);
+            editor.apply();
+            actualId=preferences.getString("actualHouse",null);
+            actualHouseName=preferences.getString("actualHouseName",null);
+
         }
         int added=0;
         for (int i = 0; i < routines.size(); i++) {
@@ -161,9 +176,26 @@ public class RoutinesFragment extends Fragment {
 
      @Override
         public void onResume() {
-         refreshData();
-         super.onResume();
          SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+         MyApplication application = (MyApplication)this.getActivity().getApplication();
+         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
+         HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
+         viewModel.gethouses().observe(this, resource -> {
+             switch (resource.status) {
+                 case LOADING:
+                     break;
+
+                 case SUCCESS:
+                     houses.clear();
+                     if (resource.data != null) {
+                         houses.addAll(resource.data);
+                     }
+
+             }
+         });
+         super.onResume();
+         refreshData();
      }
+
 
 }
