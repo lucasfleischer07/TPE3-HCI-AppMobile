@@ -80,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 case SUCCESS:
                     houses.clear();
-                    if (resource.data != null && resource.data.size() > 0) {
+                    if (resource.data != null) {
                         houses.addAll(resource.data);
                         setHousesList(houses);
 
