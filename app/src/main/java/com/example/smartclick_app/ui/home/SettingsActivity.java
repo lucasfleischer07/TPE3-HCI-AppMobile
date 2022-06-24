@@ -6,6 +6,7 @@ import static com.example.smartclick_app.data.Status.SUCCESS;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartclick_app.MyApplication;
@@ -101,8 +103,8 @@ public class SettingsActivity extends AppCompatActivity {
             for(int i=0;i<=houses.size();i++){
                 if(i==houses.size()){
                     actualId=null;
-                    housesOptionsIndex=-1;}
-                else if(houses.get(i).getId().equals(actualId)){
+                    housesOptionsIndex=-1;
+                } else if(houses.get(i).getId().equals(actualId)){
                     housesOptionsIndex=i;
                     break;
                 }
@@ -112,6 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
         Button buttonHouseSelector = findViewById(R.id.openHouseSelectorButton);
         TextView houseSelected = (TextView) findViewById(R.id.houseSelected);
         TextView houseSelectedText = (TextView) findViewById(R.id.houseSelectedText);
+        ConstraintLayout constraintLayoutSettings = findViewById(R.id.constraintLayoutSettings);
 
         if(houses.size()==0) {
             houseSelectedText.setText(R.string.house_selected_text_null);
@@ -120,11 +123,18 @@ public class SettingsActivity extends AppCompatActivity {
             if(housesOptionsIndex!=-1){
                 houseSelected.setText(houses.get(housesOptionsIndex).getName());
             }else{
-                houseSelected.setText("No house selected");
+                houseSelected.setText(R.string.house_selected_null);
             }
             houseSelectedText.setText(R.string.house_selected_text);
-
         }
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/100);
+        } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/50);
+        }
+        houseSelectedText.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
+        houseSelectedText.setPadding(20,100, 20, 0);
 
 
         buttonHouseSelector.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +157,7 @@ public class SettingsActivity extends AppCompatActivity {
                             editor.putString("actualHouse",null);
                         }else {
                             editor.putString("actualHouse", houses.get(housesOptionsIndex).getId());
+                            editor.putString("actualHouseName", houses.get(housesOptionsIndex).getName());
 
                         }
                         editor.apply();

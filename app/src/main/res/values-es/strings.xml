@@ -31,11 +31,13 @@
     <string name="selected_house">Casa selecionada</string>
     <string name="confirm_house_selected">Confirmar</string>
     <string name="cancel_house_selected">Cancelar</string>
+    <string name="house_selected_null">No ha seleccionado una casa</string>
 
     <string name="room_selected">Ha ingresado en la habitación:</string>
     <string name="routine_execute">Ha ejecutado la rutina: </string>
-    <string name="routine_null">No tiene rutinas para mostrar en la casa seleccionada</string>
-    <string name="routine_house_null">Seleccione una casa para ver sus rutinas</string>
+    <string name="routine_null">No tiene rutinas para mostrar en</string>
+    <string name="devices_null">No tiene dispositivos para mostrar en </string>
+    <string name="routine_house_null">Seleccione una casa para ver sus rutinas.</string>
 
 
     <string name="speaker_type">Parlante</string>

@@ -5,6 +5,7 @@ import static com.example.smartclick_app.data.Status.SUCCESS;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -153,41 +154,49 @@ public class RoomFragment extends Fragment implements Serializable {
         for(int i = 0; i < rooms.size() ; i++) {
             if(rooms.get(i).getHomeId().equals(actualId)){
                 added++;
-            LinearLayout row = new LinearLayout(getContext());
-            MaterialButton roomButton= new MaterialButton(getContext());
-            roomButton.setTransformationMethod(null);
-            roomButton.setText(rooms.get(i).getName());
-            roomButton.setId(i);
-            roomButton.setTextSize(25);
-            roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
-            roomButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout row = new LinearLayout(getContext());
+                MaterialButton roomButton= new MaterialButton(getContext());
+                roomButton.setTransformationMethod(null);
+                roomButton.setText(rooms.get(i).getName());
+                roomButton.setId(i);
+                roomButton.setTextSize(25);
+                roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
+                roomButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-            int finalI = i;
-            roomButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String roomId = rooms.get(finalI).getId();
-                    String roomName = rooms.get(finalI).getName();
-                    Intent intent = new Intent(getContext(), DevicesActivity.class);
-                    intent.putExtra("ROOM_ID", roomId);
-                    intent.putExtra("ROOM_NAME", roomName);
-                    startActivity(intent);
-                    Toast.makeText(getContext(), getString(R.string.room_selected) + " " + rooms.get(finalI).getName(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                int finalI = i;
+                roomButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String roomId = rooms.get(finalI).getId();
+                        String roomName = rooms.get(finalI).getName();
+                        Intent intent = new Intent(getContext(), DevicesActivity.class);
+                        intent.putExtra("ROOM_ID", roomId);
+                        intent.putExtra("ROOM_NAME", roomName);
+                        startActivity(intent);
+                        Toast.makeText(getContext(), getString(R.string.room_selected) + " " + rooms.get(finalI).getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-            row.setGravity(Gravity.CENTER);
-            row.setPadding(50, 30, 50, 1);
-            row.addView(roomButton);
-            generalLinearLayout.addView(row);
+                row.setGravity(Gravity.CENTER);
+                row.setPadding(50, 30, 50, 1);
+                row.addView(roomButton);
+                generalLinearLayout.addView(row);
+            }
         }
-        }
-        if(added==0 || rooms.size()==0){
+
+        if(added == 0 || rooms.size()==0) {
             TextView text=new TextView(this.getContext());
             if(actualId!=null)
                 text.setText(R.string.house_rooms_null);
-            else text.setText(R.string.house_not_selected);
-            text.setTextSize(generalLinearLayout.getWidth()/40);
+            else
+                text.setText(R.string.house_not_selected);
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                text.setTextSize(generalLinearLayout.getWidth()/100);
+            } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                text.setTextSize(generalLinearLayout.getWidth()/50);
+            }
+            text.setPadding(20,100, 20, 0);
+            text.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
             generalLinearLayout.addView(text);
         }
     }

@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_act_background"
-    android:id="@+id/activityDevices">
+    android:id="@+id/activitySettings">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/constraintLayoutSettings"
         tools:context=".ui.home.SettingsActivity">
 
         <androidx.appcompat.widget.Toolbar

@@ -32,11 +32,15 @@
     <string name="selected_house">House selected</string>
     <string name="confirm_house_selected">Confirm</string>
     <string name="cancel_house_selected">Cancel</string>
+    <string name="house_selected_null">No house selected</string>
+
 
     <string name="room_selected">You have selected: </string>
     <string name="routine_execute">You have executed the routine: </string>
-    <string name="routine_null">You do not have any routines to show in this house</string>
-    <string name="routine_house_null">Select a house to see your routines availables</string>
+    <string name="routine_null">You do not have any routines to show in</string>
+    <string name="devices_null">You do not have any devices to show in</string>
+    <string name="routine_house_null">Select a house to see your routines availables.</string>
+
 
     <string name="speaker_type">Speaker</string>
     <string name="oven_type">Oven</string>

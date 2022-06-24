@@ -1,6 +1,7 @@
 package com.example.smartclick_app.ui.routines;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -93,6 +94,7 @@ public class RoutinesFragment extends Fragment {
         generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
+        String actualHouseName=preferences.getString("actualHouseName",null);
 
         if(actualId==null && routines.size()>0){
             SharedPreferences.Editor editor = preferences.edit();
@@ -115,12 +117,20 @@ public class RoutinesFragment extends Fragment {
 
             }
         }
-        if(added==0 ||routines.size()==0){
-            TextView text=new TextView(this.getContext());
-            if(actualId!=null)
-            text.setText(R.string.routine_null);
-            else text.setText(R.string.routine_house_null);
-            text.setTextSize(generalLinearLayout.getWidth()/40);
+        if(added==0 ||routines.size()==0) {
+            TextView text = new TextView(this.getContext());
+            if (actualId != null) {
+                text.setText(getString(R.string.routine_null) + " " + actualHouseName);
+            } else {
+                text.setText(R.string.routine_house_null);
+            }
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                text.setTextSize(generalLinearLayout.getWidth()/100);
+            } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                text.setTextSize(generalLinearLayout.getWidth()/50);
+            }
+            text.setPadding(20,100, 20, 0);
+            text.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
             generalLinearLayout.addView(text);
         }
     }

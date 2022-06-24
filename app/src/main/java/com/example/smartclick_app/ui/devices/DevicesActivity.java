@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,11 +73,10 @@ public class DevicesActivity extends AppCompatActivity {
                 case LOADING:
                     break;
                 case SUCCESS:
-
                     if (resource.data != null) {
                         Log.d("devices", resource.data.toString());
                         roomDevices.addAll(resource.data);
-                        forDevices(roomDevices, generalLinearLayout);
+                        forDevices(roomDevices, generalLinearLayout, roomName);
                     }
                     break;
             }
@@ -91,7 +91,8 @@ public class DevicesActivity extends AppCompatActivity {
 
 
 
-    private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout) {
+    @SuppressLint("SetTextI18n")
+    private void forDevices(List<Device> roomDevices, LinearLayout generalLinearLayout, String roomName) {
         generalLinearLayout.removeAllViewsInLayout();
         generalLinearLayout.removeAllViews();
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -187,8 +188,14 @@ public class DevicesActivity extends AppCompatActivity {
         }
         if(roomDevices.size()==0){
             TextView text=new TextView(this);
-            text.setText("No tiene dispositivos para mostrar en la casa seleccionada");
-            text.setTextSize(generalLinearLayout.getWidth()/40);
+            text.setText(getString(R.string.devices_null) + " " + roomName);
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                text.setTextSize(generalLinearLayout.getWidth()/100);
+            } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                text.setTextSize(generalLinearLayout.getWidth()/50);
+            }
+            text.setPadding(20,100, 20, 0);
+            text.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
 
             LinearLayout rowLinearLayout = new LinearLayout(getApplicationContext());
             rowLinearLayout.addView(text);
