@@ -25,6 +25,15 @@
             tools:ignore="MissingConstraints">
         </androidx.appcompat.widget.Toolbar>
 
+        <LinearLayout
+            android:id="@+id/devicesRoomLinearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            tools:context=".ui.devices.DevicesActivity">
+        </LinearLayout>
+
+
     </LinearLayout>
 
 

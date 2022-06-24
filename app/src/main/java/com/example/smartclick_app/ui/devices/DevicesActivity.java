@@ -1,5 +1,6 @@
 package com.example.smartclick_app.ui.devices;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -57,7 +59,7 @@ public class DevicesActivity extends AppCompatActivity {
         String roomId = intent.getStringExtra("ROOM_ID");
         String roomName = intent.getStringExtra("ROOM_NAME");
 
-        LinearLayout generalLinearLayout = findViewById(R.id.devicesRoomLinearLayout);
+        LinearLayout generalLinearLayout = findViewById(R.id.devicesRoomLinearLayout2);
 //        View generalLinearLayout = findViewById(R.id.activityDevices);
 
 
@@ -76,7 +78,7 @@ public class DevicesActivity extends AppCompatActivity {
                     if (resource.data != null && resource.data.size() > 0) {
                         Log.d("devices", resource.data.toString());
                         roomDevices.addAll(resource.data);
-                        forDevices(roomDevices, generalLinearLayout);
+                        forDevices(roomDevices, generalLinearLayout, roomName);
                     }
                     break;
             }
@@ -87,11 +89,11 @@ public class DevicesActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
     }
 
 
-    private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout) {
+
+    private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout, String roomName) {
         generalLinearLayout.removeAllViewsInLayout();
         generalLinearLayout.removeAllViews();
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
