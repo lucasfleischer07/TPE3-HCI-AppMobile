@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        int importance = NotificationManager.IMPORTANCE_LOW;
         NotificationChannel channel = new NotificationChannel("1", "DevicesChanged", importance);
         channel.setDescription("Send changes of devices");
         channel.enableLights(true);
