@@ -122,6 +122,13 @@ public class SettingsActivity extends AppCompatActivity {
             houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/40);
             houseSelected.setTextSize(constraintLayoutSettings.getWidth()/30);
         }
+        if(getResources().getBoolean(R.bool.isTablet) && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/100);
+            houseSelected.setTextSize(constraintLayoutSettings.getWidth()/90);
+        } else if (getResources().getBoolean(R.bool.isTablet) && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/90);
+            houseSelected.setTextSize(constraintLayoutSettings.getWidth()/80);
+        }
         houseSelectedText.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
         houseSelected.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
 

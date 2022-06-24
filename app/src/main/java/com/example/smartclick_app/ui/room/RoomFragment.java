@@ -194,8 +194,11 @@ public class RoomFragment extends Fragment implements Serializable {
             } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 text.setTextSize(generalLinearLayout.getWidth()/50);
             }
+            if(getResources().getBoolean(R.bool.isTablet)) {
+                text.setTextSize(generalLinearLayout.getWidth()/35);
+            }
             text.setPadding(20,100, 20, 0);
-            text.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
+            text.setGravity(Gravity.CENTER);
             generalLinearLayout.addView(text);
         }
     }

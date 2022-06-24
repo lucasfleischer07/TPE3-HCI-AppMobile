@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -292,10 +293,14 @@ public class DevicesActivity extends AppCompatActivity {
             } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 text.setTextSize(generalLinearLayout.getWidth()/50);
             }
+            if(getResources().getBoolean(R.bool.isTablet)) {
+                text.setTextSize(generalLinearLayout.getWidth()/70);
+            }
             text.setPadding(20,100, 20, 0);
             text.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
 
             LinearLayout rowLinearLayout = new LinearLayout(getApplicationContext());
+            rowLinearLayout.setGravity(Gravity.CENTER);
             rowLinearLayout.addView(text);
             generalLinearLayout.addView(rowLinearLayout);
 
