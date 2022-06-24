@@ -136,10 +136,11 @@ public class DevicesActivity extends AppCompatActivity {
                 }
             }
         } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayout rowLinearLayout;
             for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
-                LinearLayout rowLinearLayout = new LinearLayout(getApplicationContext());
+                rowLinearLayout = new LinearLayout(getApplicationContext());
                 rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                rowLinearLayout.setId(i);
+                rowLinearLayout.setId(16000000 + i);
                 for(int j = 0; j < 2; j++) {
                     if(j + i*2 >= roomDevices.size()) {
                         break;
