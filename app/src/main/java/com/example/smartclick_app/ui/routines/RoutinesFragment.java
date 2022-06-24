@@ -118,20 +118,43 @@ public class RoutinesFragment extends Fragment {
 
         }
         int added=0;
-        for (int i = 0; i < routines.size(); i++) {
-            Log.d("Size", "En el for: " + i);
-            if (routines.get(i).getHouseId().equals(actualId)) {
-                added++;
 
-                LinearLayout row = new LinearLayout(getContext());
-                MaterialButton routineButton = new MaterialButton(getContext());
-                routineButton.setText(routines.get(i).getName());
-                routineButton.setId(i);
-                routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
-                getChildFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(i))).commit();
+        if ((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
+            LinearLayout rowLinearLayout;
+            for (int i = 0; i < routines.size()/2 + routines.size() % 2; i++) {
+                rowLinearLayout = new LinearLayout(getContext());
+                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                rowLinearLayout.setId(1000000 + i);
+                for(int j = 0; j < 2; j++) {
+                    if(j + i*2 >= routines.size()) {
+                        break;
+                    }
+                    if (routines.get(j + i*2).getHouseId().equals(actualId)) {
+                        added++;
 
+                        MaterialButton routineButton = new MaterialButton(getContext());
+                        routineButton.setText(routines.get(j + i*2).getName());
+                        routineButton.setId(j + i*2);
+                        routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
+                        getChildFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(j + i*2))).commit();
+                    }
+                }
+                generalLinearLayout.addView(rowLinearLayout);
+            }
+        } else {
+            for (int i = 0; i < routines.size(); i++) {
+                if (routines.get(i).getHouseId().equals(actualId)) {
+                    added++;
+
+                    MaterialButton routineButton = new MaterialButton(getContext());
+                    routineButton.setText(routines.get(i).getName());
+                    routineButton.setId(i);
+                    routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
+                    getChildFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(i))).commit();
+                }
             }
         }
+
         if(added==0 ||routines.size()==0) {
             TextView text = new TextView(this.getContext());
             if (actualId != null && actualHouseName!=null) {

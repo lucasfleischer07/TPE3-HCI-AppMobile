@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         RoomFragment room = RoomFragment.newInstance(null, null);
         FragmentManager manager = getSupportFragmentManager();
         RoutinesFragment routine = RoutinesFragment.newInstance(null, null);
-        if (!isTablet() || (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)) {
+        if (!isTablet()) {
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
             ViewPager viewPager = binding.viewPager;
             viewPager.setAdapter(sectionsPagerAdapter);
