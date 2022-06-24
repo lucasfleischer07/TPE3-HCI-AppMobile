@@ -48,28 +48,6 @@ public class DeviceRepository {
         this.database = database;
     }
 
-//    private Device mapdeviceLocalToModel(LocalDevice local) {
-//        return new device(local.id, local.name, local.homeId);
-//    }
-
-//    private Localdevice mapdeviceRemoteToLocal(Remotedevice remote) {
-//        return new Localdevice(remote.getId(), remote.getName(),remote.getHome().getHouseId());
-//    }
-
-//    private device mapdeviceRemoteToModel(Remotedevice remote) {
-//        return new device(remote.getId(), remote.getName(),remote.getHome().getHouseId());
-//    }
-
-//    private Remotedevice mapdeviceModelToRemote(device model) {
-//        Remotedevice remote = new Remotedevice();
-//        remote.setId(model.getId());
-//        remote.setName(model.getName());
-//        RemoteHome remoteHome=new RemoteHome();
-//        remoteHome.setHouseId(model.getHomeId());
-//        remote.setHome(remoteHome);
-//        return remote;
-//    }
-
     private Device mapDeviceRemoteToModel(RemoteDevice device) {
         switch (device.getType().getId())
         {

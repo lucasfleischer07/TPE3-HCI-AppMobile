@@ -10,6 +10,13 @@
     <string name="overflow_settings">Selección de casa</string>
     <string name="house_selected_text">Su casa seleccionada es: </string>
     <string name="house_selected_text_null">No tiene ninguna casa registrada. Por favor registre una en el sitio web.</string>
+    <string name="house_rooms_null">No tiene habitaciones para mostrar en la casa seleccionada</string>
+    <string name="house_not_selected">Seleccione una casa para ver sus habitaciones</string>
+
+    <string name="notifications_main_act">Mandar cambios de los dispositivos</string>
+    <string name="notifications_device_chg">Algunos dispositivos cambiaron</string>
+
+
     <string name="overflow_help">Ayuda</string>
     <string name="home_help_title">Ayuda para el manejo de casas</string>
     <string name="device_help_title">Ayuda para el manejo de dispositivos</string>
@@ -27,6 +34,9 @@
 
     <string name="room_selected">Ha ingresado en la habitación:</string>
     <string name="routine_execute">Ha ejecutado la rutina: </string>
+    <string name="routine_null">No tiene rutinas para mostrar en la casa seleccionada</string>
+    <string name="routine_house_null">Seleccione una casa para ver sus rutinas</string>
+
 
     <string name="speaker_type">Parlante</string>
     <string name="oven_type">Horno</string>
@@ -100,17 +110,5 @@
     <string name="execute_routine">Ejecutar</string>
     <string name="information_routine">+Info</string>
     <string name="details_routine">Detalle de rutina: </string>
-
-
-    <!--    DropDownMenu Speaker-->
-    <string-array name="playlist_genders">
-        <item>Classical</item>
-        <item>Country</item>
-        <item>Dance</item>
-        <item>Latina</item>
-        <item>Pop</item>
-        <item>Rock</item>
-    </string-array>
-
 
 </resources>

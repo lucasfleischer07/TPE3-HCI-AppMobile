@@ -41,10 +41,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
  */
 public class RoutineGenericFragment extends Fragment {
 
-//    private String routineDeviceName;
-//    private String routineDeviceId;
-//    private String routineActionsName;
-//    private String routineActionsParams;
     private Routine routineActual;
     private String routineColor;
 

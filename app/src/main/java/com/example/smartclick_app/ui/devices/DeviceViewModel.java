@@ -13,8 +13,6 @@ import com.example.smartclick_app.ui.RepositoryViewModel;
 
 public class DeviceViewModel extends RepositoryViewModel<DeviceRepository> {
 
-
-
     public DeviceViewModel(DeviceRepository repository) {
         super(repository);
     }

@@ -9,6 +9,14 @@
     <string name="overflow_settings">House selector</string>
     <string name="house_selected_text">Your selected house is: </string>
     <string name="house_selected_text_null">You do not have a house loaded. Please load one in the web site.</string>
+    <string name="house_rooms_null">You do not have any rooms availables to display in this house.</string>
+    <string name="house_not_selected">Select a house to see your rooms availables</string>
+
+    <string name="notifications_main_act">Send changes of devices</string>
+    <string name="notifications_device_chg">Devices changed</string>
+
+
+
     <string name="overflow_help">Help</string>
     <string name="home_help_title">House management help</string>
     <string name="device_help_title">Device management help</string>
@@ -27,13 +35,14 @@
 
     <string name="room_selected">You have selected: </string>
     <string name="routine_execute">You have executed the routine: </string>
+    <string name="routine_null">You do not have any routines to show in this house</string>
+    <string name="routine_house_null">Select a house to see your routines availables</string>
 
     <string name="speaker_type">Speaker</string>
     <string name="oven_type">Oven</string>
     <string name="lamp_type">Lamp</string>
     <string name="refrigerator_type">Refrigerator</string>
     <string name="door_type">Door</string>
-
 
     <string name="oven_heat_mode">Heat source:</string>
     <string name="oven_heat_mode_down">Bottom</string>
@@ -45,16 +54,13 @@
     <string name="oven_grill_convection_large">Normal</string>
     <string name="oven_convection">Convection:</string>
 
-
     <string name="refrigerator_mode">Mode</string>
     <string name="refrigerator_fest">Fest</string>
     <string name="refrigerator_vacations">Vacations</string>
     <string name="refrigerator_auto">Auto</string>
 
-
     <string name="speaker_gender">Gender:</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="routine_not_selected_message">Select a routine to see the details</string>
 
     <!--Textos de las acciones de los dispositivos-->
@@ -100,18 +106,5 @@
     <string name="execute_routine">Execute</string>
     <string name="information_routine">+Info</string>
     <string name="details_routine">Routine details: </string>
-
-
-
-    <!--    DropDownMenu Speaker-->
-    <string-array name="playlist_genders">
-        <item>Classical</item>
-        <item>Country</item>
-        <item>Dance</item>
-        <item>Latina</item>
-        <item>Pop</item>
-        <item>Rock</item>
-    </string-array>
-
 
 </resources>

@@ -72,7 +72,7 @@ public class DevicesActivity extends AppCompatActivity {
                 case LOADING:
                     break;
                 case SUCCESS:
-//
+
                     if (resource.data != null) {
                         Log.d("devices", resource.data.toString());
                         roomDevices.addAll(resource.data);
@@ -119,7 +119,6 @@ public class DevicesActivity extends AppCompatActivity {
                         break;
 
                     case Speaker.TYPE_ID:
-                        Log.d("nombre", roomDevices.get(i).getName());
                         if(roomDevices.get(i) instanceof Speaker){
                             Speaker speakerDevice = (Speaker) roomDevices.get(i);
                             getSupportFragmentManager().beginTransaction().add(generalLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
@@ -168,7 +167,6 @@ public class DevicesActivity extends AppCompatActivity {
                             break;
 
                         case Speaker.TYPE_ID:
-                            Log.d("nombre", roomDevices.get(j + i*2).getName());
                             if(roomDevices.get(j + i*2) instanceof Speaker){
                                 Speaker speakerDevice = (Speaker) roomDevices.get(j + i*2);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
@@ -197,9 +195,7 @@ public class DevicesActivity extends AppCompatActivity {
             generalLinearLayout.addView(rowLinearLayout);
 
         }
-
     }
-
 
 
     @Override
@@ -207,7 +203,8 @@ public class DevicesActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        }// If we got here, the user's action was not recognized.
+        }
+        // If we got here, the user's action was not recognized.
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
     }

@@ -9,7 +9,7 @@ public class RemoteStringAction extends RemoteAction<String> {
         super(data);
     }
 
-    public RemoteStringAction(){
+    public RemoteStringAction() {
 
     }
 }

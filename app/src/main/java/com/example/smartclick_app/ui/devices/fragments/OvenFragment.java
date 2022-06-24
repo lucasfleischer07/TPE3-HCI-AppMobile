@@ -104,7 +104,6 @@ public class OvenFragment extends Fragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         boolean turnOn = Objects.equals(deviceStatus, "on");
-        Log.d("ovenOn", String.valueOf(turnOn));
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch ovenSwitchOnOff = ovenFragmentLayout.findViewById(R.id.ovenSwitchOnOff);
         ovenSwitchOnOff.setChecked(turnOn);
@@ -435,7 +434,6 @@ public class OvenFragment extends Fragment {
                 colorPicker.show();
             }
         });
-
 
         return ovenFragmentLayout;
     }

@@ -33,7 +33,6 @@
             tools:context=".ui.devices.DevicesActivity">
         </LinearLayout>
 
-
     </LinearLayout>
 
 

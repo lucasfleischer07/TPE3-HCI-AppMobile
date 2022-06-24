@@ -72,32 +72,6 @@ public class RoutineRepository {
         return newRoutine;
     }
 
-   /* private RemoteRoutine mapRoutineModelToRemote(Routine model) {
-
-        RemoteRoutine remote = new RemoteRoutine();
-        List<RemoteRoutineActions> remoteRoutineActionsList = new ArrayList<>() ;
-        for(Map.Entry<Device,Actions> deviceActionsEntry : model.getDeviceAndActionsMap().entrySet()){
-            RemoteRoutineActions newRemoteRoutineActions = new RemoteRoutineActions();
-            newRemoteRoutineActions.setActionName(deviceActionsEntry.getValue().getActionName());
-            RemoteRoutinActionsDeviceType remoteRoutinActionsDeviceType = new RemoteRoutinActionsDeviceType();
-            remoteRoutinActionsDeviceType.setId(deviceActionsEntry.getKey().getId());
-
-            RemoteRoutineActionsDevice remoteRoutineActionsDevice = new RemoteRoutineActionsDevice();
-            remoteRoutineActionsDevice.setType(remoteRoutinActionsDeviceType);
-            remoteRoutineActionsDevice.setId(deviceActionsEntry.getKey().getId());
-            remoteRoutineActionsDevice.setName(deviceActionsEntry.getKey().getName());
-            newRemoteRoutineActions.setDevice(remoteRoutineActionsDevice);
-            newRemoteRoutineActions.setParams(deviceActionsEntry.getValue().getParams());
-            remoteRoutineActionsList.add(newRemoteRoutineActions);
-        }
-        RemoteRoutineMeta remoteMeta = new RemoteRoutineMeta();
-        remoteMeta.setHouseId(model.getHouseId());
-        remote.setId(model.getId());
-        remote.setName(model.getName());
-        remote.setMeta(remoteMeta);
-        remote.setActions(remoteRoutineActionsList);
-        return remote;
-    }*/
 
     public LiveData<Resource<List<Routine>>> getRoutines() {
         Log.d(TAG, "RoutineRepository - getRoutines()");
@@ -140,42 +114,6 @@ public class RoutineRepository {
         }.asLiveData();
     }
 
-    /*public LiveData<Resource<Routine>> getRoutine(String RoutineId) {
-        Log.d(TAG, "getRoutine()");
-        return new NetworkBoundResource<Routine, LocalRoutine, RemoteRoutine>(
-                executors,
-                this::mapRoutineLocalToModel,
-                this::mapRoutineRemoteToLocal,
-                this::mapRoutineRemoteToModel) {
-
-            @Override
-            protected void saveCallResult(@NonNull LocalRoutine local) {
-                database.routineDao().insert(local);
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable LocalRoutine local) {
-                return (local == null);
-            }
-
-            @Override
-            protected boolean shouldPersist(@Nullable RemoteRoutine remote) {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<LocalRoutine> loadFromDb() {
-                return database.routineDao().findById(RoutineId);
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<ApiResponse<RemoteResult<RemoteRoutine>>> createCall() {
-                return service.getRoutine(RoutineId);
-            }
-        }.asLiveData();
-    }*/
 
     public LiveData<Resource<Void>> executeRoutine(String RoutineId) {
         Log.d(TAG, "getRoutine()");
@@ -212,67 +150,5 @@ public class RoutineRepository {
                 return service.executeRoutine(RoutineId);
             }
         }.asLiveData();
-
-//        private Device mapDeviceRemoteToModel(RemoteDevice device){
-//            switch (device.getType().getId())
-//            {
-//                case Door.TYPE_ID:
-//                    return new Door(device.getId(),device.getName(),device.getState().getStatus(), device.getState().getLock());
-//                case Lightbulb.TYPE_ID:
-//                    return new Lightbulb(device.getId(),device.getName(),device.getState().getColor(), device.getState().getBrightness(),device.getState().getStatus());
-//                case Oven.TYPE_ID:
-//                    return new Oven(device.getId(),device.getName(),device.getState().getConvection(),device.getState().getGrill(),device.getState().getHeat(),device.getState().getStatus(),device.getState().getTemperature());
-//                case Refrigerator.TYPE_ID:
-//                    return new Refrigerator(device.getId(),device.getName(),device.getState().getTemperature(),device.getState().getFreezerTemperature(),device.getState().getMode());
-//                case Speaker.TYPE_ID:
-//                    return new Speaker(device.getId(),device.getName(),device.getState().getVolume(),device.getState().getStatus(),device.getState().getGenre());
-//                default:
-//                    return null;
-//            }
-//        }
-//
-//        public LiveData<Resource<List<Device>>> getRoomDevices(Room room){
-//            Log.d(TAG, "RoomRepository - getRoomDevices()");
-//            return new NetworkBoundResource<List<Device>, List<LocalRoom>, List<RemoteDevice>>(
-//                    executors,
-//                    locals -> {
-//                        return null;
-//                    },
-//                    remotes -> {
-//                        return null;
-//                    },
-//                    remotes -> {
-//                        return remotes.stream()
-//                                .map(this::mapDeviceRemoteToModel)
-//                                .collect(toList());
-//                    }) {
-//                @Override
-//                protected void saveCallResult(@NonNull List<LocalRoom> locals) {
-//                }
-//
-//                @Override
-//                protected boolean shouldFetch(@Nullable List<LocalRoom> locals) {
-//                    return true;
-//                }
-//
-//                @Override
-//                protected boolean shouldPersist(@Nullable List<RemoteDevice> remote) {
-//                    return false;
-//                }
-//
-//                @NonNull
-//                @Override
-//                protected LiveData<List<LocalRoom>> loadFromDb() {
-//                    return null;
-//                }
-//
-//                @NonNull
-//                @Override
-//                protected LiveData<ApiResponse<RemoteResult<List<RemoteDevice>>>> createCall() {
-//                    return service.getRoomDevices(room.getId());
-//                }
-//            }.asLiveData();
-//        }
-
     }
 }

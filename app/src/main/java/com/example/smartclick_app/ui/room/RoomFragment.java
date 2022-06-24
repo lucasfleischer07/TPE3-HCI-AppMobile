@@ -95,9 +95,6 @@ public class RoomFragment extends Fragment implements Serializable {
         return fragment;
     }
 
-//    public RoomRepository getRoomRepository() {
-//        return roomRepository;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,12 +103,6 @@ public class RoomFragment extends Fragment implements Serializable {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-//        appExecutors = new AppExecutors();
-//        ApiRoomService roomService = ApiClient.create(ApiRoomService.class);
-//        MyDatabase database = Room.databaseBuilder(requireContext(), MyDatabase.class, DATABASE_NAME).build();
-//        roomRepository = new RoomRepository(appExecutors, roomService, database);
-
     }
 
     @Override
@@ -130,10 +121,12 @@ public class RoomFragment extends Fragment implements Serializable {
 
 
     private void forRooms(List<Room> rooms, LinearLayout generalLinearLayout){
+
         generalLinearLayout.removeAllViews();
         generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
+
         if(actualId==null && rooms.size()>0){
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("actualHouse",rooms.get(0).getHomeId());
@@ -168,6 +161,7 @@ public class RoomFragment extends Fragment implements Serializable {
             roomButton.setTextSize(25);
             roomButton.setBackgroundColor(roomButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
             roomButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
             int finalI = i;
             roomButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,13 +185,11 @@ public class RoomFragment extends Fragment implements Serializable {
         if(added==0 || rooms.size()==0){
             TextView text=new TextView(this.getContext());
             if(actualId!=null)
-                text.setText("No tiene habitaciones para mostrar en la casa seleccionada");
-            else text.setText("Seleccione una casa para ver sus habitaciones");
+                text.setText(R.string.house_rooms_null);
+            else text.setText(R.string.house_not_selected);
             text.setTextSize(generalLinearLayout.getWidth()/40);
             generalLinearLayout.addView(text);
         }
-
-
     }
 
 
@@ -206,7 +198,7 @@ public class RoomFragment extends Fragment implements Serializable {
         refreshData();
         super.onResume();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        // * Si no se selecciono casa arranca en null
+        // Si no se selecciono casa arranca en null
     }
 
     public void refreshData(){
@@ -218,10 +210,9 @@ public class RoomFragment extends Fragment implements Serializable {
         viewModel.getRooms().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
-//                    activity.showProgressBar();
                     break;
+
                 case SUCCESS:
-//                    activity.hideProgressBar();
                     rooms.clear();
                     if (resource.data != null) {
                         rooms.addAll(resource.data);

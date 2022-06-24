@@ -45,18 +45,6 @@ public class HouseViewModel extends RepositoryViewModel<HouseRepository> {
         return house;
     }
 
-    /*public LiveData<Resource<Room>> addRoom(Room house) {
-        return repository.addRoom(room);
-    }
-
-    public LiveData<Resource<Room>> modifyRoom(Room house) {
-        return repository.modifyRoom(room);
-    }
-
-    public LiveData<Resource<Void>> deleteRoom(Room room) {
-        return repository.deleteRoom(room);
-    }
-*/
     public void setRoomId(String houseId) {
         if ((this.houseId.getValue() != null) &&
             (houseId.equals(this.houseId.getValue()))) {
@@ -76,7 +64,4 @@ public class HouseViewModel extends RepositoryViewModel<HouseRepository> {
         });
     }
 
-    /*public LiveData<Resource<List<Device>>> getRoomDevices(Room room){
-        return repository.getRoomDevices(room);
-    }*/
 }

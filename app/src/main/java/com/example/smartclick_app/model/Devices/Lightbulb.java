@@ -32,25 +32,4 @@ public class Lightbulb extends Device {
         return status;
     }
 
-    public void changeBrightness(int newBrightness){
-        if(newBrightness!=brightness) {
-            //llamar a la api
-        }
-    }
-
-    public void changeColor(String newColor) {
-        if (!newColor.equals(color)) {
-            //llamar a la api
-
-        }
-    }
-
-    public void change(){
-        if(status.equals("on")) {
-            //llama a la api con turnOff
-        }else{
-            //llama a la api on turnOn
-        }
-    }
-
 }

@@ -9,7 +9,6 @@ public class RemoteRoutineMeta {
     @Expose
     private String homeId;
 
-
     public String getHouseId() {
         return homeId;
     }
@@ -17,8 +16,5 @@ public class RemoteRoutineMeta {
     public void setHouseId(String homeId){
         this.homeId=homeId;
     }
-
-   
-
 
 }

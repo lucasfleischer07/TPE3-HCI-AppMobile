@@ -34,5 +34,4 @@ public interface ApiRoomService {
 
     @GET("rooms/{roomId}/devices")
     LiveData<ApiResponse<RemoteResult<List<RemoteDevice>>>> getRoomDevices(@Path("roomId") String roomId);
-
 }

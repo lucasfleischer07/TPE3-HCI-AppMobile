@@ -147,7 +147,4 @@ public class RemoteDeviceState {
     @SerializedName("song")
     @Expose
     private RemoteDeviceStateSong song;
-
-
-
 }

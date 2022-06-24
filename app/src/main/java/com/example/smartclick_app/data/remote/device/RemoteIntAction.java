@@ -15,6 +15,4 @@ public class RemoteIntAction extends RemoteAction<Integer> {
     public RemoteIntAction(double data){
         super( (int)data);
     }
-
-
 }

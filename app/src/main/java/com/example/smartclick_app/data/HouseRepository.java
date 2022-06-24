@@ -66,7 +66,7 @@ public class HouseRepository {
 
         return remote;
     }
-    //Necesito los maps de room para el get homeRooms
+
     private Room mapRoomLocalToModel(LocalRoom local) {
         return new Room(local.id, local.name);
     }
@@ -174,61 +174,4 @@ public class HouseRepository {
             }
         }.asLiveData();
     }
-
-    /*public LiveData<Resource<List<Room>>> getHouseRooms(String homeId) {
-        Log.d(TAG, "getHouseRooms()");
-        return new NetworkBoundResource<List<Room>, List<LocalRoom>,List<RemoteRoom>>(
-                executors,
-                locals -> {
-                    return locals.stream()
-                            .map(this::mapRoomLocalToModel)
-                            .collect(toList());
-                },
-                remotes -> {
-                    return remotes.stream()
-                            .map(this::mapRoomRemoteToLocal)
-                            .collect(toList());
-                },
-                remotes -> {
-                    return remotes.stream()
-                            .map(this::mapRoomRemoteToModel)
-                            .collect(toList());
-                }) {
-
-            @Override
-            protected void saveCallResult(@NonNull List<LocalRoom> local) {
-                database.homeDao().insert(local,null);
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable List<LocalRoom> local) {
-                return (local == null);
-            }
-
-            @Override
-            protected boolean shouldPersist(@Nullable List<RemoteRoom> remote) {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<List<LocalRoom>> loadFromDb() {
-                return database.homeDao().findAll(null);
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<ApiResponse<RemoteResult<List<RemoteRoom>>>> createCall() {
-                return service.getHouseRooms(homeId);
-            }
-        }.asLiveData();
-    }
-
-     */
-
-
-
-
-
-
 }

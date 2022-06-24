@@ -57,8 +57,6 @@ public class HelpActivity extends AppCompatActivity {
                 deviceHelpInfoDialog.show(getSupportFragmentManager(), "DeviceHelp");
             }
         });
-
-
     }
 
     @Override
@@ -66,7 +64,8 @@ public class HelpActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        }// If we got here, the user's action was not recognized.
+        }
+        // If we got here, the user's action was not recognized.
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
     }

@@ -37,7 +37,6 @@ public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
     private List<House> houses;
 
-
     private int housesOptionsIndex=-1;
 
     @Override
@@ -55,10 +54,9 @@ public class SettingsActivity extends AppCompatActivity {
         viewModel.gethouses().observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
-//                    activity.showProgressBar();
                     break;
+
                 case SUCCESS:
-//                    activity.hideProgressBar();
                     houses.clear();
                     if (resource.data != null && resource.data.size() > 0) {
                         houses.addAll(resource.data);
@@ -78,10 +76,9 @@ public class SettingsActivity extends AppCompatActivity {
         viewModel.gethouses().observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
-//                    activity.showProgressBar();
                     break;
+
                 case SUCCESS:
-//                    activity.hideProgressBar();
                     houses.clear();
                     if (resource.data != null && resource.data.size() > 0) {
                         houses.addAll(resource.data);
@@ -117,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
         TextView houseSelectedText = (TextView) findViewById(R.id.houseSelectedText);
 
         if(houses.size()==0) {
-            houseSelectedText.setText(R.string.house_selected_text_null);//Cambiar texto
+            houseSelectedText.setText(R.string.house_selected_text_null);
             buttonHouseSelector.setEnabled(false);
         } else {
             if(housesOptionsIndex!=-1){
@@ -165,7 +162,6 @@ public class SettingsActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-
     }
 
     @Override
@@ -173,7 +169,8 @@ public class SettingsActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        }// If we got here, the user's action was not recognized.
+        }
+        // If we got here, the user's action was not recognized.
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
     }

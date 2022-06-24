@@ -38,14 +38,12 @@ import java.util.Map;
  */
 public class RoutinesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     RoutineViewModel viewModel;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private ViewGroup routinesViewGroup;
@@ -55,15 +53,6 @@ public class RoutinesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RoutinesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RoutinesFragment newInstance(String param1, String param2) {
         RoutinesFragment fragment = new RoutinesFragment();
         Bundle args = new Bundle();
@@ -72,7 +61,7 @@ public class RoutinesFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    //Esto mas tarde cambiarlo por tipo House
+
     private String selectedHouse;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +72,7 @@ public class RoutinesFragment extends Fragment {
         }
 
     }
-    //List<Routine> routineList= new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -112,12 +101,10 @@ public class RoutinesFragment extends Fragment {
             actualId=preferences.getString("actualHouse",null);
         }
         int added=0;
-        Log.d("Size", String.valueOf(routines.size()));
         for (int i = 0; i < routines.size(); i++) {
             Log.d("Size", "En el for: " + i);
             if (routines.get(i).getHouseId().equals(actualId)) {
                 added++;
-                Log.d("Rutina con nombre",routines.get(i).getName());
 
                 LinearLayout row = new LinearLayout(getContext());
                 MaterialButton routineButton = new MaterialButton(getContext());
@@ -131,8 +118,8 @@ public class RoutinesFragment extends Fragment {
         if(added==0 ||routines.size()==0){
             TextView text=new TextView(this.getContext());
             if(actualId!=null)
-            text.setText("No tiene rutinas para mostrar en la casa seleccionada");
-            else text.setText("Seleccione una casa para ver sus rutinas");
+            text.setText(R.string.routine_null);
+            else text.setText(R.string.routine_house_null);
             text.setTextSize(generalLinearLayout.getWidth()/40);
             generalLinearLayout.addView(text);
         }
@@ -170,36 +157,3 @@ public class RoutinesFragment extends Fragment {
      }
 
 }
-
-//                routineButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        viewModel.executeRoutine(routines.get(finalI).getId()).observe(getViewLifecycleOwner(), resource -> {
-//                            switch (resource.status) {
-//                                case LOADING:
-////                    activity.showProgressBar();
-//                                    break;
-//                                case SUCCESS:
-////                    activity.hideProgressBar();
-//                                    Toast.makeText(getContext(), getString(R.string.routine_execute) + " " + routines.get(finalI).getName(), Toast.LENGTH_SHORT).show();
-//                                    break;
-//                            }
-//                        });
-////                    viewModel.executeRoutine(routines.get(finalI).getId());
-//                    }
-//                });
-
-
-//            View horizontalLine = new View(getContext());
-//            horizontalLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-//            horizontalLine.setBackgroundColor(getResources().getColor(R.color.black));
-
-//                row.setGravity(Gravity.CENTER);
-//                row.setPadding(3, 1, 50, 1);
-//                row.addView(routineButton);
-//                generalLinearLayout.addView(row);
-
-//            row = new LinearLayout(getContext());
-//            row.setPadding(0, 20, 0, 20);
-//            row.addView(horizontalLine);
-//            generalLinearLayout.addView(row);

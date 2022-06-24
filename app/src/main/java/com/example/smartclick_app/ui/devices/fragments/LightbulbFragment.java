@@ -102,7 +102,6 @@ public class LightbulbFragment extends Fragment {
 
 
         Button lampColorPicker = lampFragmentLayout.findViewById(R.id.lampColorPicker);
-        Log.d("Color", deviceColor);
         lampColorPicker.setBackgroundColor((int) Long.parseLong(deviceColor.replace("#", ""), 16));
         lampColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +114,6 @@ public class LightbulbFragment extends Fragment {
 
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-                        Log.d("color", String.valueOf(color));
                         viewModel.executeDeviceActionWithString(deviceId, Lightbulb.ACTION_SET_COLOR, String.valueOf(color)).observe(getViewLifecycleOwner(), resource -> {
                             switch (resource.status) {
                                 case LOADING:

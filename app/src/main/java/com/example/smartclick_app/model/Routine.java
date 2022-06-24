@@ -63,15 +63,14 @@ public class Routine implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(houseId);
-        dest.writeInt(deviceAndActionsMap.size());//escribo el size para usarlo despues en el for
+        dest.writeInt(deviceAndActionsMap.size());    // Escribo el size para usarlo despues en el for
         for(Map.Entry<Device,Actions> entry : deviceAndActionsMap.entrySet()){
             dest.writeParcelable(entry.getKey(),0);
             dest.writeParcelable(entry.getValue(),0);
         }
     }
 
-    public static final Parcelable.Creator<Routine> CREATOR
-            = new Parcelable.Creator<Routine>(){
+    public static final Parcelable.Creator<Routine> CREATOR = new Parcelable.Creator<Routine>(){
 
         @Override
         public Routine createFromParcel(Parcel source) {

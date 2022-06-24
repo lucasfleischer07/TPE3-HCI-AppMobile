@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -35,6 +36,7 @@ import com.example.smartclick_app.ui.devices.DeviceViewModel;
 import com.example.smartclick_app.ui.devices.playlistDialog;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
@@ -61,8 +63,6 @@ public class SpeakerFragment extends Fragment {
     ArrayAdapter<String> adapterItems;
 
     private DeviceViewModel viewModel;
-
-
 
     public SpeakerFragment() {
         // Required empty public constructor
@@ -183,9 +183,9 @@ public class SpeakerFragment extends Fragment {
                                 speakerForwardButton.setVisibility(View.VISIBLE);
                                 speakerStopButton.setVisibility(View.VISIBLE);
                                 speakerPauseButton.setVisibility(View.VISIBLE);
+                                updateStatus(speakerFragmentLayout);
 
                                 Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
-                                updateStatus(speakerFragmentLayout);
                                 break;
                         }
                     });
@@ -195,17 +195,15 @@ public class SpeakerFragment extends Fragment {
                             case LOADING:
                                 break;
                             case SUCCESS:
-                                Log.d("statusPause2", deviceStatus);
                                 deviceStatus = Speaker.PLAY;
-                                Log.d("statusPause3", deviceStatus);
                                 speakerPlayButton.setVisibility(View.GONE);
                                 speakerBackwardButton.setVisibility(View.VISIBLE);
                                 speakerForwardButton.setVisibility(View.VISIBLE);
                                 speakerStopButton.setVisibility(View.VISIBLE);
                                 speakerPauseButton.setVisibility(View.VISIBLE);
+                                updateStatus(speakerFragmentLayout);
 
                                 Toast.makeText(getContext(), getString(R.string.speaker_play), Toast.LENGTH_SHORT).show();
-                                updateStatus(speakerFragmentLayout);
                                 break;
                         }
                     });
@@ -228,8 +226,9 @@ public class SpeakerFragment extends Fragment {
                             speakerForwardButton.setVisibility(View.GONE);
                             speakerStopButton.setVisibility(View.VISIBLE);
                             speakerPauseButton.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), getString(R.string.speaker_pause), Toast.LENGTH_SHORT).show();
                             updateStatus(speakerFragmentLayout);
+
+                            Toast.makeText(getContext(), getString(R.string.speaker_pause), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
@@ -253,6 +252,7 @@ public class SpeakerFragment extends Fragment {
                             speakerStopButton.setVisibility(View.GONE);
                             speakerPauseButton.setVisibility(View.GONE);
                             updateStatus(speakerFragmentLayout);
+
                             Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
                             break;
                     }
@@ -338,7 +338,6 @@ public class SpeakerFragment extends Fragment {
                             break;
                     }
                 });
-
             }
         });
 
@@ -379,14 +378,13 @@ public class SpeakerFragment extends Fragment {
                         case LOADING:
                             break;
                         case SUCCESS:
+                            autoCompleteText.clearFocus();
                             Toast.makeText(getContext(), getString(R.string.speaker_gender_toast) +" "+ deviceGenre, Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
-
             }
         });
-
 
 
         Button speakerPlaylist = speakerFragmentLayout.findViewById(R.id.speakerPlaylist);
@@ -394,59 +392,115 @@ public class SpeakerFragment extends Fragment {
         speakerPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String songs;
-                switch (deviceGenre){
-                    case Speaker.GENDER_CLASSICAL:
-                         songs = "Nombre: Speaking Unto Nations (Beethoven Symphony no 7 - II), duración: 5:02\n" +
-                                "Nombre: The Well-Tempered Clavier: Book 1, Prelude in C Major, duración: 2:19\n" +
-                                "Nombre: Handel / Orch. Hale: Keyboard Suite in D Minor, duración: 3:27\n" +
-                                "Nombre: Piano Sonata No. 14 in C-Sharp Minor, Op. 27 No. 2, duración: 7:22";
-                    break;
+                String songs = "";
+                if(Locale.getDefault().getLanguage().contentEquals("es")){
+                    switch (deviceGenre){
+                        case Speaker.GENDER_CLASSICAL:
+                            songs = "Nombre: Speaking Unto Nations (Beethoven Symphony no 7 - II), duración: 5:02\n" +
+                                    "Nombre: The Well-Tempered Clavier: Book 1, Prelude in C Major, duración: 2:19\n" +
+                                    "Nombre: Handel / Orch. Hale: Keyboard Suite in D Minor, duración: 3:27\n" +
+                                    "Nombre: Piano Sonata No. 14 in C-Sharp Minor, Op. 27 No. 2, duración: 7:22";
+                            break;
 
-                    case Speaker.GENDER_COUNTRY:
-                         songs = "Nombre: Singles You Up, duración: 3:02\n" +
-                                "Nombre: Tequila, duración: 3:15\n" +
-                                "Nombre: Get Along, duración: 3:19\n" +
-                                "Nombre: What Ifs, duración: 3:08\n" +
-                                "Nombre: Simple, duración: 3:05";
-                    break;
+                        case Speaker.GENDER_COUNTRY:
+                            songs = "Nombre: Singles You Up, duración: 3:02\n" +
+                                    "Nombre: Tequila, duración: 3:15\n" +
+                                    "Nombre: Get Along, duración: 3:19\n" +
+                                    "Nombre: What Ifs, duración: 3:08\n" +
+                                    "Nombre: Simple, duración: 3:05";
+                            break;
 
-                    case Speaker.GENDER_DANCE:
-                        songs = "Nombre: All Day And Night, duración: 2:49\n" +
-                                "Nombre: No Sleep, duración: 3:27\n" +
-                                "Nombre: Speechless, duración: 3:37\n" +
-                                "Nombre: Carry On, duración: 3:35\n" +
-                                "Nombre: Better When You're Gone, duración: 3:12";
-                        break;
+                        case Speaker.GENDER_DANCE:
+                            songs = "Nombre: All Day And Night, duración: 2:49\n" +
+                                    "Nombre: No Sleep, duración: 3:27\n" +
+                                    "Nombre: Speechless, duración: 3:37\n" +
+                                    "Nombre: Carry On, duración: 3:35\n" +
+                                    "Nombre: Better When You're Gone, duración: 3:12";
+                            break;
 
-                    case Speaker.GENDER_LATINA:
-                    songs = "Nombre: Prometiste, duración: 5:05\n" +
-                            "Nombre: Tu de Que Vas, duración: 3:58\n" +
-                            "Nombre: Me Dedique a Perderte, duración: 3:51\n" +
-                            "Nombre: El Sol No Regresa, duración: 3:48\n" +
-                            "Nombre: Antologia, duración: 4:11";
-                    break;
+                        case Speaker.GENDER_LATINA:
+                            songs = "Nombre: Prometiste, duración: 5:05\n" +
+                                    "Nombre: Tu de Que Vas, duración: 3:58\n" +
+                                    "Nombre: Me Dedique a Perderte, duración: 3:51\n" +
+                                    "Nombre: El Sol No Regresa, duración: 3:48\n" +
+                                    "Nombre: Antologia, duración: 4:11";
+                            break;
 
-                    case Speaker.GENDER_POP:
-                    songs = "Nombre: Memories, duración: 3:09\n" +
-                            "Nombre: Dance Monkey, duración: 3:29\n" +
-                            "Nombre: Don't Call Me Angel, duración: 3:10\n" +
-                            "Nombre: Graveyard, duración: 3:01\n" +
-                            "Nombre: Someone You Loved, duración: 3:02\n" +
-                            "Nombre: Liar, duración: 3:27";
-                    break;
+                        case Speaker.GENDER_POP:
+                            songs = "Nombre: Memories, duración: 3:09\n" +
+                                    "Nombre: Dance Monkey, duración: 3:29\n" +
+                                    "Nombre: Don't Call Me Angel, duración: 3:10\n" +
+                                    "Nombre: Graveyard, duración: 3:01\n" +
+                                    "Nombre: Someone You Loved, duración: 3:02\n" +
+                                    "Nombre: Liar, duración: 3:27";
+                            break;
 
-                    case Speaker.GENDER_ROCK:
-                    songs = "Nombre: Hotel California, duración: 6:49\n" +
-                            "Nombre: Bohemian Rapsody, duración: 5:54\n" +
-                            "Nombre: Sweet Child O' Mine, duración: 5:54\n" +
-                            "Nombre: Have You Ever Seen The Rain, duración: 2:40\n" +
-                            "Nombre: Come Together, duración: 4:19";
-                    break;
+                        case Speaker.GENDER_ROCK:
+                            songs = "Nombre: Hotel California, duración: 6:49\n" +
+                                    "Nombre: Bohemian Rapsody, duración: 5:54\n" +
+                                    "Nombre: Sweet Child O' Mine, duración: 5:54\n" +
+                                    "Nombre: Have You Ever Seen The Rain, duración: 2:40\n" +
+                                    "Nombre: Come Together, duración: 4:19";
+                            break;
 
 
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + deviceGenre);
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + deviceGenre);
+                    }
+                } else {
+                    switch (deviceGenre){
+                        case Speaker.GENDER_CLASSICAL:
+                            songs = "Name: Speaking Unto Nations (Beethoven Symphony no 7 - II), duration: 5:02\n" +
+                                    "Name: The Well-Tempered Clavier: Book 1, Prelude in C Major, duration: 2:19\n" +
+                                    "Name: Handel / Orch. Hale: Keyboard Suite in D Minor, duration: 3:27\n" +
+                                    "Name: Piano Sonata No. 14 in C-Sharp Minor, Op. 27 No. 2, duration: 7:22";
+                            break;
+
+                        case Speaker.GENDER_COUNTRY:
+                            songs = "Name: Singles You Up, duration: 3:02\n" +
+                                    "Name: Tequila, duration: 3:15\n" +
+                                    "Name: Get Along, duration: 3:19\n" +
+                                    "Name: What Ifs, duration: 3:08\n" +
+                                    "Name: Simple, duration: 3:05";
+                            break;
+
+                        case Speaker.GENDER_DANCE:
+                            songs = "Name: All Day And Night, duration: 2:49\n" +
+                                    "Name: No Sleep, duration: 3:27\n" +
+                                    "Name: Speechless, duration: 3:37\n" +
+                                    "Name: Carry On, duration: 3:35\n" +
+                                    "Name: Better When You're Gone, duration: 3:12";
+                            break;
+
+                        case Speaker.GENDER_LATINA:
+                            songs = "Name: Prometiste, duration: 5:05\n" +
+                                    "Name: Tu de Que Vas, duration: 3:58\n" +
+                                    "Name: Me Dedique a Perderte, duration: 3:51\n" +
+                                    "Name: El Sol No Regresa, duration: 3:48\n" +
+                                    "Name: Antologia, duration: 4:11";
+                            break;
+
+                        case Speaker.GENDER_POP:
+                            songs = "Name: Memories, duration: 3:09\n" +
+                                    "Name: Dance Monkey, duration: 3:29\n" +
+                                    "Name: Don't Call Me Angel, duration: 3:10\n" +
+                                    "Name: Graveyard, duration: 3:01\n" +
+                                    "Name: Someone You Loved, duration: 3:02\n" +
+                                    "Name: Liar, duration: 3:27";
+                            break;
+
+                        case Speaker.GENDER_ROCK:
+                            songs = "Name: Hotel California, duration: 6:49\n" +
+                                    "Name: Bohemian Rapsody, duration: 5:54\n" +
+                                    "Name: Sweet Child O' Mine, duration: 5:54\n" +
+                                    "Name: Have You Ever Seen The Rain, duration: 2:40\n" +
+                                    "Name: Come Together, duration: 4:19";
+                            break;
+
+
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + deviceGenre);
+                    }
                 }
                 playlistDialog(songs);
                 Toast.makeText(getContext(), getString(R.string.speaker_playlist_toast), Toast.LENGTH_SHORT).show();
@@ -464,7 +518,7 @@ public class SpeakerFragment extends Fragment {
 
     public void playlistDialog(String songs) {
         playlistDialog playlist = new playlistDialog(songs);
-        playlist.show(getChildFragmentManager(), "h");
+        playlist.show(getChildFragmentManager(), "SpeakerPlaylist");
     }
 
     public void updateStatus(ViewGroup speakerFragmentLayout){

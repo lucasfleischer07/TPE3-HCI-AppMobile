@@ -36,13 +36,6 @@ public class Oven extends Device {
         this.temperature=temperature;
     }
 
-    public void setConvection(String newConvection){
-        if (!newConvection.equals(convection)){
-            //Llamar a la api
-        }
-
-    }
-
     public String getConvection() {
         return convection;
     }
@@ -62,30 +55,5 @@ public class Oven extends Device {
     public int getTemperature() {
         return temperature;
     }
-
-    public void setGrillMode(String newGrillMode){
-        if (!newGrillMode.equals(grillMode)){
-            //Llamar a la api
-        }
-
-    }
-
-    public void setHeatZone(String newHeatZone){
-        if (!newHeatZone.equals(heatZone)){
-            //Llamar a la api
-        }
-
-    }
-
-    public void setConvection(int newTemprature){
-        if (temperature!=newTemprature){
-            //Llamar a la api
-        }
-
-    }
-
-
-
-
 
 }

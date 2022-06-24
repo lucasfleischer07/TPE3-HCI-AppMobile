@@ -15,12 +15,9 @@ public interface ApiHomeService {
     @GET("homes")
     LiveData<ApiResponse<RemoteResult<List<RemoteHouse>>>> getHouses();
 
-
-
     @GET("homes/{homeId}")
     LiveData<ApiResponse<RemoteResult<RemoteHouse>>> getHouse(@Path("homeId") String homeId);
 
     @GET("homes/{homeId}/rooms")
     LiveData<ApiResponse<RemoteResult<List<RemoteRoom>>>> getHouseRooms(@Path("homeId") String homeId);
-
 }

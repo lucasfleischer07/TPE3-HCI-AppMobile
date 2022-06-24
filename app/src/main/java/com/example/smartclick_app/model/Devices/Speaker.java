@@ -70,37 +70,4 @@ public class Speaker extends Device {
         return genre;
     }
 
-    public void changeVolume(int newVolume){
-        if(volume!=newVolume){
-            //llamar a la api
-        }
-    }
-
-    public void nextSong(){
-        //llamar la api
-    }
-
-    public void prevSong(){
-        //llamar la api
-    }
-
-    public void changeGenre(Genre genre){
-
-    }
-
-    private enum Genre{
-        classical("Classical","Clásico"),
-        country("Country","Country"),
-        dance("Dance","Baile"),
-        latina("Latina","Latina"),
-        pop("Pop","Pop"),
-        rock ("Rock","Rock");
-        private String nombreIngles;
-        private String nombreEsp;
-
-        Genre(String nombreIngles, String nombreEsp){
-            this.nombreIngles=nombreIngles;
-            this.nombreEsp=nombreEsp;
-        }
-    }
 }

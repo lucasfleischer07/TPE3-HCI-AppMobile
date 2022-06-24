@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -132,14 +131,12 @@ public class MainActivity extends AppCompatActivity {
         WorkManager.getInstance(this)
                 .getWorkInfoByIdLiveData(notificationsRequest.getId())
                 ;
-
-
     }
 
     private void createNotificationChannel() {
         int importance = NotificationManager.IMPORTANCE_LOW;
-        NotificationChannel channel = new NotificationChannel("1", "DevicesChanged", importance);
-        channel.setDescription("Send changes of devices");
+        NotificationChannel channel = new NotificationChannel("1", getString(R.string.notifications_device_chg), importance);
+        channel.setDescription(getString(R.string.notifications_main_act));
         channel.enableLights(true);
         channel.setLightColor(Color.RED);
         channel.enableVibration(true);
