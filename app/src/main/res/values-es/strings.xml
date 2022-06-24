@@ -10,7 +10,7 @@
     <string name="overflow_settings">Selección de casa</string>
     <string name="house_selected_text">Su casa seleccionada es: </string>
     <string name="house_selected_text_null">No tiene ninguna casa registrada. Por favor registre una en el sitio web.</string>
-    <string name="house_rooms_null">No tiene habitaciones para mostrar en la casa seleccionada</string>
+    <string name="house_rooms_null">No tiene habitaciones para mostrar en </string>
     <string name="house_not_selected">Seleccione una casa para ver sus habitaciones</string>
 
     <string name="notifications_main_act">Mandar cambios de los dispositivos</string>

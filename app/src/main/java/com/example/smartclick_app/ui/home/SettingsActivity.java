@@ -129,9 +129,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/100);
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/70);
         } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/50);
+            houseSelectedText.setTextSize(constraintLayoutSettings.getWidth()/40);
         }
         houseSelectedText.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
         houseSelectedText.setPadding(20,100, 20, 0);

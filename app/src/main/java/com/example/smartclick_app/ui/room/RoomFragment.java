@@ -127,6 +127,7 @@ public class RoomFragment extends Fragment implements Serializable {
         generalLinearLayout.removeAllViewsInLayout();
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
+        String actualHouseName=preferences.getString("actualHouseName",null);
 
         if(actualId==null && rooms.size()>0){
             SharedPreferences.Editor editor = preferences.edit();
@@ -187,7 +188,7 @@ public class RoomFragment extends Fragment implements Serializable {
         if(added == 0 || rooms.size()==0) {
             TextView text=new TextView(this.getContext());
             if(actualId!=null)
-                text.setText(R.string.house_rooms_null);
+                text.setText(getString(R.string.house_rooms_null) + " " + actualHouseName);
             else
                 text.setText(R.string.house_not_selected);
             if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

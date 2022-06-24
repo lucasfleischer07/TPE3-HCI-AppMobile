@@ -9,7 +9,7 @@
     <string name="overflow_settings">House selector</string>
     <string name="house_selected_text">Your selected house is: </string>
     <string name="house_selected_text_null">You do not have a house loaded. Please load one in the web site.</string>
-    <string name="house_rooms_null">You do not have any rooms availables to display in this house.</string>
+    <string name="house_rooms_null">You do not have any rooms availables to display in </string>
     <string name="house_not_selected">Select a house to see your rooms availables</string>
 
     <string name="notifications_main_act">Send changes of devices</string>
