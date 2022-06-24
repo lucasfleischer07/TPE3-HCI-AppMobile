@@ -119,7 +119,7 @@ public class RoutinesFragment extends Fragment {
         }
         if(added==0 ||routines.size()==0) {
             TextView text = new TextView(this.getContext());
-            if (actualId != null) {
+            if (actualId != null && actualHouseName!=null) {
                 text.setText(getString(R.string.routine_null) + " " + actualHouseName);
             } else {
                 text.setText(R.string.routine_house_null);

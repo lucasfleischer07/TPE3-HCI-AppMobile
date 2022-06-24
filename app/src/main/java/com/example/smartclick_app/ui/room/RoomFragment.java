@@ -187,7 +187,7 @@ public class RoomFragment extends Fragment implements Serializable {
 
         if(added == 0 || rooms.size()==0) {
             TextView text=new TextView(this.getContext());
-            if(actualId!=null)
+            if(actualId != null && actualHouseName!=null)
                 text.setText(getString(R.string.house_rooms_null) + " " + actualHouseName);
             else
                 text.setText(R.string.house_not_selected);
