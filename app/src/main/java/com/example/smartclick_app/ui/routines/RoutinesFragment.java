@@ -100,7 +100,7 @@ public class RoutinesFragment extends Fragment {
         String actualId=preferences.getString("actualHouse",null);
         String actualHouseName=preferences.getString("actualHouseName",null);
 
-        if(actualId==null && routines.size()>0){
+        if(actualId==null && houses.size()>0){
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("actualHouse",houses.get(0).getId());
             editor.putString("actualHouseName",houses.get(0).getName());
