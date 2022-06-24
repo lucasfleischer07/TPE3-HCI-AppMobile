@@ -22,8 +22,8 @@
         <entry key="app/src/main/res/layout-land/fragment_speaker.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout-sw600dp/fragment_door.xml" value="1.1" />
         <entry key="app/src/main/res/layout-sw600dp/fragment_lamp.xml" value="1.0" />
-        <entry key="app/src/main/res/layout-sw600dp/fragment_oven.xml" value="0.9" />
-        <entry key="app/src/main/res/layout-sw600dp/fragment_refrigerator.xml" value="0.67" />
+        <entry key="app/src/main/res/layout-sw600dp/fragment_oven.xml" value="1.1" />
+        <entry key="app/src/main/res/layout-sw600dp/fragment_refrigerator.xml" value="0.9" />
         <entry key="app/src/main/res/layout-sw600dp/fragment_routine_generic.xml" value="0.33" />
         <entry key="app/src/main/res/layout-sw600dp/fragment_speaker.xml" value="1.0" />
         <entry key="app/src/main/res/layout/activity_devices.xml" value="0.5" />

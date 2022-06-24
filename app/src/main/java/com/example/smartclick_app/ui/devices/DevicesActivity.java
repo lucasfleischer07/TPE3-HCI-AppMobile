@@ -95,7 +95,7 @@ public class DevicesActivity extends AppCompatActivity {
     private void forDevices(List<Device> roomDevices, LinearLayout generalLinearLayout, String roomName) {
         generalLinearLayout.removeAllViewsInLayout();
         generalLinearLayout.removeAllViews();
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if((getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) && !(getResources().getBoolean(R.bool.isTablet))) {
             for(int i = 0; i < roomDevices.size() ; i++) {
                 switch (roomDevices.get(i).getTypeId()) {
                     case Door.TYPE_ID:
@@ -135,7 +135,7 @@ public class DevicesActivity extends AppCompatActivity {
 
                 }
             }
-        } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        } else if((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && !(getResources().getBoolean(R.bool.isTablet))) {
             LinearLayout rowLinearLayout;
             for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
                 rowLinearLayout = new LinearLayout(getApplicationContext());
@@ -184,8 +184,106 @@ public class DevicesActivity extends AppCompatActivity {
                 }
                 generalLinearLayout.addView(rowLinearLayout);
             }
+        } else if((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
+            LinearLayout rowLinearLayout;
+            for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
+                rowLinearLayout = new LinearLayout(getApplicationContext());
+                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                rowLinearLayout.setId(16000000 + i);
+                for (int j = 0; j < 4; j++) {
+                    if (j + i * 2 >= roomDevices.size()) {
+                        break;
+                    }
+                    switch (roomDevices.get(j + i * 2).getTypeId()) {
+                        case Door.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Door) {
+                                Door doorDevice = (Door) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), DoorFragment.newInstance(doorDevice)).commit();
+                            }
+                            break;
 
+                        case Oven.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Oven) {
+                                Oven ovenDevice = (Oven) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), OvenFragment.newInstance(ovenDevice)).commit();
+                            }
+                            break;
+
+                        case Refrigerator.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Refrigerator) {
+                                Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RefrigeratorFragment.newInstance(refrigeratorDevice)).commit();
+                            }
+                            break;
+
+                        case Speaker.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Speaker) {
+                                Speaker speakerDevice = (Speaker) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
+                            }
+                            break;
+
+                        case Lightbulb.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Lightbulb) {
+                                Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), LightbulbFragment.newInstance(lightbulbDevice)).commit();
+                            }
+                            break;
+                    }
+                }
+                generalLinearLayout.addView(rowLinearLayout);
+            }
+        } else if((getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) && (getResources().getBoolean(R.bool.isTablet))) {
+            LinearLayout rowLinearLayout;
+            for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
+                rowLinearLayout = new LinearLayout(getApplicationContext());
+                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                rowLinearLayout.setId(16000000 + i);
+                for (int j = 0; j < 3; j++) {
+                    if (j + i * 2 >= roomDevices.size()) {
+                        break;
+                    }
+                    switch (roomDevices.get(j + i * 2).getTypeId()) {
+                        case Door.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Door) {
+                                Door doorDevice = (Door) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), DoorFragment.newInstance(doorDevice)).commit();
+                            }
+                            break;
+
+                        case Oven.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Oven) {
+                                Oven ovenDevice = (Oven) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), OvenFragment.newInstance(ovenDevice)).commit();
+                            }
+                            break;
+
+                        case Refrigerator.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Refrigerator) {
+                                Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RefrigeratorFragment.newInstance(refrigeratorDevice)).commit();
+                            }
+                            break;
+
+                        case Speaker.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Speaker) {
+                                Speaker speakerDevice = (Speaker) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
+                            }
+                            break;
+
+                        case Lightbulb.TYPE_ID:
+                            if (roomDevices.get(j + i * 2) instanceof Lightbulb) {
+                                Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(j + i * 2);
+                                getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), LightbulbFragment.newInstance(lightbulbDevice)).commit();
+                            }
+                            break;
+                    }
+                }
+                generalLinearLayout.addView(rowLinearLayout);
+            }
         }
+
         if(roomDevices.size()==0){
             TextView text=new TextView(this);
             text.setText(getString(R.string.devices_null) + " " + roomName);
