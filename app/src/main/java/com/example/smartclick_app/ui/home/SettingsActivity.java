@@ -155,6 +155,8 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), R.string.selected_house, Toast.LENGTH_SHORT).show();
                         if(houses.size() == 0){
                             editor.putString("actualHouse",null);
+                            editor.putString("actualHouseName", null);
+
                         }else {
                             editor.putString("actualHouse", houses.get(housesOptionsIndex).getId());
                             editor.putString("actualHouseName", houses.get(housesOptionsIndex).getName());
