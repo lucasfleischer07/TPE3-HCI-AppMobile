@@ -3,7 +3,7 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="280dp"
-android:layout_height="400dp"
+android:layout_height="450dp"
 android:layout_margin="10dp"
 android:background="@color/main_act_background"
 tools:context=".ui.devices.fragments.SpeakerFragment">
@@ -192,7 +192,7 @@ tools:context=".ui.devices.fragments.SpeakerFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543" />
+        app:layout_constraintVertical_bias="0.574" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
