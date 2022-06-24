@@ -61,8 +61,6 @@ public class DevicesActivity extends AppCompatActivity {
         String roomName = intent.getStringExtra("ROOM_NAME");
 
         LinearLayout generalLinearLayout = findViewById(R.id.devicesRoomLinearLayout2);
-//        View generalLinearLayout = findViewById(R.id.activityDevices);
-
 
         MyApplication application = (MyApplication) this.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
@@ -72,14 +70,13 @@ public class DevicesActivity extends AppCompatActivity {
         viewModel.getRoomDevices(roomId).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
-//                    activity.showProgressBar();
                     break;
                 case SUCCESS:
-//                    activity.hideProgressBar();
+//
                     if (resource.data != null) {
                         Log.d("devices", resource.data.toString());
                         roomDevices.addAll(resource.data);
-                        forDevices(roomDevices, generalLinearLayout, roomName);
+                        forDevices(roomDevices, generalLinearLayout);
                     }
                     break;
             }
@@ -94,7 +91,7 @@ public class DevicesActivity extends AppCompatActivity {
 
 
 
-    private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout, String roomName) {
+    private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout) {
         generalLinearLayout.removeAllViewsInLayout();
         generalLinearLayout.removeAllViews();
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
