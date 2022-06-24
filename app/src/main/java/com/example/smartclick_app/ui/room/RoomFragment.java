@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartclick_app.MyApplication;
@@ -155,8 +156,10 @@ public class RoomFragment extends Fragment implements Serializable {
                 actualId=preferences.getString("actualHouse",null);
             }
         }
+        int added=0;
         for(int i = 0; i < rooms.size() ; i++) {
             if(rooms.get(i).getHomeId().equals(actualId)){
+                added++;
             LinearLayout row = new LinearLayout(getContext());
             MaterialButton roomButton= new MaterialButton(getContext());
             roomButton.setTransformationMethod(null);
@@ -182,8 +185,18 @@ public class RoomFragment extends Fragment implements Serializable {
             row.setGravity(Gravity.CENTER);
             row.setPadding(50, 30, 50, 1);
             row.addView(roomButton);
-            generalLinearLayout.addView(row);}
+            generalLinearLayout.addView(row);
         }
+        }
+        if(added==0 || rooms.size()==0){
+            TextView text=new TextView(this.getContext());
+            if(actualId!=null)
+                text.setText("No tiene habitaciones para mostrar en la casa seleccionada");
+            else text.setText("Seleccione una casa para ver sus habitaciones");
+            text.setTextSize(generalLinearLayout.getWidth()/40);
+            generalLinearLayout.addView(text);
+        }
+
 
     }
 
@@ -210,7 +223,7 @@ public class RoomFragment extends Fragment implements Serializable {
                 case SUCCESS:
 //                    activity.hideProgressBar();
                     rooms.clear();
-                    if (resource.data != null && resource.data.size() > 0) {
+                    if (resource.data != null) {
                         rooms.addAll(resource.data);
                         forRooms(rooms, generalLinearLayout);
                     }

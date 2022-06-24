@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,7 +74,7 @@ public class DevicesActivity extends AppCompatActivity {
                     break;
                 case SUCCESS:
 //                    activity.hideProgressBar();
-                    if (resource.data != null && resource.data.size() > 0) {
+                    if (resource.data != null) {
                         Log.d("devices", resource.data.toString());
                         roomDevices.addAll(resource.data);
                         forDevices(roomDevices, generalLinearLayout);
@@ -92,8 +93,7 @@ public class DevicesActivity extends AppCompatActivity {
 
 
     private void forDevices( List<Device> roomDevices, LinearLayout generalLinearLayout) {
-        generalLinearLayout.removeAllViewsInLayout();
-        generalLinearLayout.removeAllViews();
+        generalLinearLayout.removeViewsInLayout(1,generalLinearLayout.getChildCount()-1);
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             for(int i = 0; i < roomDevices.size() ; i++) {
                 switch (roomDevices.get(i).getTypeId()) {
@@ -184,8 +184,18 @@ public class DevicesActivity extends AppCompatActivity {
                 }
                 generalLinearLayout.addView(rowLinearLayout);
             }
-        }
 
+        }
+        if(roomDevices.size()==0){
+            TextView text=new TextView(this);
+            text.setText("No tiene dispositivos para mostrar en la casa seleccionada");
+            text.setTextSize(generalLinearLayout.getWidth()/40);
+
+            LinearLayout rowLinearLayout = new LinearLayout(getApplicationContext());
+            rowLinearLayout.addView(text);
+            generalLinearLayout.addView(rowLinearLayout);
+
+        }
 
     }
 

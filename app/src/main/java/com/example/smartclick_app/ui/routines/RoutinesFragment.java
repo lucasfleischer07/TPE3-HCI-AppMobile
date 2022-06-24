@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -101,7 +102,6 @@ public class RoutinesFragment extends Fragment {
     private void forRoutines(List<Routine> routines, LinearLayout generalLinearLayout) {
         generalLinearLayout.removeAllViews();
         generalLinearLayout.removeAllViewsInLayout();
-
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
 
@@ -111,11 +111,12 @@ public class RoutinesFragment extends Fragment {
             editor.apply();
             actualId=preferences.getString("actualHouse",null);
         }
-
+        int added=0;
         Log.d("Size", String.valueOf(routines.size()));
         for (int i = 0; i < routines.size(); i++) {
             Log.d("Size", "En el for: " + i);
             if (routines.get(i).getHouseId().equals(actualId)) {
+                added++;
                 Log.d("Rutina con nombre",routines.get(i).getName());
 
                 LinearLayout row = new LinearLayout(getContext());
@@ -126,6 +127,14 @@ public class RoutinesFragment extends Fragment {
                 getChildFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(i))).commit();
 
             }
+        }
+        if(added==0 ||routines.size()==0){
+            TextView text=new TextView(this.getContext());
+            if(actualId!=null)
+            text.setText("No tiene rutinas para mostrar en la casa seleccionada");
+            else text.setText("Seleccione una casa para ver sus rutinas");
+            text.setTextSize(generalLinearLayout.getWidth()/40);
+            generalLinearLayout.addView(text);
         }
     }
 
@@ -143,7 +152,7 @@ public class RoutinesFragment extends Fragment {
                      break;
                  case SUCCESS:
                      routines.clear();
-                     if (resource.data != null && resource.data.size() > 0) {
+                     if (resource.data != null) {
                          routines.addAll(resource.data);
                          forRoutines(routines, generalLinearLayout);
                      }
