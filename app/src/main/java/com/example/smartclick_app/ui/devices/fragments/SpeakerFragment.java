@@ -56,7 +56,7 @@ public class SpeakerFragment extends Fragment {
     private String deviceSongTotalDuration;
     private String deviceColor;
 
-    String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop","rock"};
+    String[] itemsDropMenu = {"classical", "country", "dance", "latina", "pop", "rock"};
     AutoCompleteTextView autoCompleteText;
     ArrayAdapter<String> adapterItems;
 
@@ -210,8 +210,6 @@ public class SpeakerFragment extends Fragment {
                         }
                     });
                 }
-
-
             }
         });
 
@@ -370,12 +368,22 @@ public class SpeakerFragment extends Fragment {
 
         autoCompleteText = speakerFragmentLayout.findViewById(R.id.autoCompleteTextView);
         adapterItems = new ArrayAdapter<String>(getContext(), R.layout.list_item, itemsDropMenu);
+        autoCompleteText.setText(deviceGenre);
         autoCompleteText.setAdapter(adapterItems);
         autoCompleteText.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 deviceGenre = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getContext(), getString(R.string.speaker_gender_toast) +" "+ deviceGenre, Toast.LENGTH_SHORT).show();
+                viewModel.executeDeviceActionWithString(deviceId, Speaker.ACTION_SET_GENRE, deviceGenre).observe(getViewLifecycleOwner(), resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            Toast.makeText(getContext(), getString(R.string.speaker_gender_toast) +" "+ deviceGenre, Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+
             }
         });
 
@@ -386,7 +394,6 @@ public class SpeakerFragment extends Fragment {
         speakerPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: Meter la accion de llamar a la api
                 String songs;
                 switch (deviceGenre){
                     case Speaker.GENDER_CLASSICAL:
@@ -471,6 +478,7 @@ public class SpeakerFragment extends Fragment {
                         deviceSong = mySpeaker.getSong();
                         deviceSongProgress = mySpeaker.getSongProgress();
                         deviceSongTotalDuration = mySpeaker.getSongTotalDuration();
+
                         TextView speakerSongName = speakerFragmentLayout.findViewById(R.id.speakerSongName);
                         TextView speakerSongProgress = speakerFragmentLayout.findViewById(R.id.speakerSongProgress);
                         if(deviceSong==null || deviceSongProgress==null){
@@ -480,8 +488,6 @@ public class SpeakerFragment extends Fragment {
                             speakerSongName.setText(deviceSong);
                             speakerSongProgress.setText(deviceSongProgress + " " + "|" + " " + deviceSongTotalDuration);
                         }
-
-//                      Toast.makeText(getContext(), getString(R.string.speaker_stop), Toast.LENGTH_SHORT).show();
                     }
                     break;
             }

@@ -23,10 +23,10 @@ public class ApiClient {
     // de host del mismo es usando la IP 10.0.2.2.
 //    IP del Emulador
 
-//  public static final String BASE_URL = "http://10.0.2.2:8080/api/";
+  public static final String BASE_URL = "http://10.0.2.2:8080/api/";
 
 //    IP de LUCAS
-    public static final String BASE_URL = "http://192.168.0.99:8080/api/";
+//    public static final String BASE_URL = "http://192.168.0.99:8080/api/";
 
     // IP male aunq no le anda
 //    public static final String BASE_URL = "http://192.168.0.56:8080/api/";
