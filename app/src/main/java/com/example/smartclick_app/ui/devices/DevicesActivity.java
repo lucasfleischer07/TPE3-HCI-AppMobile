@@ -187,46 +187,46 @@ public class DevicesActivity extends AppCompatActivity {
             }
         } else if((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
             LinearLayout rowLinearLayout;
-            for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
+            for(int i = 0; i < ((roomDevices.size())/4 + (roomDevices.size() % 4 == 0? 0 : 1)); i++) {
                 rowLinearLayout = new LinearLayout(getApplicationContext());
                 rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 rowLinearLayout.setId(16000000 + i);
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 4 && i*4+j<roomDevices.size(); j++) {
                     if (j + i * 2 >= roomDevices.size()) {
                         break;
                     }
-                    switch (roomDevices.get(j + i * 2).getTypeId()) {
+                    switch (roomDevices.get(j + i * 4).getTypeId()) {
                         case Door.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Door) {
-                                Door doorDevice = (Door) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 4) instanceof Door) {
+                                Door doorDevice = (Door) roomDevices.get(j + i * 4);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), DoorFragment.newInstance(doorDevice)).commit();
                             }
                             break;
 
                         case Oven.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Oven) {
-                                Oven ovenDevice = (Oven) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 4) instanceof Oven) {
+                                Oven ovenDevice = (Oven) roomDevices.get(j + i * 4);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), OvenFragment.newInstance(ovenDevice)).commit();
                             }
                             break;
 
                         case Refrigerator.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Refrigerator) {
-                                Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 4) instanceof Refrigerator) {
+                                Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(j + i * 4);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RefrigeratorFragment.newInstance(refrigeratorDevice)).commit();
                             }
                             break;
 
                         case Speaker.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Speaker) {
-                                Speaker speakerDevice = (Speaker) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 4) instanceof Speaker) {
+                                Speaker speakerDevice = (Speaker) roomDevices.get(j + i * 4);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
                             }
                             break;
 
                         case Lightbulb.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Lightbulb) {
-                                Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 4) instanceof Lightbulb) {
+                                Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(j + i * 4);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), LightbulbFragment.newInstance(lightbulbDevice)).commit();
                             }
                             break;
@@ -236,46 +236,46 @@ public class DevicesActivity extends AppCompatActivity {
             }
         } else if((getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) && (getResources().getBoolean(R.bool.isTablet))) {
             LinearLayout rowLinearLayout;
-            for(int i = 0; i < ((roomDevices.size())/2 + roomDevices.size() % 2); i++) {
+            for(int i = 0; i < ((roomDevices.size())/3 + (roomDevices.size() % 3 == 0? 0 : 1)); i++) {
                 rowLinearLayout = new LinearLayout(getApplicationContext());
                 rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 rowLinearLayout.setId(16000000 + i);
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < 3 && j + i*3<roomDevices.size(); j++) {
                     if (j + i * 2 >= roomDevices.size()) {
                         break;
                     }
-                    switch (roomDevices.get(j + i * 2).getTypeId()) {
+                    switch (roomDevices.get(j + i * 3).getTypeId()) {
                         case Door.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Door) {
-                                Door doorDevice = (Door) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 3) instanceof Door) {
+                                Door doorDevice = (Door) roomDevices.get(j + i * 3);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), DoorFragment.newInstance(doorDevice)).commit();
                             }
                             break;
 
                         case Oven.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Oven) {
-                                Oven ovenDevice = (Oven) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 3) instanceof Oven) {
+                                Oven ovenDevice = (Oven) roomDevices.get(j + i * 3);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), OvenFragment.newInstance(ovenDevice)).commit();
                             }
                             break;
 
                         case Refrigerator.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Refrigerator) {
-                                Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 3) instanceof Refrigerator) {
+                                Refrigerator refrigeratorDevice = (Refrigerator) roomDevices.get(j + i * 3);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RefrigeratorFragment.newInstance(refrigeratorDevice)).commit();
                             }
                             break;
 
                         case Speaker.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Speaker) {
-                                Speaker speakerDevice = (Speaker) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 3) instanceof Speaker) {
+                                Speaker speakerDevice = (Speaker) roomDevices.get(j + i * 3);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), SpeakerFragment.newInstance(speakerDevice)).commit();
                             }
                             break;
 
                         case Lightbulb.TYPE_ID:
-                            if (roomDevices.get(j + i * 2) instanceof Lightbulb) {
-                                Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(j + i * 2);
+                            if (roomDevices.get(j + i * 3) instanceof Lightbulb) {
+                                Lightbulb lightbulbDevice = (Lightbulb) roomDevices.get(j + i * 3);
                                 getSupportFragmentManager().beginTransaction().add(rowLinearLayout.getId(), LightbulbFragment.newInstance(lightbulbDevice)).commit();
                             }
                             break;
