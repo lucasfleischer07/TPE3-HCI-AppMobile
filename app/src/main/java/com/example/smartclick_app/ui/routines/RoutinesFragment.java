@@ -135,26 +135,26 @@ public class RoutinesFragment extends Fragment {
         }
         int added=0;
 
-//        if ((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
-//
-//            for (int i = 0; i < routines.size()/2 + routines.size() % 2; i++) {
-//                LinearLayout rowLinearLayout = new LinearLayout(getContext());
-//                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-//                rowLinearLayout.setId(1000000 + i);
-//                for(int j = 0; j < 2; j++) {
-//                    if(j + i*2 >= routines.size()) {
-//                        break;
-//                    }
-//                    if (routines.get(j + i*2).getHouseId().equals(actualId)) {
-//                        added++;
-//                        Log.d("addingView", "Hola" + i);
-//                        getChildFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(j + i*2))).commit();
-//                    }
-//                }
-//                generalLinearLayout.addView(rowLinearLayout);
-//            }
-//        }
-//        else {
+        if ((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
+
+            for (int i = 0; i < routines.size()/2 + routines.size() % 2; i++) {
+                LinearLayout rowLinearLayout = new LinearLayout(getContext());
+                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                rowLinearLayout.setId(1000000 + i);
+                for(int j = 0; j < 2; j++) {
+                    if(j + i*2 >= routines.size()) {
+                        break;
+                    }
+                    if (routines.get(j + i*2).getHouseId().equals(actualId)) {
+                        added++;
+                        Log.d("addingView", "Hola" + i);
+                        getChildFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(j + i*2))).commit();
+                    }
+                }
+                generalLinearLayout.addView(rowLinearLayout);
+            }
+        }
+        else {
             for (int i = 0; i < routines.size(); i++) {
                 LinearLayout row = new LinearLayout(getContext());
                 row.setId(1000 + i);
@@ -165,7 +165,7 @@ public class RoutinesFragment extends Fragment {
                 }
                 generalLinearLayout.addView(row);
             }
-//        }
+        }
 
         if(added==0 ||routines.size()==0) {
             TextView text = new TextView(this.getContext());
