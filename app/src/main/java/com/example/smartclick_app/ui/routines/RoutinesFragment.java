@@ -96,6 +96,9 @@ public class RoutinesFragment extends Fragment {
     private void forRoutines(List<Routine> routines, LinearLayout generalLinearLayout) {
         generalLinearLayout.removeAllViews();
         generalLinearLayout.removeAllViewsInLayout();
+        for (Fragment fragmentChild : getChildFragmentManager().getFragments()) {
+            getChildFragmentManager().beginTransaction().remove(fragmentChild).commit();
+        }
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
         String actualHouseName=preferences.getString("actualHouseName",null);
@@ -108,7 +111,7 @@ public class RoutinesFragment extends Fragment {
             actualId=preferences.getString("actualHouse",null);
             actualHouseName=preferences.getString("actualHouseName",null);
 
-        }else if(houses.size()==0){
+        }else if(houses.size() == 0){
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("actualHouse",null);
             editor.putString("actualHouseName",null);
@@ -137,6 +140,7 @@ public class RoutinesFragment extends Fragment {
                         routineButton.setId(j + i*2);
                         routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
                         getChildFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(j + i*2))).commit();
+                        Log.d("child if", String.valueOf(getChildFragmentManager().getFragments().size()));
                     }
                 }
                 generalLinearLayout.addView(rowLinearLayout);
@@ -148,9 +152,10 @@ public class RoutinesFragment extends Fragment {
 
                     MaterialButton routineButton = new MaterialButton(getContext());
                     routineButton.setText(routines.get(i).getName());
-                    routineButton.setId(i);
+                    routineButton.setId(11000 + i);
                     routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
                     getChildFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(i))).commit();
+                    Log.d("child else", String.valueOf(getChildFragmentManager().getFragments().size()));
                 }
             }
         }
@@ -213,17 +218,15 @@ public class RoutinesFragment extends Fragment {
              switch (resource.status) {
                  case LOADING:
                      break;
-
                  case SUCCESS:
                      houses.clear();
                      if (resource.data != null) {
                          houses.addAll(resource.data);
                      }
-
+                     refreshData();
              }
          });
          super.onResume();
-         refreshData();
      }
 
 

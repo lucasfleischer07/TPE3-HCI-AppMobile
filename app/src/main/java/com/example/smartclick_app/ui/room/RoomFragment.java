@@ -220,11 +220,10 @@ public class RoomFragment extends Fragment implements Serializable {
                     if (resource.data != null) {
                         houses.addAll(resource.data);
                     }
-
+                    refreshData();
             }
         });
         super.onResume();
-        refreshData();
     }
 
     public void refreshData(){
