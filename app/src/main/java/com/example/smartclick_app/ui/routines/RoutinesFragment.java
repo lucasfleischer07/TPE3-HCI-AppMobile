@@ -167,8 +167,11 @@ public class RoutinesFragment extends Fragment {
             } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 text.setTextSize(generalLinearLayout.getWidth()/50);
             }
-            if(getResources().getBoolean(R.bool.isTablet)) {
-                text.setTextSize(generalLinearLayout.getWidth()/35);
+            if(getResources().getBoolean(R.bool.isTablet) && (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)) {
+                text.setTextSize(generalLinearLayout.getWidth()/30);
+            } else if(getResources().getBoolean(R.bool.isTablet) && (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)) {
+                text.setTextSize(generalLinearLayout.getWidth()/55);
+
             }
             text.setPadding(20,100, 20, 0);
             text.setGravity(Gravity.CENTER);
