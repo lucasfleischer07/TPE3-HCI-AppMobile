@@ -1,5 +1,6 @@
 package com.example.smartclick_app.ui.routines;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartclick_app.MyApplication;
@@ -47,6 +49,8 @@ public class RoutinesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     RoutineViewModel viewModel;
+    HouseViewModel viewModelHouse;
+
 
     private String mParam1;
     private String mParam2;
@@ -85,7 +89,17 @@ public class RoutinesFragment extends Fragment {
         MyApplication application = (MyApplication) activity.getApplication();
         ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
         viewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineViewModel.class);
-
+//        viewModel.gethouses().observe(this, resource -> {
+//            switch (resource.status) {
+//                case LOADING:
+//                    break;
+//                case SUCCESS:
+//                    houses.clear();
+//                    if (resource.data != null) {
+//                        houses.addAll(resource.data);
+//                    }
+//            }
+//        });
         routinesViewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_routines, container, false);
         generalLinearLayout = routinesViewGroup.findViewById(R.id.routineLinearLayout);
 
@@ -93,12 +107,11 @@ public class RoutinesFragment extends Fragment {
     }
 
 
+    @SuppressLint("ResourceType")
     private void forRoutines(List<Routine> routines, LinearLayout generalLinearLayout) {
         generalLinearLayout.removeAllViews();
         generalLinearLayout.removeAllViewsInLayout();
-        for (Fragment fragmentChild : getChildFragmentManager().getFragments()) {
-            getChildFragmentManager().beginTransaction().remove(fragmentChild).commit();
-        }
+
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String actualId=preferences.getString("actualHouse",null);
         String actualHouseName=preferences.getString("actualHouseName",null);
@@ -122,43 +135,37 @@ public class RoutinesFragment extends Fragment {
         }
         int added=0;
 
-        if ((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
-            LinearLayout rowLinearLayout;
-            for (int i = 0; i < routines.size()/2 + routines.size() % 2; i++) {
-                rowLinearLayout = new LinearLayout(getContext());
-                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                rowLinearLayout.setId(1000000 + i);
-                for(int j = 0; j < 2; j++) {
-                    if(j + i*2 >= routines.size()) {
-                        break;
-                    }
-                    if (routines.get(j + i*2).getHouseId().equals(actualId)) {
-                        added++;
-
-                        MaterialButton routineButton = new MaterialButton(getContext());
-                        routineButton.setText(routines.get(j + i*2).getName());
-                        routineButton.setId(j + i*2);
-                        routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
-                        getChildFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(j + i*2))).commit();
-                        Log.d("child if", String.valueOf(getChildFragmentManager().getFragments().size()));
-                    }
-                }
-                generalLinearLayout.addView(rowLinearLayout);
-            }
-        } else {
+//        if ((getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) && (getResources().getBoolean(R.bool.isTablet))) {
+//
+//            for (int i = 0; i < routines.size()/2 + routines.size() % 2; i++) {
+//                LinearLayout rowLinearLayout = new LinearLayout(getContext());
+//                rowLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+//                rowLinearLayout.setId(1000000 + i);
+//                for(int j = 0; j < 2; j++) {
+//                    if(j + i*2 >= routines.size()) {
+//                        break;
+//                    }
+//                    if (routines.get(j + i*2).getHouseId().equals(actualId)) {
+//                        added++;
+//                        Log.d("addingView", "Hola" + i);
+//                        getChildFragmentManager().beginTransaction().add(rowLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(j + i*2))).commit();
+//                    }
+//                }
+//                generalLinearLayout.addView(rowLinearLayout);
+//            }
+//        }
+//        else {
             for (int i = 0; i < routines.size(); i++) {
+                LinearLayout row = new LinearLayout(getContext());
+                row.setId(1000 + i);
+
                 if (routines.get(i).getHouseId().equals(actualId)) {
                     added++;
-
-                    MaterialButton routineButton = new MaterialButton(getContext());
-                    routineButton.setText(routines.get(i).getName());
-                    routineButton.setId(11000 + i);
-                    routineButton.setBackgroundColor(routineButton.getContext().getResources().getColor(R.color.rooms_and_routine_buttons));
-                    getChildFragmentManager().beginTransaction().add(generalLinearLayout.getId(), RoutineGenericFragment.newInstance(routines.get(i))).commit();
-                    Log.d("child else", String.valueOf(getChildFragmentManager().getFragments().size()));
+                    getChildFragmentManager().beginTransaction().add(row.getId(), RoutineGenericFragment.newInstance(routines.get(i))).commit();
                 }
+                generalLinearLayout.addView(row);
             }
-        }
+//        }
 
         if(added==0 ||routines.size()==0) {
             TextView text = new TextView(this.getContext());
@@ -184,7 +191,8 @@ public class RoutinesFragment extends Fragment {
         }
     }
 
-     void refreshData(){
+     private void refreshData(){
+        Log.d("Enrefreshdata", "Hola");
          MainActivity activity = (MainActivity) requireActivity();
          MyApplication application = (MyApplication) activity.getApplication();
          ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
@@ -210,10 +218,13 @@ public class RoutinesFragment extends Fragment {
 
      @Override
         public void onResume() {
+         super.onResume();
+         Log.d("Enrefreshdata", "Chau");
          SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
          MyApplication application = (MyApplication)this.getActivity().getApplication();
          ViewModelProvider.Factory viewModelFactory = new RepositoryViewModelFactory<>(HouseRepository.class, application.getHouseRepository());
          HouseViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(HouseViewModel.class);
+//         viewModel.gethouses().removeObservers(getViewLifecycleOwner());
          viewModel.gethouses().observe(this, resource -> {
              switch (resource.status) {
                  case LOADING:
@@ -223,10 +234,14 @@ public class RoutinesFragment extends Fragment {
                      if (resource.data != null) {
                          houses.addAll(resource.data);
                      }
-                     refreshData();
+//                     refreshData();
              }
          });
-         super.onResume();
+
+         viewModel.gethouses().removeObservers(getViewLifecycleOwner());
+         refreshData();
+
+
      }
 
 
