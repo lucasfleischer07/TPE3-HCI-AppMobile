@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="270dp"
-    android:layout_height="450dp"
+    android:layout_height="400dp"
     android:layout_margin="10dp"
     android:background="@color/main_act_background"
     android:id="@+id/refrigeratorConstraintLayout"
@@ -99,10 +99,10 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
+        app:layout_constraintHorizontal_bias="0.806"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintVertical_bias="0.476" />
 
     <TextView
         android:id="@+id/refrigeratorTemperatureNumber"
@@ -111,15 +111,15 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.255" />
 
     <TextView
         android:id="@+id/refrigeratorMode"
-        android:layout_width="50dp"
-        android:layout_height="24dp"
+        android:layout_width="46dp"
+        android:layout_height="23dp"
         android:text="@string/refrigerator_mode"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -140,10 +140,9 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/modeRefrigeratorFest"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.968" />
+        app:layout_constraintVertical_bias="0.966" />
 
     <Button
         android:id="@+id/modeRefrigeratorFest"
@@ -188,15 +187,15 @@
 
     <TextView
         android:id="@+id/refrigeratorActualMode"
-        android:layout_width="87dp"
-        android:layout_height="21dp"
+        android:layout_width="90dp"
+        android:layout_height="23dp"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/modeRefrigeratorFest"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/refrigeratorMode"
         app:layout_constraintTop_toBottomOf="@+id/refigeratorFreezerSeekBar"
-        app:layout_constraintVertical_bias="0.559" />
+        app:layout_constraintVertical_bias="0.506" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

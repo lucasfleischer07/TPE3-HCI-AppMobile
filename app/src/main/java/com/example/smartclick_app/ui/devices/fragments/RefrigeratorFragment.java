@@ -228,7 +228,6 @@ public class RefrigeratorFragment extends Fragment {
                             break;
                         case SUCCESS:
                             deviceMode = Refrigerator.MODE_PARTY;
-                            deviceTemperature = Refrigerator.MODE_PARTY_TEMPERATURE;
                             refigeratorSeekBar.setProgress(deviceTemperature);
                             refrigeratorTemperatureNumber.setText(deviceTemperature + "°");
 
@@ -288,7 +287,6 @@ public class RefrigeratorFragment extends Fragment {
                            refigeratorSeekBar.setProgress(deviceTemperature);
                            refrigeratorTemperatureNumber.setText(deviceTemperature + "°");
 
-                           deviceFreezerTemperature = Refrigerator.MODE_VACATION_TEMPERATURE_FREEZER;
                            refigeratorFreezerSeekBar.setProgress(deviceFreezerTemperature);
                            freezerTemperatureNumber.setText(deviceFreezerTemperature + "°");
 
